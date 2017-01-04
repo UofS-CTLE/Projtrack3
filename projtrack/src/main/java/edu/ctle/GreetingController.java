@@ -14,6 +14,11 @@ public class GreetingController {
     return "index";
   }
 
+  @RequestMapping("/not_auth")
+  public String nope(Model model) {
+    return "not_auth";
+  }
+
   @RequestMapping("/add_project.html")
   public String add_project(Model model) {
     return "add_project";
