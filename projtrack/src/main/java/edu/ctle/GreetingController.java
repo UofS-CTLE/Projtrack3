@@ -9,14 +9,39 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class GreetingController {
 
-    @RequestMapping(value="/", method=RequestMethod.GET)
-    public String greeting(Model model) {
-        return "index";
-    }
+  @RequestMapping(value="/", method=RequestMethod.GET)
+  public String greeting(Model model) {
+    return "index";
+  }
 
-	@RequestMapping("/404.html")
-    public String render404(Model model) {
-        // Add model attributes
-        return "404";
-    }
+  @RequestMapping("/add_project.html")
+  public String add_project(Model model) {
+    return "add_project";
+  }
+
+  @RequestMapping("/admin.html")
+  public String admin_page(Model model) {
+    return "admin";
+  }
+
+  @RequestMapping("all_projects.html")
+  public String all_projects(Model model) {
+    return "all_projects";
+  }
+
+  @RequestMapping("home.html")
+  public String home(Model model) {
+    return "home";
+  }
+
+  @RequestMapping("my_projects.html")
+  public String my_projects(Model model) {
+    return "my_projects";
+  }
+
+  @RequestMapping("/404.html")
+  public String render404(Model model) {
+    // Add model attributes
+    return "404";
+  }
 }
