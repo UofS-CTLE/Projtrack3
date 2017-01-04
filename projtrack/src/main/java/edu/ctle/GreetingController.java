@@ -29,19 +29,24 @@ public class GreetingController {
     return "admin";
   }
 
-  @RequestMapping("all_projects.html")
+  @RequestMapping("/all_projects.html")
   public String all_projects(Model model) {
     return "all_projects";
   }
 
-  @RequestMapping("home.html")
+  @RequestMapping("/home.html")
   public String home(Model model) {
     return "home";
   }
 
-  @RequestMapping("my_projects.html")
+  @RequestMapping("/my_projects.html")
   public String my_projects(Model model) {
     return "my_projects";
+  }
+
+  @RequestMapping("/logout")
+  public String logout(Model model) {
+    return "logout";
   }
 
   @RequestMapping("/404.html")

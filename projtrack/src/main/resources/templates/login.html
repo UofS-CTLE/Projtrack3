@@ -5,6 +5,7 @@
         <title>Spring Security Example </title>
     </head>
     <body>
+        <h1>Projtrack</h1>
         <div th:if="${param.error}">
             Invalid username and password.
         </div>
@@ -16,5 +17,8 @@
             <div><label> Password: <input type="password" name="password"/> </label></div>
             <div><input type="submit" value="Sign In"/></div>
         </form>
+        <div id="footer">
+    			<table><th><td>University of Scranton</td><td>CTLE</td><td id='version'></td></th></table>
+    		</div>
     </body>
 </html>
