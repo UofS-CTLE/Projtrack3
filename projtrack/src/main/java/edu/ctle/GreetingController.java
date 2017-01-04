@@ -19,7 +19,7 @@ public class GreetingController {
     return "not_auth";
   }
 
-  @RequestMapping("/add_project.html")
+  @RequestMapping(value="/add_project.html", method=RequestMethod.GET)
   public String add_project(Model model) {
     return "add_project";
   }

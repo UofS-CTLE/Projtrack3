@@ -8,7 +8,7 @@ window.onload = function() {
   bar += "<td><button onclick='my_projects()'>My Projects</button></td>";
   bar += "<td><button onclick='add_project()'>Add Project</button></td>";
   bar += "<td><button onclick='all_projects()'>All Projects</button></td>";
-  bar += "<td><button onclick='logout()'>Logout</button></td>"
+  bar += "<td><button onclick='logout()'>Sign Out</button></td>"
   bar += "</th></table>";
   document.getElementById("navbar").innerHTML = bar;
   document.getElementById("version").innerHTML = version;
