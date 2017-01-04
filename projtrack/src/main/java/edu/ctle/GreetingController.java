@@ -1,4 +1,4 @@
-package hello;
+package edu.ctle;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +14,9 @@ public class GreetingController {
         return "index";
     }
 
-    @RequestMapping("/error")
-    public String error(Model model) {
-      return "404";
+	@RequestMapping("/404.html")
+    public String render404(Model model) {
+        // Add model attributes
+        return "404";
     }
-
 }
