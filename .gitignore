@@ -92,6 +92,7 @@ ENV/
 
 # Other
 .idea
-ctleweb/db.sqlite
+ctleweb/db.sqlite3
+ctleweb/projtrack/migrations
 projtrack/__pycache__/
 ctleweb/__pycache__/
