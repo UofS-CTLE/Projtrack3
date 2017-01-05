@@ -1,5 +1,6 @@
 # Projtrack 3
 
+[Projtrack 3 Wiki](https://github.com/cyclerdan/Projtrack3/wiki/)
 
 Before contributing, check out this [quick guide to Django.](https://docs.djangoproject.com/en/1.10/intro)
 
