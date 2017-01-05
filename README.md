@@ -17,7 +17,7 @@ Using the git command line installed with **git**, execute
 ```
 > git clone https://github.com/cyclerdan/Projtrack3.git
 ```
-In the **cmd**, execute
+In **cmd**, execute
 ```
 > cd Projtrack3\ctleweb
 > python manage.py runserver 8080
