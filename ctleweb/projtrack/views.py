@@ -16,7 +16,7 @@ def index(request):
             user = authenticate(username=request.POST['username'],
                                 password=request.POST['password'])
             if user is not None:
-                login(user)
+                login(request, user)
                 return HttpResponseRedirect('/home/')
             else:
                 return HttpResponse("No.")
