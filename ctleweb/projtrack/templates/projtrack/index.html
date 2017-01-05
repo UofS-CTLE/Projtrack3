@@ -1,2 +1,9 @@
 <h1>Projtrack Login</h1>
 
+<form action="/login/" method="post">
+
+	{% csrf_token %}
+	{{ form }}
+	<input type='submit' value='Sign In' />
+
+</form>
