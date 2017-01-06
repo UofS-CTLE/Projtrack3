@@ -25,7 +25,7 @@ def index(request):
     return render(request, 'projtrack/index.html', {'form': form})
 
 def home(request):
-    return HttpResponse("Hello!")
+    return render(request, 'projtrack/home.html')
 
 def logout_view(request):
     logout(request)

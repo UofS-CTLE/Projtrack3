@@ -2,10 +2,11 @@
 <html>
 	<head>
 		<title>Projtrack</title>
-		<link rel="stylesheet" href="{{ STATIC_URL }}style.css" />
+		{% load static %}
+		<link rel="stylesheet" href="{% static "projtrack/projtrack.css" %}" />
 	</head>
 	<body>
 		<h1>Projtrack</h1>
-		<h2>{% block page_title %}</h2>
+		<h2>{% block page_title %}Home{% endblock %}</h2>
 	</body>
 </html>

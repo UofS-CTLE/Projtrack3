@@ -56,6 +56,11 @@ ctleweb/
 		templates/
 			index.html
 			...
+		static/
+			projtrack/
+				projtrack.css
+				...
+			...
 		__init__.py
 		admin.py
 		apps.py
