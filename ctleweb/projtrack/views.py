@@ -25,7 +25,14 @@ def index(request):
     return render(request, 'projtrack/index.html', {'form': form})
 
 def home(request):
-    return render(request, 'projtrack/home.html')
+    if request.user.is_authenticated:
+        return render(request, 'projtrack/home.html')
+    else:
+        return HttpResponseRedirect('/not_logged_in/')
+
+def not_logged_in(request):
+    return render(request, 'projtrack/not_logged_in.html')
 
 def logout_view(request):
     logout(request)
+    return HttpResponseRedirect('/index/')

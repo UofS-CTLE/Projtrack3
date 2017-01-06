@@ -7,5 +7,8 @@ from . import views
 app_name = 'projtrack'
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^index/$', views.index, name='index'),
     url(r'^home/$', views.home, name='home'),
+    url(r'^not_logged_in/$', views.not_logged_in, name='not_logged_in'),
+    url(r'^logout/$', views.logout_view, name='logout'),
 ]

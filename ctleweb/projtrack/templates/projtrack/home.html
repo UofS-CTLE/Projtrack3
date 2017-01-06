@@ -3,10 +3,25 @@
 	<head>
 		<title>Projtrack</title>
 		{% load static %}
-		<link rel="stylesheet" href="{% static "projtrack/projtrack.css" %}" />
+		<link rel="stylesheet" href="{% static "projtrack/styles/projtrack.css" %}" />
+		<script src="{% static "projtrack/scripts/navbar.js" %}"></script>
 	</head>
 	<body>
 		<h1>Projtrack</h1>
+		<div id='navbar'></div>
 		<h2>{% block page_title %}Home{% endblock %}</h2>
+		<div>
+			<table id="footer">
+				<th>
+					<td>
+						University of Scranton CTLE
+					</td>
+					<td id="version">
+					</td>
+					<td id="date">
+					</td>
+				</th>
+			</table>
+		</div>
 	</body>
 </html>
