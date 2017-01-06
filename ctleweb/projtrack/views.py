@@ -25,7 +25,32 @@ def index(request):
     return render(request, 'projtrack/index.html', {'form': form})
 
 def home(request):
-    return HttpResponse("Hello!")
+    if request.user.is_authenticated:
+        return render(request, 'projtrack/home.html')
+    else:
+        return HttpResponseRedirect('/not_logged_in/')
+
+def my_projects(request):
+    if request.user.is_authenticated:
+        return render(request, 'projtrack/my_projects.html')
+    else:
+        return HttpResponseRedirect('/not_logged_in/')
+
+def all_projects(request):
+    if request.user.is_authenticated:
+        return render(request, 'projtrack/all_projects.html')
+    else:
+        return HttpResponseRedirect('/not_logged_in/')
+
+def add_project(request):
+    if request.user.is_authenticated:
+        return render(request, 'projtrack/add_project.html')
+    else:
+        return HttpResponseRedirect('/not_logged_in/')
+
+def not_logged_in(request):
+    return render(request, 'projtrack/not_logged_in.html')
 
 def logout_view(request):
     logout(request)
+    return HttpResponseRedirect('/index/')
