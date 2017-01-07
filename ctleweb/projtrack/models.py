@@ -20,7 +20,7 @@ class Project(models.Model):
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=200)
     type = models.ForeignKey(Type, on_delete=models.CASCADE)
-    walk_in = models.NullBooleanField()
+    walk_in = models.BooleanField()
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     users = models.ForeignKey(User, on_delete=models.CASCADE)
 
