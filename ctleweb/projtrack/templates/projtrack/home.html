@@ -10,6 +10,13 @@
 		<h1>Projtrack</h1>
 		<div id='navbar'></div>
 		<h2>{% block title %}Home{% endblock %}</h2>
+		<div id="content">
+			{% block content %}
+			<button onclick="my_projects()">My Projects</button><br>
+			<button onclick="add_project()">Add a Project</button><br>
+			<button onclick="all_projects()">All Projects</button><br>
+			{% endblock %}
+		</div>
 		<div>
 			<table id="footer">
 				<th>
