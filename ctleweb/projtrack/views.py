@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 
 from .forms import LoginForm
+from .forms import AddProjectForm
 
 # Create your views here.
 
@@ -44,7 +45,14 @@ def all_projects(request):
 
 def add_project(request):
     if request.user.is_authenticated:
-        return render(request, 'projtrack/add_project.html')
+        if request.method == 'POST':
+            form = AddProjectForm(request.POST)
+            if form.is_valid():
+                # Project is added to the database here.
+                title = request.POST['title']
+        else:
+            form = AddProjectForm()
+        return render(request, 'projtrack/add_project.html', {'form': form})
     else:
         return HttpResponseRedirect('/not_logged_in/')
 
