@@ -8,7 +8,8 @@ class LoginForm(forms.Form):
 
 class AddProjectForm(forms.Form):
     title = forms.CharField(label="Title", max_length=100)
-    description = forms.CharField(label="Description", max_length=500)
+    description = forms.CharField(label="Description", max_length=500,
+                                  widget=forms.Textarea)
     type = forms.ModelMultipleChoiceField(label="Type",
                                           queryset=Type.objects.values_list('name', flat=True))
     walk_in = forms.BooleanField(label="Walk-in?")

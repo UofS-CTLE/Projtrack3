@@ -1,5 +1,5 @@
 {% extends "projtrack/home.html" %}
-{% block title %}Add Project{% endblock %}
+{% block title %}{{ title_text }}{% endblock %}
 {% block content %}
 <form action="/add_project/" method="post">
 	{% csrf_token %}
