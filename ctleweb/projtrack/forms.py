@@ -13,15 +13,17 @@ class AddProjectForm(forms.Form):
                                           queryset=Type.objects.values_list('name', flat=True))
     walk_in = forms.BooleanField(label="Walk-in?")
     client = forms.ModelMultipleChoiceField(label="Client",
-                                             queryset=Client.objects.values_list('last_name', flat=True))
+                                             queryset=Client.objects.values_list('email', flat=True))
     users = forms.ModelMultipleChoiceField(label="Users",
                                            queryset=User.objects.values_list('username', flat=True))
 
 class AddClientForm(forms.Form):
-    pass
+    first_name = forms.CharField(label="First Name", max_length=100)
+    last_name = forms.CharField(label="Last Name", max_length=100)
+    email = forms.CharField(label="Email Address", max_length=100)
 
 class AddDeptForm(forms.Form):
-    pass
+    name = forms.CharField(label="Name", max_length=100)
 
 class AddTypeForm(forms.Form):
-    pass
+    name = forms.CharField(label="Name", max_length=100)
