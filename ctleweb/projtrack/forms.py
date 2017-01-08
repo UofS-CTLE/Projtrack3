@@ -16,3 +16,12 @@ class AddProjectForm(forms.Form):
                                              queryset=Client.objects.values_list('last_name', flat=True))
     users = forms.ModelMultipleChoiceField(label="Users",
                                            queryset=User.objects.values_list('username', flat=True))
+
+class AddClientForm(forms.Form):
+    pass
+
+class AddDeptForm(forms.Form):
+    pass
+
+class AddTypeForm(forms.Form):
+    pass
