@@ -1,8 +1,4 @@
 window.onload = function() {
-
-    var version = "3.0.2";
-    var date = "1/6/2017";
-
     console.log("Navbar loading.");
     var bar = "<table><th>";
     bar += "<td><button onclick='home()'>Home</button></td>";
@@ -12,8 +8,6 @@ window.onload = function() {
     bar += "<td><button onclick='logout()'>Sign Out</button></td>"
     bar += "</th></table>";
     document.getElementById("navbar").innerHTML = bar;
-    document.getElementById("version").innerHTML = version;
-    document.getElementById("date").innerHTML = date;
 }
 
 home = function() {
