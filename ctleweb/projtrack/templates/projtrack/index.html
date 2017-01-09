@@ -3,6 +3,11 @@
 	{% load static %}
 	<link rel="stylesheet" href="{% static "projtrack/styles/login_page.css" %}" />
 	<script src="{% static "projtrack/scripts/page.js" %}"></script>
+        <script>
+            window.onload = function() {
+                load_footer();
+            }
+        </script>
 </head>
 
 <h1>Projtrack Login</h1>

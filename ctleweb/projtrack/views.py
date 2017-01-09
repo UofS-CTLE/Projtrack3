@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect
 
 from .forms import LoginForm
 from .forms import AddProjectForm, AddClientForm, AddDeptForm, AddTypeForm
+from .models import Client, Project, Type, Department
 
 # Create your views here.
 
@@ -72,8 +73,11 @@ def add_client(request):
         if request.method == 'POST':
             form = AddClientForm(request.POST)
             if form.is_valid():
-                # Operate on the database.
-                pass
+                t = Client()
+                t.first_name['first_name']
+                t.last_name['last_name']
+                t.email = request.POST['email']
+                t.save()
         else:
             form = AddClientForm()
         return render(request, 'projtrack/form_page.html',
@@ -86,8 +90,9 @@ def add_department(request):
         if request.method == 'POST':
             form = AddDeptForm(request.POST)
             if form.is_valid():
-                # Operate on the database.
-                pass
+                t = Department()
+                t.name = request.POST['name']
+                t.save()
         else:
             form = AddDeptForm()
         return render(request, 'projtrack/form_page.html',
@@ -100,8 +105,9 @@ def add_type(request):
         if request.method == 'POST':
             form = AddTypeForm(request.POST)
             if form.is_valid():
-                # Operate on the database.
-                pass
+                t = Type()
+                t.name = request.POST['name']
+                t.save()
         else:
             form = AddTypeForm()
         return render(request, 'projtrack/form_page.html',

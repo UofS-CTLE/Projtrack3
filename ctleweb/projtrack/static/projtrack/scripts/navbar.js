@@ -1,4 +1,4 @@
-window.onload = function() {
+load_navbar = function() {
     console.log("Navbar loading.");
     var bar = "<table><th>";
     bar += "<td><button onclick='home()'>Home</button></td>";
