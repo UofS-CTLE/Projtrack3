@@ -36,6 +36,11 @@ all_projects = function() {
     window.location = "/all_projects";
 }
 
+add_client = function() {
+    console.log("Navigating to Add Client.");
+    window.location = "/add_client";
+}
+
 logout = function() {
     console.log("Logging user out.");
     window.location = "/logout";

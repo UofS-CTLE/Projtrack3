@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 
 from .forms import LoginForm
-from .forms import AddProjectForm
+from .forms import AddProjectForm, AddClientForm, AddDeptForm, AddTypeForm
 
 # Create your views here.
 
@@ -20,7 +20,10 @@ def index(request):
                 login(request, user)
                 return HttpResponseRedirect('/home/')
             else:
-                return HttpResponse("No.")
+                return render(request,
+                              'projtrack/index.html',
+                              {'error_message': "Invalid username or password.",
+                               'form': form})
     else:
         form = LoginForm()
         return render(request, 'projtrack/index.html', {'form': form})
