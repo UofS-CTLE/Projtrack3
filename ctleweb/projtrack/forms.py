@@ -22,6 +22,7 @@ class AddClientForm(forms.Form):
     first_name = forms.CharField(label="First Name", max_length=100)
     last_name = forms.CharField(label="Last Name", max_length=100)
     email = forms.CharField(label="Email Address", max_length=100)
+    department = forms.CharField(label="Department", max_length=100)
 
 class AddDeptForm(forms.Form):
     name = forms.CharField(label="Name", max_length=100)

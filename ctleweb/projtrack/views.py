@@ -77,6 +77,7 @@ def add_client(request):
                 t.first_name['first_name']
                 t.last_name['last_name']
                 t.email = request.POST['email']
+                t.department = request.POST['department']
                 t.save()
         else:
             form = AddClientForm()

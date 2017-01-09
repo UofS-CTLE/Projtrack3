@@ -2,11 +2,6 @@ from django.db import models
 
 # Create your models here.
 
-class User(models.Model):
-    username = models.CharField(max_length=100)
-    def __str__(self):
-        return self.username
-
 class Client(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
@@ -19,6 +14,11 @@ class Department(models.Model):
     def __str__(self):
         return self.name
 
+class User(models.Model):
+    username = models.CharField(max_length=100)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.username
 class Type(models.Model):
     name = models.CharField(max_length=100)
     def __str__(self):
