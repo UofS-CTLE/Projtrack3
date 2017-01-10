@@ -1,7 +1,5 @@
 # Projtrack 3
 
-https://travis-ci.com/cyclerdan/Projtrack3.svg?token=hNdQGz7emMgrDGQfUGGL&branch=master
-
 This project's dependencies include Django.
 
 [Projtrack 3 Wiki](https://github.com/cyclerdan/Projtrack3/wiki/)
