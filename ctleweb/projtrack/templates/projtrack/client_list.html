@@ -1,0 +1,7 @@
+{% extends "projtrack/home.html" %}
+{% block title %}Clients{% endblock %}
+{% block content %}
+{% for x in clients %}
+<p>{{ x.name }} </p>
+{% endfor %}
+{% endblock %}

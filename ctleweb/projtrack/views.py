@@ -86,6 +86,13 @@ def add_client(request):
     else:
         return HttpResponseRedirect('/not_logged_in/')
 
+def clients_view(request):
+    if request.user.is_authenticated:
+        return render(request, 'projtrack/client_page.html',
+                      {'clients': Client.object.all()})
+    else:
+        return HttpResponseRedirect('/not_logged_in')
+
 def add_department(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
