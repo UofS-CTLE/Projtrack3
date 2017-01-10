@@ -29,7 +29,9 @@ class ClientTestCase(TestCase):
 
 class ProjectTestCase(TestCase):
     def setUp(self):
-        User.objects.create(username="Techcon Bob")
+        u = User()
+        u.username = "techconbob"
+        u.save()
         Type.objects.create(name="Test")
         Department.objects.create(name="Science")
         Client.objects.create(first_name="Ralph", last_name="Smith",
@@ -40,11 +42,11 @@ class ProjectTestCase(TestCase):
                                type=Type.objects.get(name="Test"),
                                walk_in=False,
                                client=Client.objects.get(first_name="Ralph"),
-                               users=User.objects.get(username="Techcon Bob"))
+                               users=User.objects.get(username="techconbob"))
 
     def test_user(self):
         p = Project.objects.get(title="Test Project")
-        self.assertEqual(str(p.users), "Techcon Bob")
+        self.assertEqual(p.users.username, "techconbob")
 
     def test_department(self):
         pass
