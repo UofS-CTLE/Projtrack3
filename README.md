@@ -1,5 +1,7 @@
 # Projtrack 3
 
+***Remember to run build.sh before opening a pull request.***
+
 This project's dependencies include Django.
 
 [Projtrack 3 Wiki](https://github.com/cyclerdan/Projtrack3/wiki/)
