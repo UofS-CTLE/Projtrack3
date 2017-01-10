@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from projtrack.models import Client, Project, Type, User, Department
 
 class ClientTestCase(TestCase):
@@ -70,3 +70,7 @@ class ProjectTestCase(TestCase):
     def test_client(self):
         p = Project.objects.get(title="Test Project")
         self.assertEqual(p.client.email, "rsmith@email.com")
+
+class ClientTestCase(TestCase):
+    def setUp(self):
+        self.test_client = Client()
