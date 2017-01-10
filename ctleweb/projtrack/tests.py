@@ -3,12 +3,19 @@ from projtrack.models import Client, Project, Type, User, Department
 
 class ClientTestCase(TestCase):
     def setUp(self):
-        Client.objects.create(first_name="Ralph", last_name="Smith", email="rsmith@email.com")
-        Client.objects.create(first_name="Jill", last_name="Jackson", email="jjackson@email.com")
+        Client.objects.create(first_name="Ralph",
+                last_name="Smith", 
+                email="rsmith@email.com", 
+                department=Department.objects.create(name="Literature"))
+        Client.objects.create(first_name="Jill",
+                last_name="Jackson",
+                email="jjackson@email.com",
+                department=Department.objects.create(name="Science"))
         c = Client()
         c.first_name = "Jeff"
         c.last_name = "Guy"
         c.email = "jguy@email.com"
+        c.department = Department.objects.create(name="Math")
         c.save()
 
     def test_check_objects_email(self):
