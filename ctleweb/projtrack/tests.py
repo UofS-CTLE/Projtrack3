@@ -4,8 +4,8 @@ from projtrack.models import Client, Project, Type, User, Department
 class ClientTestCase(TestCase):
     def setUp(self):
         Client.objects.create(first_name="Ralph",
-                last_name="Smith", 
-                email="rsmith@email.com", 
+                last_name="Smith",
+                email="rsmith@email.com",
                 department=Department.objects.create(name="Literature"))
         Client.objects.create(first_name="Jill",
                 last_name="Jackson",
@@ -42,7 +42,7 @@ class ProjectTestCase(TestCase):
         Type.objects.create(name="Test")
         Department.objects.create(name="Science")
         Client.objects.create(first_name="Ralph", last_name="Smith",
-                              email="rsmith@email.com", 
+                              email="rsmith@email.com",
                               department=Department.objects.get(name="Science"))
         Project.objects.create(title="Test Project",
                                description="A project to test the application.",
@@ -56,13 +56,17 @@ class ProjectTestCase(TestCase):
         self.assertEqual(p.users.username, "techconbob")
 
     def test_department(self):
-        pass
+        p = Project.objects.get(title="Test Project")
+        self.assertEqual(p.client.department.name, "Science")
 
     def test_description(self):
-        pass
+        p = Project.objects.get(title="Test Project")
+        self.assertEqual(p.description, "A project to test the application.")
 
     def test_type(self):
-        pass
+        p = Project.objects.get(title="Test Project")
+        self.assertEqual(p.type.name, "Test")
 
     def test_client(self):
-        pass
+        p = Project.objects.get(title="Test Project")
+        self.assertEqual(p.client.email, "rsmith@email.com")
