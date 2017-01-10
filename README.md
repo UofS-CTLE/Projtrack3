@@ -43,43 +43,6 @@ $ python manage.py runserver 8080
 ```
 to run the server.
 
-## The Directory Tree
-```
-ctleweb/
-	ctleweb/
-		__init__.py
-		settings.py
-		urls.py
-		wsgi.y
-		...
-	projtrack/
-		migrations/
-			0001_initial.py
-			__init__.py
-			...
-		templates/
-			index.html
-			...
-		static/
-			projtrack/
-				projtrack.css
-				...
-			...
-		__init__.py
-		admin.py
-		apps.py
-		forms.py
-		models.py
-		tests.py
-		urls.py
-		views.py
-		...
-	db.sqlite3
-	manage.py
-	...
-README.md
-```
-
 # Quick Git Crash Course
 When contributing to the project:
 - Branch with `git branch [name]` followed by `git checkout [name]`. This will allow your changes to be made safely in a separate working tree.
