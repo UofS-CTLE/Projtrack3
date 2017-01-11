@@ -43,7 +43,8 @@ def my_projects(request):
 
 def all_projects(request):
     if request.user.is_authenticated:
-        return render(request, 'projtrack/all_projects.html')
+        return render(request, 'projtrack/list_view.html',
+                      {'title_text': "All Projects"})
     else:
         return HttpResponseRedirect('/not_logged_in/')
 
@@ -86,10 +87,10 @@ def add_client(request):
     else:
         return HttpResponseRedirect('/not_logged_in/')
 
-def clients_view(request):
+def client_view(request):
     if request.user.is_authenticated:
-        return render(request, 'projtrack/client_page.html',
-                      {'clients': Client.object.all()})
+        return render(request, 'projtrack/list_view.html',
+                      {'title_text': "All Clients"})
     else:
         return HttpResponseRedirect('/not_logged_in')
 

@@ -35,6 +35,11 @@ add_client = function() {
     window.location = "/add_client";
 }
 
+all_clients = function() {
+    console.log("Navigating to All Clients.");
+    window.location = "/client_view";
+}
+
 logout = function() {
     console.log("Logging user out.");
     window.location = "/logout";

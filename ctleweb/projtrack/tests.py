@@ -1,7 +1,8 @@
-from django.test import TestCase
+import django.test
 from projtrack.models import Client, Project, Type, User, Department
+import re
 
-class ClientTestCase(TestCase):
+class ClientTestCase(django.test.TestCase):
     def setUp(self):
         Client.objects.create(first_name="Ralph",
                 last_name="Smith",
@@ -34,7 +35,7 @@ class ClientTestCase(TestCase):
         self.assertEqual(jill.last_name, "Jackson")
         self.assertEqual(jeff.last_name, "Guy")
 
-class ProjectTestCase(TestCase):
+class ProjectTestCase(django.test.TestCase):
     def setUp(self):
         u = User()
         u.username = "techconbob"
