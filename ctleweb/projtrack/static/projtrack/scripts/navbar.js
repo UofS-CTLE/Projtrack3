@@ -37,7 +37,7 @@ add_client = function() {
 
 all_clients = function() {
     console.log("Navigating to All Clients.");
-    window.locatoin = "/client_view";
+    window.location = "/client_view";
 }
 
 logout = function() {
