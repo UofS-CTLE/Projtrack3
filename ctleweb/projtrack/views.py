@@ -118,18 +118,7 @@ def add_department(request):
             if form.is_valid():
                 d = Department()
                 d.name = request.POST['name']
-                form = AddDeptForm()
-                print("Form valid.")
-                return render(request, 'projtrack/form_page.html',
-                              {'title_text': "Add Department",
-                               'form': form,
-                               'error_message': "Form submitted successfully."})
-            else:
-                print("Form invalid.")
-                return render(request, 'projtrack/form_page.html',
-                              {'title_text': "Add Department",
-                               'form': form,
-                               'error_message': "Invalid form."})
+                d.save()
         else:
             form = AddDeptForm()
         return render(request, 'projtrack/form_page.html',
