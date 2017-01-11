@@ -52,8 +52,10 @@ def my_projects(request):
 
 def all_projects(request):
     if request.user.is_authenticated:
+        projects = Project.objects.all()
         return render(request, 'projtrack/list_view.html',
-                      {'title_text': "All Projects"})
+                      {'title_text': "All Projects",
+                       'list_view': projects})
     else:
         return HttpResponseRedirect('/not_logged_in/')
 
