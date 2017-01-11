@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Type, Client, User
+from .models import Type, Client, User, Department
 
 class LoginForm(forms.Form):
     username = forms.CharField(label="Username", max_length=100)
@@ -22,7 +22,8 @@ class AddClientForm(forms.Form):
     first_name = forms.CharField(label="First Name", max_length=100)
     last_name = forms.CharField(label="Last Name", max_length=100)
     email = forms.CharField(label="Email Address", max_length=100)
-    department = forms.CharField(label="Department", max_length=100)
+    department = forms.ModelMultipleChoiceField(label="Department",
+                                                queryset=Department.objects.values_list('name', flat=True))
 
 class AddDeptForm(forms.Form):
     name = forms.CharField(label="Name", max_length=100)

@@ -71,3 +71,18 @@ class ProjectTestCase(django.test.TestCase):
     def test_client(self):
         p = Project.objects.get(title="Test Project")
         self.assertEqual(p.client.email, "rsmith@email.com")
+
+class TestDepartmentForm(django.test.TestCase):
+    def setUp(self):
+        self.client = django.test.Client()
+        self.client.login(username="test", password="techcon589")
+
+    def test_department_form(self):
+        self.client.post("/add_department/", {'name': 'test'})
+        dept = Department.objects.get(name='test')
+        self.assertEqual(dept.name, 'test')
+
+    def test_redirect(self):
+        response = self.client.post("/add_department/", {'name': 'test'},
+                                    follow=True)
+        self.assertContains(response, "Add Department", status_code=200)

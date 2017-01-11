@@ -37,7 +37,14 @@ def home(request):
 
 def my_projects(request):
     if request.user.is_authenticated:
-        return render(request, 'projtrack/my_projects.html')
+        projects = []
+        query = Project.objects.all()
+        for x in query:
+            if x.user.username is request.user.username:
+                projects.append(x)
+        return render(request, 'projtrack/my_projects.html',
+                      {'title_text': 'My Projects',
+                       'projects': projects})
     else:
         return HttpResponseRedirect('/not_logged_in/')
 
@@ -99,9 +106,19 @@ def add_department(request):
         if request.method == 'POST':
             form = AddDeptForm(request.POST)
             if form.is_valid():
-                t = Department()
-                t.name = request.POST['name']
-                t.save()
+                Department.objects.create(name=request.POST['name'])
+                form = AddDeptForm()
+                print("Form valid.")
+                return render(request, 'projtrack/form_page.html',
+                              {'title_text': "Add Department",
+                               'form': form,
+                               'error_message': "Form submitted successfully."})
+            else:
+                print("Form invalid.")
+                return render(request, 'projtrack/form_page.html',
+                              {'title_text': "Add Department",
+                               'form': form,
+                               'error_message': "Invalid form."})
         else:
             form = AddDeptForm()
         return render(request, 'projtrack/form_page.html',
