@@ -1,15 +1,14 @@
-from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponse
-from django.urls import reverse
-from django.views import generic
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
+from django.shortcuts import render
 
-from .forms import LoginForm
 from .forms import AddProjectForm, AddClientForm, AddDeptForm, AddTypeForm
+from .forms import LoginForm
 from .models import Client, Project, Type, Department
 
+
 # Create your views here.
+
 
 def index(request):
     if request.method == 'POST':
@@ -29,11 +28,13 @@ def index(request):
         form = LoginForm()
         return render(request, 'projtrack/index.html', {'form': form})
 
+
 def home(request):
     if request.user.is_authenticated:
         return render(request, 'projtrack/home.html')
     else:
         return HttpResponseRedirect('/not_logged_in/')
+
 
 def my_projects(request):
     if request.user.is_authenticated:
@@ -48,12 +49,14 @@ def my_projects(request):
     else:
         return HttpResponseRedirect('/not_logged_in/')
 
+
 def all_projects(request):
     if request.user.is_authenticated:
         return render(request, 'projtrack/list_view.html',
                       {'title_text': "All Projects"})
     else:
         return HttpResponseRedirect('/not_logged_in/')
+
 
 def add_project(request):
     if request.user.is_authenticated:
@@ -82,8 +85,8 @@ def add_client(request):
             form = AddClientForm(request.POST)
             if form.is_valid():
                 t = Client()
-                t.first_name['first_name']
-                t.last_name['last_name']
+                t.first_name = request.POST['first_name']
+                t.last_name = request.POST['last_name']
                 t.email = request.POST['email']
                 t.department = request.POST['department']
                 t.save()
