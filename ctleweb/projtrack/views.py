@@ -79,6 +79,7 @@ def add_project(request):
     else:
         return HttpResponseRedirect('/not_logged_in/')
 
+
 def add_client(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
@@ -97,12 +98,16 @@ def add_client(request):
     else:
         return HttpResponseRedirect('/not_logged_in/')
 
+
 def client_view(request):
     if request.user.is_authenticated:
+        clients = Client.objects.all()
         return render(request, 'projtrack/list_view.html',
-                      {'title_text': "All Clients"})
+                      {'title_text': "All Clients",
+                       'list_view': clients})
     else:
         return HttpResponseRedirect('/not_logged_in')
+
 
 def add_department(request):
     if request.user.is_authenticated:
@@ -129,6 +134,7 @@ def add_department(request):
     else:
         return HttpResponseRedirect('/not_logged_in/')
 
+
 def add_type(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
@@ -145,8 +151,10 @@ def add_type(request):
     else:
         return HttpResponseRedirect('/not_logged_in/')
 
+
 def not_logged_in(request):
     return render(request, 'projtrack/not_logged_in.html')
+
 
 def logout_view(request):
     logout(request)
