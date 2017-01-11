@@ -2,6 +2,19 @@ import django.test
 from projtrack.models import Client, Project, Type, User, Department
 import re
 
+
+class DepartmentTestCase(django.test.TestCase):
+    def setUp(self):
+        Department.objects.create(name="A")
+        Department.objects.create(name="B")
+
+    def test_departments(self):
+        a = Department.objects.get(name="A")
+        b = Department.objects.get(name="B")
+        self.assertEqual(a.name, "A")
+        self.assertEqual(b.name, "B")
+
+
 class ClientTestCase(django.test.TestCase):
     def setUp(self):
         Client.objects.create(first_name="Ralph",
@@ -34,6 +47,7 @@ class ClientTestCase(django.test.TestCase):
         self.assertEqual(ralph.last_name, "Smith")
         self.assertEqual(jill.last_name, "Jackson")
         self.assertEqual(jeff.last_name, "Guy")
+
 
 class ProjectTestCase(django.test.TestCase):
     def setUp(self):
@@ -72,6 +86,7 @@ class ProjectTestCase(django.test.TestCase):
         p = Project.objects.get(title="Test Project")
         self.assertEqual(p.client.email, "rsmith@email.com")
 
+
 class TestDepartmentForm(django.test.TestCase):
     def setUp(self):
         self.client = django.test.Client()
@@ -86,3 +101,23 @@ class TestDepartmentForm(django.test.TestCase):
         response = self.client.post("/add_department/", {'name': 'test'},
                                     follow=True)
         self.assertContains(response, "Add Department", status_code=200)
+
+
+class TestClientForm(django.test.TestCase):
+    def setUp(self):
+        self.client = django.test.Client()
+        self.client.login(username="test", password="techcon589")
+
+    def test_client_form(self):
+        Department.objects.create(name="Test")
+        self.client.post("/add_client/", {'first_name': "Bob",
+                                          'last_name': "Roberts",
+                                          'email': "roberts@email.com",
+                                          'department': Department.objects.get(name="Test")})
+
+    def test_redirect(self):
+        response = self.client.post("/add_client/", {'first_name': "Bob",
+                                    'last_name': "Roberts",
+                                                     'email': "roberts@email.com",
+                                                     'department': Department.objects.get(name="Test")})
+        self.assertContains(response, "Add Client", status_code=200)

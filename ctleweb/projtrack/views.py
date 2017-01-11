@@ -116,7 +116,8 @@ def add_department(request):
         if request.method == 'POST':
             form = AddDeptForm(request.POST)
             if form.is_valid():
-                Department.objects.create(name=request.POST['name'])
+                d = Department()
+                d.name = request.POST['name']
                 form = AddDeptForm()
                 print("Form valid.")
                 return render(request, 'projtrack/form_page.html',
