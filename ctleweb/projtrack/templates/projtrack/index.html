@@ -1,6 +1,6 @@
 <head>
 	<title>Projtrack</title>
-	{% load static %}
+	<div id="pagetitle">{% load static %}</div>
 	<link rel="stylesheet" href="{% static "projtrack/styles/login_page.css" %}" />
 	<script src="{% static "projtrack/scripts/page.js" %}"></script>
         <script>
@@ -12,6 +12,7 @@
 
 <h1>Projtrack Login</h1>
 <div id="error" style="color: red;">{{ error_message }}</div>
+<div id="login">
 <form action="/" method="post">
 
 	{% csrf_token %}
@@ -21,7 +22,7 @@
 	<input type='submit' value='Sign In' />
 
 </form>
-
+</div>
 <div>
 	<table id="footer">
 		<th>
