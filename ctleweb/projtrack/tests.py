@@ -1,5 +1,6 @@
 import django.test
 from projtrack.models import Client, Project, Type, User, Department
+from django.contrib.auth.models import User as App_User
 import re
 
 
@@ -89,6 +90,8 @@ class ProjectTestCase(django.test.TestCase):
 
 class TestDepartmentForm(django.test.TestCase):
     def setUp(self):
+        App_User.objects.create_user(username="test", email="test@email.com",
+                                     password="techcon589")
         self.client = django.test.Client()
         self.client.login(username="test", password="techcon589")
 
@@ -114,6 +117,8 @@ class TestDepartmentForm(django.test.TestCase):
 
 class TestClientForm(django.test.TestCase):
     def setUp(self):
+        App_User.objects.create_user(username="test", email="test@email.com",
+                                     password="techcon589")
         self.client = django.test.Client()
         self.client.login(username="test", password="techcon589")
 
@@ -139,6 +144,8 @@ class TestClientForm(django.test.TestCase):
 
 class TestProjectForm(django.test.TestCase):
     def setUp(self):
+        App_User.objects.create_user(username="test", email="test@email.com",
+                                     password="techcon589")
         self.client = django.test.Client()
         self.client.login(username="test", password="techcon589")
 
@@ -170,3 +177,15 @@ class TestProjectForm(django.test.TestCase):
                                     'user': User.objects.create(username="techconbob")},
                                 follow=True)
         self.assertContains(response, "Add Project", status_code=200)
+
+
+class TestLoggedIn(django.test.TestCase):
+    def setUp(self):
+        App_User.objects.create_user(username="test", email="test@email.com",
+                                     password="techcon589")
+        self.client = django.test.Client()
+        self.client.login(username="test", password="techcon589")
+
+    def test_logged_in(self):
+        response = self.client.post("/home/", follow=True)
+        self.assertContains(response, "Home", status_code=200)

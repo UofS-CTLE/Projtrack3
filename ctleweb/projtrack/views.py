@@ -66,19 +66,13 @@ def add_project(request):
             form = AddProjectForm(request.POST)
             if form.is_valid():
                 # Project is added to the database here.
-                t = Project()
-                t.title = request.POST['title']
-                t.description = request.POST['description']
-                t.type = request.POST['type']
-                t.walk_in = request.POST['walk_in']
-                t.client = request.POST['client']
-                t.users = request.POST['users']
+                t = form.save()
                 t.save()
         else:
-            print("Sending get request.")
             form = AddProjectForm()
         return render(request, 'projtrack/form_page.html',
-                      {'title_text': "Add Project", 'form': form})
+                      {'title_text': "Add Project", 'form': form,
+                       'form_page': "/add_project/"})
     else:
         return HttpResponseRedirect('/not_logged_in/')
 
@@ -88,16 +82,13 @@ def add_client(request):
         if request.method == 'POST':
             form = AddClientForm(request.POST)
             if form.is_valid():
-                t = Client()
-                t.first_name = request.POST['first_name']
-                t.last_name = request.POST['last_name']
-                t.email = request.POST['email']
-                t.department = request.POST['department']
+                t = form.save()
                 t.save()
         else:
             form = AddClientForm()
         return render(request, 'projtrack/form_page.html',
-                      {'title_text': "Add Client", 'form': form})
+                      {'title_text': "Add Client", 'form': form,
+                       'form_page': "/add_client/"})
     else:
         return HttpResponseRedirect('/not_logged_in/')
 
@@ -113,24 +104,20 @@ def client_view(request):
 
 
 def add_department(request):
-    print("Adding department.")
     if request.user.is_authenticated:
-        print("User authenticated.")
         if request.method == 'POST':
-            print("Method was post.")
             form = AddDeptForm(request.POST)
             if form.is_valid():
-                print("The form was valid.")
-                d = Department()
-                d.name = request.POST['name']
+                d = form.save()
                 d.save()
+                form = AddDeptForm()
+            form = AddDeptForm()
         else:
-            print("Method was get.")
             form = AddDeptForm()
         return render(request, 'projtrack/form_page.html',
-                      {'title_text': "Add Department", 'form': form})
+                      {'title_text': "Add Department", 'form': form,
+                       'form_page': "/add_department/"})
     else:
-        print("Not logged in.")
         return HttpResponseRedirect('/not_logged_in/')
 
 
@@ -139,13 +126,13 @@ def add_type(request):
         if request.method == 'POST':
             form = AddTypeForm(request.POST)
             if form.is_valid():
-                t = Type()
-                t.name = request.POST['name']
+                t = form.save()
                 t.save()
         else:
             form = AddTypeForm()
         return render(request, 'projtrack/form_page.html',
-                      {'title_text': "Add Type", 'form': form})
+                      {'title_text': "Add Type", 'form': form,
+                       'form_page': "/add_type/"})
 
     else:
         return HttpResponseRedirect('/not_logged_in/')
