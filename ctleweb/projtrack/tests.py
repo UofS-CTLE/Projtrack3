@@ -93,17 +93,20 @@ class TestDepartmentForm(django.test.TestCase):
         self.client.login(username="test", password="techcon589")
 
     def test_department_form(self):
+        self.client.login(username="test", password="techcon589")
         self.client.post("/add_department/", {'name': 'test'})
         dept = Department.objects.get(name='test')
         self.assertEqual(dept.name, 'test')
 
     def test_if_it_even_works(self):
+        self.client.login(username="test", password="techcon589")
         response = self.client.post("/add_department/",
                 {'name': 'test'},
                 follow=True)
         self.assertContains(response, "Add Department", status_code=200)
 
     def test_redirect(self):
+        self.client.login(username="test", password="techcon589")
         response = self.client.post("/add_department/", {'name': 'test'},
                                     follow=True)
         self.assertContains(response, "Add Department", status_code=200)
@@ -115,6 +118,7 @@ class TestClientForm(django.test.TestCase):
         self.client.login(username="test", password="techcon589")
 
     def test_client_form(self):
+        self.client.login(username="test", password="techcon589")
         Department.objects.create(name="Test")
         self.client.post("/add_client/", {'first_name': "Bob",
                                           'last_name': "Roberts",
@@ -124,6 +128,7 @@ class TestClientForm(django.test.TestCase):
         self.assertEqual(bob.last_name, "Roberts")
 
     def test_redirect(self):
+        self.client.login(username="test", password="techcon589")
         response = self.client.post("/add_client/", {'first_name': "Bob",
                                     'last_name': "Roberts",
                                                      'email': "roberts@email.com",
@@ -138,6 +143,7 @@ class TestProjectForm(django.test.TestCase):
         self.client.login(username="test", password="techcon589")
 
     def test_project_form(self):
+        self.client.login(username="test", password="techcon589")
         self.client.post("/add_project/",
                 {'title': 'Test',
                     'description': 'A test project',
@@ -152,6 +158,7 @@ class TestProjectForm(django.test.TestCase):
         self.assertEqual(proj.description, 'A test project')
 
     def test_redirect(self):
+        self.client.login(username="test", password="techcon589")
         response = self.client.post("/add_project/",
                                 {'title': 'Test',
                                     'description': 'A test project',
