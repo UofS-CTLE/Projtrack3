@@ -14,7 +14,7 @@ class AddProjectForm(forms.Form):
                                   widget=forms.Textarea)
     type = forms.ModelMultipleChoiceField(label="Type",
                                           queryset=Type.objects.values_list('name', flat=True))
-    walk_in = forms.BooleanField(label="Walk-in?")
+    walk_in = forms.NullBooleanField(label="Walk-in?")
     client = forms.ModelMultipleChoiceField(label="Client",
                                             queryset=Client.objects.values_list('email', flat=True))
     users = forms.ModelMultipleChoiceField(label="Users",

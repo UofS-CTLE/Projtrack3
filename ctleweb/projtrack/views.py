@@ -75,6 +75,7 @@ def add_project(request):
                 t.users = request.POST['users']
                 t.save()
         else:
+            print("Sending get request.")
             form = AddProjectForm()
         return render(request, 'projtrack/form_page.html',
                       {'title_text': "Add Project", 'form': form})

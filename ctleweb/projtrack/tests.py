@@ -97,6 +97,12 @@ class TestDepartmentForm(django.test.TestCase):
         dept = Department.objects.get(name='test')
         self.assertEqual(dept.name, 'test')
 
+    def test_if_it_even_works(self):
+        response = self.client.post("/add_department/",
+                {'name': 'test'},
+                follow=True)
+        self.assertContains(response, "Add Department", status_code=200)
+
     def test_redirect(self):
         response = self.client.post("/add_department/", {'name': 'test'},
                                     follow=True)
