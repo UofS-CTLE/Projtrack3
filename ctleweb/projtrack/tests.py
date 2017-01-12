@@ -114,10 +114,46 @@ class TestClientForm(django.test.TestCase):
                                           'last_name': "Roberts",
                                           'email': "roberts@email.com",
                                           'department': Department.objects.get(name="Test")})
+        bob = Client.objects.get(first_name="Bob")
+        self.assertEqual(bob.last_name, "Roberts")
 
     def test_redirect(self):
         response = self.client.post("/add_client/", {'first_name': "Bob",
                                     'last_name': "Roberts",
                                                      'email': "roberts@email.com",
-                                                     'department': Department.objects.get(name="Test")})
+                                                     'department': Department.objects.get(name="Test")},
+                                                     follow=True)
         self.assertContains(response, "Add Client", status_code=200)
+
+
+class TestProjectForm(django.test.TestCase):
+    def setUp(self):
+        self.client = django.test.Client()
+        self.client.login(username="test", password="techcon589")
+
+    def test_project_form(self):
+        self.client.post("/add_project/",
+                {'title': 'Test',
+                    'description': 'A test project',
+                    'type': Type.objects.create(name="TestType"),
+                        'walk_in': True,
+                        'client': Client.objects.create(first_name="Bob",
+                            last_name="Smith",
+                            email="smith@email.com",
+                            department=Department.objects.create(name="Testing")),
+                        'user': User.objects.create(username="techconbob")})
+        proj = Project.objects.get(title="Test")
+        self.assertEqual(proj.description, 'A test project')
+
+    def test_redirect(self):
+        response = self.client.post("/add_project/",
+                                {'title': 'Test',
+                                    'description': 'A test project',
+                                    'type': Type.objects.create(name="TestType"),
+                                    'walk_in': True,
+                                    'client': Client.objects.create(first_name="Bob", last_name="Smith",
+                                        email="smith@email.com",
+                                        department=Department.objects.create(name="Testing")),
+                                    'user': User.objects.create(username="techconbob")},
+                                follow=True)
+        self.assertContains(response, "Add Project", status_code=200)

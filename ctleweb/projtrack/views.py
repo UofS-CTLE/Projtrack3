@@ -112,18 +112,24 @@ def client_view(request):
 
 
 def add_department(request):
+    print("Adding department.")
     if request.user.is_authenticated:
+        print("User authenticated.")
         if request.method == 'POST':
+            print("Method was post.")
             form = AddDeptForm(request.POST)
             if form.is_valid():
+                print("The form was valid.")
                 d = Department()
                 d.name = request.POST['name']
                 d.save()
         else:
+            print("Method was get.")
             form = AddDeptForm()
         return render(request, 'projtrack/form_page.html',
                       {'title_text': "Add Department", 'form': form})
     else:
+        print("Not logged in.")
         return HttpResponseRedirect('/not_logged_in/')
 
 
