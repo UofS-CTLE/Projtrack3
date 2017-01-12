@@ -1,3 +1,4 @@
+{% extends "projtrack/base.html" %}
 <head>
 	<title>Projtrack</title>
 	{% load static %}
@@ -9,29 +10,42 @@
             }
         </script>
 </head>
+{% block content %}
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div align="center">
+            <div class="jumbotron">
+  <h1>Projtrack v3</h1>
+  <p>
+      <div id="error" style="color: red;">{{ error_message }}</div>
+            <form action="/" method="post">
 
-<h1>Projtrack Login</h1>
-<div id="error" style="color: red;">{{ error_message }}</div>
-<form action="/" method="post">
-
-	{% csrf_token %}
-	{% for field in form %}
-	<p>{{ field.label_tag }} {{ field }}</p>
-	{% endfor %}
-	<input type='submit' value='Sign In' />
-
-</form>
-
-<div>
-	<table id="footer">
-		<th>
-			<td>
-				University of Scranton CTLE
-			</td>
-			<td id="version">
-			</td>
-			<td id="date">
-			</td>
-		</th>
-	</table>
+	           {% csrf_token %}
+	           {% for field in form %}
+	           <p>{{ field.label_tag }} {{ field }}</p>
+	           {% endfor %}
+	           <input class="btn btn-primary" type="submit" value="Login"></a>
+            </form>
+            </div>
+        </div>
+    </p>
 </div>
+  <div class="col-md-4"></div>
+</div>
+<div>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <table id="footer">
+		          <th>
+			         <td>University of Scranton CTLE</td>
+			         <td id="version"></td>
+			         <td id="date"></td>
+		          </th>
+	           </table>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+</div>
+{% endblock %}

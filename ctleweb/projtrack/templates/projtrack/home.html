@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+{% extends "projtrack/base.html" %}
 <html>
 	<head>
+        {% block content %}
 		<title>Projtrack</title>
 		{% load static %}
 		<link rel="stylesheet" href="{% static "projtrack/styles/projtrack.css" %}" />
-		<script src="{% static "projtrack/scripts/navbar.js" %}"></script>
 		<script src="{% static "projtrack/scripts/page.js" %}"></script>
                 <script>
                 window.onload = function() { 
@@ -12,19 +13,24 @@
                     load_navbar();
                 }
                 </script>
+        <h1>Projtrack</h1>
+        <ul class="nav nav-tabs">
+            <li role="presentation"><a href="/home/">Home</a></li>
+            <li role="presentation"><a href="/my_projects/">My Projects</a></li>
+            <li role="presentation"><a href="/add_project/">Add Project</a></li>
+            <li role="presentation"><a href="/all_projects/">All Projects</a></li>
+            <li role="presentation"><a href="/logout/">Sign Out</a></li>
+        </ul>
 	</head>
 	<body>
-		<h1>Projtrack</h1>
 		<div id='navbar'></div>
 		<h2>{% block title %}Home{% endblock %}</h2>
 		<div id="content">
-			{% block content %}
 			<button onclick="my_projects()">My Projects</button><br>
 			<button onclick="add_project()">Add a Project</button><br>
 			<button onclick="add_client()">Add a Client</button><br>
                         <button onclick="all_clients()">All Clients</button><br>
 			<button onclick="all_projects()">All Projects</button><br>
-			{% endblock %}
 		</div>
 		<div>
 			<table id="footer">
@@ -40,4 +46,5 @@
 			</table>
 		</div>
 	</body>
+{% endblock %}
 </html>
