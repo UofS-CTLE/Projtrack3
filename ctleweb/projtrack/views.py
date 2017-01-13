@@ -61,6 +61,7 @@ def all_projects(request):
 
 
 def add_project(request):
+    error = ""
     if request.user.is_authenticated:
         if request.method == 'POST':
             form = AddProjectForm(request.POST)
@@ -69,16 +70,20 @@ def add_project(request):
                 t = form.save()
                 t.save()
                 form = AddProjectForm()
+            else:
+                error = "Form is invalid."
         else:
             form = AddProjectForm()
         return render(request, 'projtrack/form_page.html',
                       {'title_text': "Add Project", 'form': form,
-                       'form_page': "/add_project/"})
+                       'form_page': "/add_project/",
+                       'error_message': error})
     else:
         return HttpResponseRedirect('/not_logged_in/')
 
 
 def add_client(request):
+    error = ""
     if request.user.is_authenticated:
         if request.method == 'POST':
             form = AddClientForm(request.POST)
@@ -86,11 +91,13 @@ def add_client(request):
                 t = form.save()
                 t.save()
                 form = AddClientForm()
+                error = "Form is invalid."
         else:
             form = AddClientForm()
         return render(request, 'projtrack/form_page.html',
                       {'title_text': "Add Client", 'form': form,
-                       'form_page': "/add_client/"})
+                       'form_page': "/add_client/",
+                       'error_message': error})
     else:
         return HttpResponseRedirect('/not_logged_in/')
 
@@ -106,6 +113,7 @@ def client_view(request):
 
 
 def add_department(request):
+    error = ""
     if request.user.is_authenticated:
         if request.method == 'POST':
             form = AddDeptForm(request.POST)
@@ -114,16 +122,20 @@ def add_department(request):
                 d.save()
                 form = AddDeptForm()
                 form = AddDeptForm()
+            else:
+                error = "Form is invalid."
         else:
             form = AddDeptForm()
         return render(request, 'projtrack/form_page.html',
                       {'title_text': "Add Department", 'form': form,
-                       'form_page': "/add_department/"})
+                       'form_page': "/add_department/",
+                       'error_message': error})
     else:
         return HttpResponseRedirect('/not_logged_in/')
 
 
 def add_type(request):
+    error = ""
     if request.user.is_authenticated:
         if request.method == 'POST':
             form = AddTypeForm(request.POST)
@@ -131,6 +143,8 @@ def add_type(request):
                 t = form.save()
                 t.save()
                 form = AddTypeForm()
+            else:
+                error = "Form is invalid."
         else:
             form = AddTypeForm()
         return render(request, 'projtrack/form_page.html',
