@@ -2,6 +2,6 @@
 {% block title %}{{ title_text }}{% endblock %}
 {% block content %}
 {% for o in projects %}
-<p>{{ o.title }}</p>
+<p>{{ o.title }}; {{ o.description }}; {{ o.client }}</p>
 {% endfor %}
 {% endblock %}
