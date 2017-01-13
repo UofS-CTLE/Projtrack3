@@ -101,6 +101,12 @@ class TestDepartmentForm(django.test.TestCase):
         dept = Department.objects.get(name='test')
         self.assertEqual(dept.name, 'test')
 
+    def test_department_form_len(self):
+        self.client.login(username="test", password="techcon589")
+        self.client.post("/add_department/", {'name': 'test'})
+        dept = list(Department.objects.all())
+        self.assertEqual(len(dept), 1)
+
     def test_if_it_even_works(self):
         self.client.login(username="test", password="techcon589")
         response = self.client.post("/add_department/",
@@ -131,6 +137,17 @@ class TestClientForm(django.test.TestCase):
                                           'department': Department.objects.get(name="Test")})
         bob = Client.objects.get(first_name="Bob")
         self.assertEqual(bob.last_name, "Roberts")
+
+    def test_client_form_len(self):
+        self.client.login(username="test", password="techcon589")
+        Department.objects.create(name="Test")
+        self.client.post("/add_client/", {'first_name': "Bob",
+                                          'last_name': "Roberts",
+                                          'email': "roberts@email.com",
+                                          'department': Department.objects.get(name="Test")})
+        bob = list(Client.objects.all())
+        self.assertEqual(len(bob), 1)
+
 
     def test_redirect(self):
         self.client.login(username="test", password="techcon589")
@@ -163,6 +180,23 @@ class TestProjectForm(django.test.TestCase):
                         'user': User.objects.create(username="techconbob")})
         proj = Project.objects.get(title="Test")
         self.assertEqual(proj.description, 'A test project')
+
+    def test_project_form_len(self):
+        self.client.login(username="test", password="techcon589")
+        self.client.post("/add_project/",
+                {'title': 'Test',
+                    'description': 'A test project',
+                    'type': Type.objects.create(name="TestType"),
+                        'walk_in': True,
+                        'client': Client.objects.create(first_name="Bob",
+                            last_name="Smith",
+                            email="smith@email.com",
+                            department=Department.objects.create(name="Testing")),
+                        'user': User.objects.create(username="techconbob")})
+        proj = list(Project.objects.all())
+        self.assertEqual(len(proj), 1)
+
+
 
     def test_redirect(self):
         self.client.login(username="test", password="techcon589")

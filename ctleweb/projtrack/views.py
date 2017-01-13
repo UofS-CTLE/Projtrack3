@@ -41,7 +41,7 @@ def my_projects(request):
         projects = []
         query = Project.objects.all()
         for x in query:
-            if x.user.username is request.user.username:
+            if x.users.username is request.user.username:
                 projects.append(x)
         return render(request, 'projtrack/my_projects.html',
                       {'title_text': 'My Projects',
@@ -53,7 +53,7 @@ def my_projects(request):
 def all_projects(request):
     if request.user.is_authenticated:
         projects = Project.objects.all()
-        return render(request, 'projtrack/list_view.html',
+        return render(request, 'projtrack/all_projects.html',
                       {'title_text': "All Projects",
                        'list_view': projects})
     else:
@@ -68,6 +68,7 @@ def add_project(request):
                 # Project is added to the database here.
                 t = form.save()
                 t.save()
+                form = AddProjectForm()
         else:
             form = AddProjectForm()
         return render(request, 'projtrack/form_page.html',
@@ -84,6 +85,7 @@ def add_client(request):
             if form.is_valid():
                 t = form.save()
                 t.save()
+                form = AddClientForm()
         else:
             form = AddClientForm()
         return render(request, 'projtrack/form_page.html',
@@ -111,7 +113,7 @@ def add_department(request):
                 d = form.save()
                 d.save()
                 form = AddDeptForm()
-            form = AddDeptForm()
+                form = AddDeptForm()
         else:
             form = AddDeptForm()
         return render(request, 'projtrack/form_page.html',
@@ -128,6 +130,7 @@ def add_type(request):
             if form.is_valid():
                 t = form.save()
                 t.save()
+                form = AddTypeForm()
         else:
             form = AddTypeForm()
         return render(request, 'projtrack/form_page.html',
