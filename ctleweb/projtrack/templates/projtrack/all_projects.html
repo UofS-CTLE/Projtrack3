@@ -1,7 +1,7 @@
 {% extends "projtrack/home.html" %}
 {% block title %}{{ title_text }}{% endblock %}
 {% block content %}
-{% for o in projects %}
-<p>{{ o.title }}</p>
+{% for o in list_view %}
+<p>{{ o.title }}; {{ o.description }}; {{ o.client }}; {{ o.users }}</p>
 {% endfor %}
 {% endblock %}

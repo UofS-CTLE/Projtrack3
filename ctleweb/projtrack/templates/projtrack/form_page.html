@@ -1,7 +1,8 @@
 {% extends "projtrack/home.html" %}
 {% block title %}{{ title_text }}{% endblock %}
+<p>{{ error_message }}</p>
 {% block content %}
-<form action="/add_project/" method="post">
+<form action={{ form_page }} method="post">
 	{% csrf_token %}
 	{% for field in form %}
 	<p>{{ field.label_tag }} {{ field }}</p >
