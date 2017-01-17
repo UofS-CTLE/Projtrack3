@@ -17,6 +17,11 @@ home = function() {
     window.location = "/home";
 }
 
+reports = function() {
+    console.log("Navigating to Reports.");
+    window.location = "/reports";
+}
+
 add_project = function() {
     console.log("Adding a project.");
     window.location = "/add_project";

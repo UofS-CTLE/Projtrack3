@@ -36,6 +36,13 @@ def home(request):
         return HttpResponseRedirect('/not_logged_in/')
 
 
+def reports(request):
+    if request.user.is_authenticated:
+        return render(request, 'projtrack/reports.html')
+    else:
+        return HttpResponseRedirect('/not_logged_in/')
+
+
 def my_projects(request):
     if request.user.is_authenticated:
         projects = []

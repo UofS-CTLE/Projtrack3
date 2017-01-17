@@ -3,15 +3,16 @@
 	<head>
 		<title>Projtrack</title>
 		{% load static %}
+		<link rel="shortcut icon" href="{% static "projtrack/favicon.ico" %}" />
 		<link rel="stylesheet" href="{% static "projtrack/styles/projtrack.css" %}" />
 		<script src="{% static "projtrack/scripts/navbar.js" %}"></script>
 		<script src="{% static "projtrack/scripts/page.js" %}"></script>
-                <script>
-                window.onload = function() { 
-                    load_footer();
-                    load_navbar();
-                }
-                </script>
+		<script>
+			window.onload = function() { 
+				load_footer();
+				load_navbar();
+			}
+		</script>
 	</head>
 	<body>
 		<h1>Projtrack</h1>
@@ -22,8 +23,9 @@
 			<button onclick="my_projects()">My Projects</button><br>
 			<button onclick="add_project()">Add a Project</button><br>
 			<button onclick="add_client()">Add a Client</button><br>
-                        <button onclick="all_clients()">All Clients</button><br>
+			<button onclick="all_clients()">All Clients</button><br>
 			<button onclick="all_projects()">All Projects</button><br>
+			<button onclick="reports()">Reports</button><br>
 			{% endblock %}
 		</div>
 		<div>
