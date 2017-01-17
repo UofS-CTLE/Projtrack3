@@ -1,11 +1,11 @@
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.core.exceptions import ObjectDoesNotExist
 
 from .forms import AddProjectForm, AddClientForm, AddDeptForm, AddTypeForm
 from .forms import LoginForm
-from .models import Client, Project, Type, Department
-
+from .models import Client, Project, Type, Department, User
 
 # Create your views here.
 
@@ -45,11 +45,17 @@ def reports(request):
 
 def my_projects(request):
     if request.user.is_authenticated:
-        projects = []
-        query = Project.objects.all()
-        for x in query:
-            if x.users.username is request.user.username:
-                projects.append(x)
+        try:
+            projects = []
+            u = User.objects.get(username=request.user.username)
+            query = Project.objects.all()
+            for x in query:
+                print(x.users.username)
+                print(u.username)
+                if x.users.username == u.username:
+                    projects.append(x)
+        except ObjectDoesNotExist:
+            projects = ""
         return render(request, 'projtrack/my_projects.html',
                       {'title_text': 'My Projects',
                        'projects': projects})
