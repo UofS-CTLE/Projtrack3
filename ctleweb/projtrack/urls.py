@@ -14,6 +14,7 @@ urlpatterns = [
     url(r'^client_view/$', views.client_view, name='client_view'),
     url(r'^add_department/$', views.add_department, name='add_department'),
     url(r'^add_type/$', views.add_type, name='add_type'),
+    url(r'^report_page/$', views.report_page, name='report_page'),
     url(r'^reports/$', views.reports, name='reports'),
     url(r'^all_projects/$', views.all_projects, name='all_projects'),
     url(r'^my_projects/$', views.my_projects, name='my_projects'),

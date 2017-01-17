@@ -43,6 +43,14 @@ def reports(request):
         return HttpResponseRedirect('/not_logged_in/')
 
 
+def report_page(request):
+    if request.user.is_authenticated:
+        # Write logic to produce forms.
+        pass
+    else:
+        return HttpResponseRedirect('/not_logged_in/')
+
+
 def my_projects(request):
     if request.user.is_authenticated:
         try:
