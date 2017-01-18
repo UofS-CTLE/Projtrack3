@@ -39,6 +39,14 @@ class Type(models.Model):
         return self.name
 
 
+class Semester(models.Model):
+    name = models.CharField(max_length=100)
+    class Meta:
+        db_table = u'Semester'
+    def __str__(self):
+        return self.name
+
+
 class Project(models.Model):
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=500)
@@ -52,9 +60,3 @@ class Project(models.Model):
     def __str__(self):
         return self.title
 
-class Semester(models.Model):
-    name = models.CharField(max_length=100)
-    class Meta:
-        db_table = u'Semester'
-    def __str__(self):
-        return self.name
