@@ -4,8 +4,11 @@ load_navbar = function() {
     bar += "<td><button onclick='home()'>Home</button></td>";
     bar += "<td><button onclick='my_projects()'>My Projects</button></td>";
     bar += "<td><button onclick='add_project()'>Add Project</button></td>";
+    bar += "<td><button onclick='add_client()'>Add Client</button></td>";
+    bar += "<td><button onclick='reports()'>Reports</button></td>";
+    bar += "<td><button onclick='all_clients()'>All Clients</button></td>";
     bar += "<td><button onclick='all_projects()'>All Projects</button></td>";
-    bar += "<td><button onclick='logout()'>Sign Out</button></td>"
+    bar += "<td><button onclick='logout()'>Sign Out</button></td>";
     bar += "</th></table>";
     document.getElementById("navbar").innerHTML = bar;
 }
@@ -13,6 +16,11 @@ load_navbar = function() {
 home = function() {
     console.log("Going home.");
     window.location = "/home";
+}
+
+reports = function() {
+    console.log("Navigating to Reports.");
+    window.location = "/reports";
 }
 
 add_project = function() {

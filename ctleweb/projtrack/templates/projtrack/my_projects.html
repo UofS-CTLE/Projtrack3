@@ -1,2 +1,7 @@
 {% extends "projtrack/home.html" %}
-{% block title %}My Projects{% endblock %}
+{% block title %}{{ title_text }}{% endblock %}
+{% block content %}
+{% for o in projects %}
+<p>{{ o.title }}; {{ o.description }}; {{ o.client }}</p>
+{% endfor %}
+{% endblock %}

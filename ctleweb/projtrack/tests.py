@@ -1,6 +1,20 @@
 import django.test
-from projtrack.models import Client, Project, Type, User, Department
+from projtrack.models import Client, Project, Type, User, Department, Semester
+from django.contrib.auth.models import User as App_User
 import re
+
+
+class DepartmentTestCase(django.test.TestCase):
+    def setUp(self):
+        Department.objects.create(name="A")
+        Department.objects.create(name="B")
+
+    def test_departments(self):
+        a = Department.objects.get(name="A")
+        b = Department.objects.get(name="B")
+        self.assertEqual(a.name, "A")
+        self.assertEqual(b.name, "B")
+
 
 class ClientTestCase(django.test.TestCase):
     def setUp(self):
@@ -35,6 +49,7 @@ class ClientTestCase(django.test.TestCase):
         self.assertEqual(jill.last_name, "Jackson")
         self.assertEqual(jeff.last_name, "Guy")
 
+
 class ProjectTestCase(django.test.TestCase):
     def setUp(self):
         u = User()
@@ -49,6 +64,7 @@ class ProjectTestCase(django.test.TestCase):
                                description="A project to test the application.",
                                type=Type.objects.get(name="Test"),
                                walk_in=False,
+                               semester=Semester.objects.create(name="Spring 2913"),
                                client=Client.objects.get(first_name="Ralph"),
                                users=User.objects.get(username="techconbob"))
 
@@ -71,3 +87,15 @@ class ProjectTestCase(django.test.TestCase):
     def test_client(self):
         p = Project.objects.get(title="Test Project")
         self.assertEqual(p.client.email, "rsmith@email.com")
+
+
+class TestLoggedIn(django.test.TestCase):
+    def setUp(self):
+        App_User.objects.create_user(username="test", email="test@email.com",
+                                     password="techcon589")
+        self.client = django.test.Client()
+        self.client.login(username="test", password="techcon589")
+
+    def test_logged_in(self):
+        response = self.client.post("/home/", follow=True)
+        self.assertContains(response, "Home", status_code=200)

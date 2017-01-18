@@ -5,6 +5,7 @@
         {% block content %}
 		<title>Projtrack</title>
 		{% load static %}
+		<link rel="shortcut icon" href="{% static "projtrack/favicon.ico" %}" />
 		<link rel="stylesheet" href="{% static "projtrack/styles/projtrack.css" %}" />
 		<script src="{% static "projtrack/scripts/page.js" %}"></script>
                 <script>
@@ -21,6 +22,12 @@
             <li role="presentation"><a href="/all_projects/">All Projects</a></li>
             <li role="presentation"><a href="/logout/">Sign Out</a></li>
         </ul>
+		<script>
+			window.onload = function() { 
+				load_footer();
+				load_navbar();
+			}
+		</script>
 	</head>
 	<body>
 		<div id='navbar'></div>
@@ -29,8 +36,10 @@
 			<button onclick="my_projects()">My Projects</button><br>
 			<button onclick="add_project()">Add a Project</button><br>
 			<button onclick="add_client()">Add a Client</button><br>
-                        <button onclick="all_clients()">All Clients</button><br>
+			<button onclick="all_clients()">All Clients</button><br>
 			<button onclick="all_projects()">All Projects</button><br>
+			<button onclick="reports()">Reports</button><br>
+			{% endblock %}
 		</div>
 		<div>
 			<table id="footer">

@@ -63,6 +63,10 @@ case "$1" in
         migrate
         ;;
 
+	test)
+		run_tests
+		;;
+
     run)
         run
         ;;

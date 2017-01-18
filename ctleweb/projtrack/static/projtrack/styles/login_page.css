@@ -9,3 +9,47 @@
 	bottom: 0;
 	opacity: 100%;
 }
+#login {
+}
+label {
+	font-size: 20pt;
+	color:#FFFFFF;
+}
+
+input {
+	width: 500px;
+	height: 75px;
+	padding-right:0px;
+	font-size: 24pt;
+	background-color: #FFFFFF;
+	size:40;
+	margin-left: auto;
+	margin-right: auto;
+	font-family: "Courier New"
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	
+}
+html {
+	background-color:  #660066;
+}
+
+form {
+	text-align: center;
+	border-radius: 25px;
+    	border: 10px solid #FFFFFF;
+	font-family: "Courier New"
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+}
+h1 {
+	text-align: center;
+	color:#FFFFFF;
+	font-family: "Courier New"
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+}
+
