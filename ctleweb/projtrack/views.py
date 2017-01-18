@@ -36,13 +36,6 @@ def home(request):
         return HttpResponseRedirect('/not_logged_in/')
 
 
-def reports(request):
-    if request.user.is_authenticated:
-        return render(request, 'projtrack/reports.html')
-    else:
-        return HttpResponseRedirect('/not_logged_in/')
-
-
 def report_page(request):
     if request.user.is_authenticated:
         # Write logic to produce forms.
