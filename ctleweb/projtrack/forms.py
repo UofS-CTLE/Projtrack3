@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 
-from .models import Type, Client, User, Department, Project
+from .models import Type, Client, User, Department, Project, Semester
 
 
 class LoginForm(forms.Form):
@@ -32,3 +32,12 @@ class AddTypeForm(ModelForm):
         model = Type
         field = '__all__'
         exclude = ()
+
+class GenerateReportForm(forms.Form):
+    start_date = forms.DateField()
+    end_date = forms.DateField()
+    semester = forms.ModelChoiceField(queryset=Semester.objects.all())
+    user = forms.ModelChoiceField(queryset=User.objects.all())
+    client = forms.ModelChoiceField(queryset=Client.objects.all())
+    department = forms.ModelChoiceField(queryset=Department.objects.all())
+    proj_type = forms.ModelChoiceField(queryset=Type.objects.all())
