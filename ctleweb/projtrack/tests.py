@@ -1,7 +1,7 @@
 import django.test
 from projtrack.models import Client, Project, Type, User, Department, Semester
 from django.contrib.auth.models import User as App_User
-import re
+import re, datetime
 
 
 class DepartmentTestCase(django.test.TestCase):
@@ -64,6 +64,7 @@ class ProjectTestCase(django.test.TestCase):
                                description="A project to test the application.",
                                type=Type.objects.get(name="Test"),
                                walk_in=False,
+                               date=str(datetime.date.today()),
                                semester=Semester.objects.create(name="Spring 2913"),
                                client=Client.objects.get(first_name="Ralph"),
                                users=User.objects.get(username="techconbob"))

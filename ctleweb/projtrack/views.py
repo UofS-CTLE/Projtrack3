@@ -3,7 +3,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 
-from .forms import AddProjectForm, AddClientForm, AddDeptForm, AddTypeForm
+from .report_generator import generate_report
+
+from .forms import AddProjectForm, AddClientForm, AddDeptForm, AddTypeForm, GenerateReportForm
 from .forms import LoginForm
 from .models import Client, Project, Type, Department, User
 
@@ -38,27 +40,28 @@ def home(request):
 
 def report_page(request):
     if request.user.is_authenticated:
-        if request.METHOD == "POST":
+        if request.method == "POST":
             form = GenerateReportForm(request.POST)
             if form.is_valid():
                 req = {
-                    request.POST['start_date'],
-                    request.POST['end_date'],
-                    request.POST['semester'],
-                    request.POST['user'],
-                    request.POST['client'],
-                    request.POST['department'],
-                    request.POST['proj_type']
+                    'start_date': request.POST['start_date'],
+                    'end_date': request.POST['end_date'],
+                    'semester': request.POST['semester'],
+                    'user': request.POST['user'],
+                    'client': request.POST['client'],
+                    'department': request.POST['department'],
+                    'proj_type': request.POST['proj_type']
                 }
-                report = report_generator.generate_report(req)
-                return render(request, '',
+                report = generate_report(req)
+                return render(request, 'projtrack/report_page.html',
                         {'report': report})
         else:
             form = GenerateReportForm()
             return render(request,
                     'projtrack/form_page.html',
                     {'title_text': 'Generate a Report',
-                        'form': form})
+                        'form': form,
+                     'form_page': '/report_page/'})
     else:
         return HttpResponseRedirect('/not_logged_in/')
 

@@ -13,7 +13,7 @@ class AddProjectForm(ModelForm):
     class Meta:
         model = Project
         field = '__all__'
-        exclude = ()
+        exclude = ('date',)
 
 class AddClientForm(ModelForm):
     class Meta:
@@ -34,10 +34,15 @@ class AddTypeForm(ModelForm):
         exclude = ()
 
 class GenerateReportForm(forms.Form):
-    start_date = forms.DateField()
-    end_date = forms.DateField()
-    semester = forms.ModelChoiceField(queryset=Semester.objects.all())
-    user = forms.ModelChoiceField(queryset=User.objects.all())
-    client = forms.ModelChoiceField(queryset=Client.objects.all())
-    department = forms.ModelChoiceField(queryset=Department.objects.all())
-    proj_type = forms.ModelChoiceField(queryset=Type.objects.all())
+    start_date = forms.DateField(required=False)
+    end_date = forms.DateField(required=False)
+    semester = forms.ModelChoiceField(queryset=Semester.objects.all(),
+                                      required=False)
+    user = forms.ModelChoiceField(queryset=User.objects.all(),
+                                  required=False)
+    client = forms.ModelChoiceField(queryset=Client.objects.all(),
+                                    required=False)
+    department = forms.ModelChoiceField(queryset=Department.objects.all(),
+                                        required=False)
+    proj_type = forms.ModelChoiceField(queryset=Type.objects.all(),
+                                       required=False)

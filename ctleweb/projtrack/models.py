@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 # Create your models here.
 
@@ -50,6 +51,7 @@ class Semester(models.Model):
 class Project(models.Model):
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=500)
+    date = models.DateField(editable=False, default=str(datetime.date.today()))
     type = models.ForeignKey(Type, on_delete=models.CASCADE)
     walk_in = models.BooleanField()
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
