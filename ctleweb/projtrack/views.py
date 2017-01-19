@@ -9,6 +9,8 @@ from .forms import AddProjectForm, AddClientForm, AddDeptForm, AddTypeForm, Gene
 from .forms import LoginForm
 from .models import Client, Project, Type, Department, User
 
+from datetime import date, datetime
+
 # Create your views here.
 
 
@@ -54,7 +56,8 @@ def report_page(request):
                 }
                 report = generate_report(req)
                 return render(request, 'projtrack/report_page.html',
-                        {'report': report})
+                        {'report': report,
+                            'date': str(date.today())})
         else:
             form = GenerateReportForm()
             return render(request,

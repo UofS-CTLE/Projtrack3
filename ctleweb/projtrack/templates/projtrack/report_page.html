@@ -1,8 +1,7 @@
-{% extends "projtrack/home.html" %}
-{% block title %}Reports{% endblock %}
+<h1>{% block title %}Report {{ date }}{% endblock %}</h1>
 {% block content %}
 {% csrf_token %}
 {% for x in report %}
-<p>{{ x.title }}</p>
+<p>{{ x.title }} {{ x.date }} {{ x.description }} {{ x.type }} {{ x.client }} {{ x.users }} {{ x.semester }}</p>
 {% endfor %}
 {% endblock %}
