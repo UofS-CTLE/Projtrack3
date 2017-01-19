@@ -38,8 +38,27 @@ def home(request):
 
 def report_page(request):
     if request.user.is_authenticated:
-        # Write logic to produce forms.
-        pass
+        if request.METHOD == "POST":
+            form = GenerateReportForm(request.POST)
+            if form.is_valid():
+                req = {
+                    request.POST['start_date'],
+                    request.POST['end_date'],
+                    request.POST['semester'],
+                    request.POST['user'],
+                    request.POST['client'],
+                    request.POST['department'],
+                    request.POST['proj_type']
+                }
+                report = report_generator.generate_report(req)
+                return render(request, '',
+                        {'report': report})
+        else:
+            form = GenerateReportForm()
+            return render(request,
+                    'projtrack/form_page.html',
+                    {'title_text': 'Generate a Report',
+                        'form': form})
     else:
         return HttpResponseRedirect('/not_logged_in/')
 
