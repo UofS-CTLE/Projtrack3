@@ -117,8 +117,8 @@ class TestReportGenerator(django.test.TestCase):
                                                      email='roberts@email.com'),
                                users=User.objects.create(username="admin"),
                                semester=Semester.objects.create(name="Test"))
-        Project.objects.create(title="Test",
-                               description="Test",
+        Project.objects.create(title="Stuff",
+                               description="Why",
                                date=datetime.date.today(),
                                type=Type.objects.create(name="Test"),
                                walk_in=False,
@@ -128,6 +128,18 @@ class TestReportGenerator(django.test.TestCase):
                                                      email='jerries@email.com'),
                                users=User.objects.create(username="techconbob"),
                                semester=Semester.objects.create(name="Test2"))
+        Project.objects.create(title="Help",
+                               description="Testing",
+                               date=datetime.date.today(),
+                               type=Type.objects.create(name="Help"),
+                               walk_in=False,
+                               client=Client.objects.create(first_name="Larry",
+                                                     last_name="Lawrence",
+                                                     department=Department.objects.create(name="CTLE"),
+                                                     email='jerries@email.com'),
+                               users=User.objects.create(username="harry"),
+                               semester=Semester.objects.create(name="Later"))
+
 
     def test_remove_duplicates(self):
         self.assertEqual(remove_duplicates(self.test_list), [1,2,3,4,5])
@@ -138,7 +150,7 @@ class TestReportGenerator(django.test.TestCase):
     def test_check_semester(self):
         sem = Semester.objects.get(name="Test")
         self.assertEqual(check_semester(sem),
-                         Project.objects.get(semester=sem))
+                         [Project.objects.get(semester=sem)])
 
     def test_semester_get(self):
         sem = Semester.objects.get(name="Test")
@@ -152,7 +164,7 @@ class TestReportGenerator(django.test.TestCase):
         use = User.objects.get(username="techconbob")
         sem = Semester.objects.get(name="Test2")
         self.assertEqual(check_semester(sem),
-                         Project.objects.get(users=use))
+                         [Project.objects.get(users=use)])
 
     def test_get_client(self):
         cli = Client.objects.get(email="roberts@email.com")
@@ -161,7 +173,7 @@ class TestReportGenerator(django.test.TestCase):
     def test_check_client(self):
         sem = Client.objects.get(email="roberts@email.com")
         self.assertEqual(check_client(sem),
-                         Project.objects.get(client=sem))
+                         [Project.objects.get(client=sem)])
 
     def test_get_department(self):
         dept = Department.objects.get(name="Science")
@@ -171,7 +183,7 @@ class TestReportGenerator(django.test.TestCase):
         sci = Department.objects.get(name="Science")
         cli = Client.objects.get(department=sci)
         self.assertEqual(check_department(sci),
-                         Project.objects.get(client=cli))
+                         [Project.objects.get(client=cli)])
 
     def test_get_type(self):
         typ = Type.objects.get(name="Project")
@@ -180,4 +192,4 @@ class TestReportGenerator(django.test.TestCase):
     def test_check_type(self):
         sem = Type.objects.get(name="Project")
         self.assertEqual(check_type(sem),
-                         Project.objects.get(type=sem))
+                         [Project.objects.get(type=sem)])

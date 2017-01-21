@@ -34,12 +34,16 @@ def check_semester(sem):
             try:
                 return list(Project.objects.get(semester=sem))
             except TypeError:
-                return Project.objects.get(semester=sem)
+                l = []
+                l.append(Project.objects.get(semester=sem))
+                return l
         else:
             try:
                 return list(Project.objects.all())
             except TypeError:
-                return Project.objects.all()
+                l = []
+                l.append(Project.objects.all())
+                return l
     except ObjectDoesNotExist:
         return []
 
@@ -47,9 +51,15 @@ def check_user(use):
     try:
         if use != '':
             #use = User.objects.get(username=str(user))
-            return list(Project.objects.get(users=use))
+            try:
+                return list(Project.objects.get(users=use))
+            except TypeError:
+                return [Project.objects.get(users=use)]
         else:
-            return list(Project.objects.all())
+            try:
+                return list(Project.objects.all())
+            except TypeError:
+                return [Project.objects.all()]
     except ObjectDoesNotExist:
         return []
 
@@ -59,12 +69,16 @@ def check_client(cli):
             try:
                 return list(Project.objects.get(client=cli))
             except TypeError:
-                return Project.objects.get(client=cli)
+                l = []
+                l.append(Project.objects.get(client=cli))
+                return l
         else:
             try:
                 return list(Project.objects.all())
             except TypeError:
-                return Project.objects.all()
+                l = []
+                l.append(Project.objects.all())
+                return l
     except ObjectDoesNotExist:
         return []
 
@@ -76,12 +90,16 @@ def check_department(depart):
                 return list(Project.objects.get(client=cli))
             except TypeError:
                 cli = Client.objects.get(department=depart)
-                return Project.objects.get(client=cli)
+                l = []
+                l.append(Project.objects.get(client=cli))
+                return l
         else:
             try:
                 return list(Project.objects.all())
             except TypeError:
-                return Project.objects.all()
+                l = []
+                l.append(Project.objects.all())
+                return l
     except ObjectDoesNotExist:
         return []
 
@@ -91,12 +109,16 @@ def check_type(proj):
             try:
                 return list(Project.objects.get(type=proj))
             except TypeError:
-                return Project.objects.get(type=proj)
+                l = []
+                l.append(Project.objects.get(type=proj))
+                return l
         else:
             try:
                 return list(Project.objects.all())
             except TypeError:
-                return Project.objects.all()
+                l = []
+                l.append(Project.objects.all())
+                return l
     except ObjectDoesNotExist:
         return []
 
