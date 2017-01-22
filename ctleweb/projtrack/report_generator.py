@@ -131,4 +131,16 @@ def check_type(proj):
         return []
 
 def generate_report(req):
-    report = set(list(Project.objects.all())) & set(check_dates(req['start_date'], req['end_date'])) & set(check_semester(req['semester'])) & set(check_user(req['user'])) & set(check_department(req['department'])) & set(check_type(req['proj_type'])) & set(check_client(req['client']))
+    # TODO The sheer volume of memory we're using here is ridiculous.
+    report = set(list(Project.objects.all())) 
+    rep = [
+            (set(check_dates(req['start_date'], req['end_date']))),
+            (set(check_semester(req['semester']))),
+            (set(check_user(req['user']))),
+            (set(check_department(req['department']))),
+            (set(check_type(req['proj_type']))),
+            (set(check_client(req['client'])))
+            ]
+    for x in rep:
+        report = report & x
+    return report
