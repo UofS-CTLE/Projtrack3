@@ -122,8 +122,6 @@ def check_type(proj):
         return []
 
 def generate_report(req):
-    for x in req:
-        print(x)
     report = list()
     report += check_dates(req['start_date'], req['end_date'])
     report += check_semester(req['semester'])
