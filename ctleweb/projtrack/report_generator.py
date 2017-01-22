@@ -31,20 +31,29 @@ def check_dates(s_d, e_d):
 def check_semester(sem):
     try:
         if sem != '':
+            print("Semester is present in the form.")
             try:
+                print("Trying to get by name.")
                 return list(Project.objects.get(semester=sem))
             except TypeError:
+                print("Yep nope have to force a list.")
                 l = []
                 l.append(Project.objects.get(semester=sem))
+                for x in l:
+                    print(x.title)
                 return l
         else:
+            print("Semester is *not* present.")
             try:
+                print("Trying to get the set of all projects.")
                 return list(Project.objects.all())
             except TypeError:
+                print("Forcing a list on the set.")
                 l = []
                 l.append(Project.objects.all())
                 return l
     except ObjectDoesNotExist:
+        print("Returning an empty list because there's nothing there.")
         return []
 
 def check_user(use):
@@ -122,12 +131,4 @@ def check_type(proj):
         return []
 
 def generate_report(req):
-    report = list()
-    report += check_dates(req['start_date'], req['end_date'])
-    report += check_semester(req['semester'])
-    report += check_user(req['user'])
-    report += check_department(req['department'])
-    report += check_type(req['proj_type'])
-    report += check_client(req['client'])
-    report = remove_duplicates(report)
-    return report
+    report = set(list(Project.objects.all())) & set(check_dates(req['start_date'], req['end_date'])) & set(check_semester(req['semester'])) & set(check_user(req['user'])) & set(check_department(req['department'])) & set(check_type(req['proj_type'])) & set(check_client(req['client']))
