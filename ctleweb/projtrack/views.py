@@ -76,8 +76,6 @@ def my_projects(request):
             u = User.objects.get(username=request.user.username)
             query = Project.objects.all()
             for x in query:
-                print(x.users.username)
-                print(u.username)
                 if x.users.username == u.username:
                     projects.append(x)
         except ObjectDoesNotExist:

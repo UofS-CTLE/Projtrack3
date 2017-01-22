@@ -140,7 +140,6 @@ class TestReportGenerator(django.test.TestCase):
                                users=User.objects.create(username="harry"),
                                semester=Semester.objects.create(name="Later"))
 
-
     def test_remove_duplicates(self):
         self.assertEqual(remove_duplicates(self.test_list), [1,2,3,4,5])
 
@@ -151,6 +150,11 @@ class TestReportGenerator(django.test.TestCase):
         sem = Semester.objects.get(name="Test")
         self.assertEqual(check_semester(sem),
                          [Project.objects.get(semester=sem)])
+
+    def test_check_semester_2(self):
+        sem = Semester.objects.get(name="Test")
+        pro = check_semester(sem)
+        self.assertEqual(pro[0].title, "Test")
 
     def test_semester_get(self):
         sem = Semester.objects.get(name="Test")
