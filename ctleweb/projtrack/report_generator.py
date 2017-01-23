@@ -20,7 +20,10 @@ def check_dates(s_d, e_d):
                     ret.append(x)
                 elif x in ret:
                     ret.remove(x)
-        return ret
+        if e_d == '' and s_d == '' and ret == []:
+            return list(Project.objects.all())
+        else:
+            return ret
     except ObjectDoesNotExist:
         return []
 
