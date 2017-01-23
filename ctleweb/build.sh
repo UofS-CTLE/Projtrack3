@@ -43,7 +43,9 @@ function migrate {
 }
 
 function deploy {
-    echo No deploy function implemented.
+    git add *
+    git commit
+    git push
 }
 
 function run {
@@ -51,6 +53,7 @@ function run {
 }
 
 case "$1" in
+
     compile)
         compile
         ;;
@@ -63,9 +66,9 @@ case "$1" in
         migrate
         ;;
 
-	test)
-		run_tests
-		;;
+    test)
+        run_tests
+        ;;
 
     run)
         run
@@ -81,8 +84,7 @@ case "$1" in
         ;;
 
     all-deploy)
-        all
-        deploy
+        all && clean && deploy
         ;;
 
     all)

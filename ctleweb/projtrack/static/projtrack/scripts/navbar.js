@@ -20,7 +20,7 @@ home = function() {
 
 reports = function() {
     console.log("Navigating to Reports.");
-    window.location = "/reports";
+    window.location = "/report_page";
 }
 
 add_project = function() {
