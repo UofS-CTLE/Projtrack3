@@ -2,7 +2,7 @@ import django.test
 from projtrack.models import Client, Project, Type, User, Department, Semester
 from django.contrib.auth.models import User as App_User
 import re, datetime
-from .report_generator import generate_report, check_semester, check_client, check_dates, check_user, check_department, check_type, remove_duplicates
+from .report_generator import generate_report, check_semester, check_client, check_dates, check_user, check_department, check_type
 
 
 class DepartmentTestCase(django.test.TestCase):
@@ -105,7 +105,6 @@ class TestLoggedIn(django.test.TestCase):
 
 class TestReportGenerator(django.test.TestCase):
     def setUp(self):
-        self.test_list = [1,2,1,3,2,4,3,5]
         Project.objects.create(title="Test",
                                description="Test",
                                date=datetime.date.today(),
@@ -140,11 +139,9 @@ class TestReportGenerator(django.test.TestCase):
                                users=User.objects.create(username="harry"),
                                semester=Semester.objects.create(name="Later"))
 
-    def test_remove_duplicates(self):
-        self.assertEqual(remove_duplicates(self.test_list), [1,2,3,4,5])
-
     def test_check_dates(self):
-        pass
+        self.assertEqual(check_dates('2017-01-01', ''),
+                         list(Project.objects.all()))
 
     def test_check_semester(self):
         sem = Semester.objects.get(name="Test")
