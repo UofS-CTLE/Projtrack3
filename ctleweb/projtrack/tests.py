@@ -139,9 +139,16 @@ class TestReportGenerator(django.test.TestCase):
                                users=User.objects.create(username="harry"),
                                semester=Semester.objects.create(name="Later"))
 
-    def test_check_dates(self):
+    def test_check_dates0(self):
         self.assertEqual(check_dates('2017-01-01', ''),
                          list(Project.objects.all()))
+
+    def test_check_dates1(self):
+        self.assertEqual(check_dates('2016-01-01', '2016-12-31'),
+                         [])
+
+    def test_check_date2(self):
+        self.assertEqual(check_dates('2018-01-01', ''), [])
 
     def test_check_semester(self):
         sem = Semester.objects.get(name="Test")
