@@ -36,8 +36,6 @@ def check_semester(sem):
             except TypeError:
                 l = []
                 l.append(Project.objects.get(semester=sem))
-                for x in l:
-                    print(x.title)
                 return l
         else:
             try:
