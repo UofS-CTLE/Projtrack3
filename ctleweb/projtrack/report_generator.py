@@ -4,13 +4,6 @@ from .models import Project, Semester, User, Client, Department, Type
 
 from django.core.exceptions import ObjectDoesNotExist
 
-def remove_duplicates(t):
-    l = []
-    for x in t:
-        if x not in l:
-            l.append(x)
-    return l
-
 def check_dates(s_d, e_d):
     try:
         result = list(Project.objects.all())
@@ -34,16 +27,12 @@ def check_semester(sem):
             try:
                 return list(Project.objects.get(semester=sem))
             except TypeError:
-                l = []
-                l.append(Project.objects.get(semester=sem))
-                return l
+                return [Project.objects.get(semester=sem)]
         else:
             try:
                 return list(Project.objects.all())
             except TypeError:
-                l = []
-                l.append(Project.objects.all())
-                return l
+                return [Project.objects.all()]
     except ObjectDoesNotExist:
         return []
 
@@ -68,16 +57,12 @@ def check_client(cli):
             try:
                 return list(Project.objects.get(client=cli))
             except TypeError:
-                l = []
-                l.append(Project.objects.get(client=cli))
-                return l
+                return [Project.objects.get(client=cli)]
         else:
             try:
                 return list(Project.objects.all())
             except TypeError:
-                l = []
-                l.append(Project.objects.all())
-                return l
+                return [Project.objects.all()]
     except ObjectDoesNotExist:
         return []
 
@@ -89,16 +74,12 @@ def check_department(depart):
                 return list(Project.objects.get(client=cli))
             except TypeError:
                 cli = Client.objects.get(department=depart)
-                l = []
-                l.append(Project.objects.get(client=cli))
-                return l
+                return [Project.objects.get(client=cli)]
         else:
             try:
                 return list(Project.objects.all())
             except TypeError:
-                l = []
-                l.append(Project.objects.all())
-                return l
+                return [Project.objects.all()]
     except ObjectDoesNotExist:
         return []
 
@@ -108,16 +89,12 @@ def check_type(proj):
             try:
                 return list(Project.objects.get(type=proj))
             except TypeError:
-                l = []
-                l.append(Project.objects.get(type=proj))
-                return l
+                return [Project.objects.get(type=proj)]
         else:
             try:
                 return list(Project.objects.all())
             except TypeError:
-                l = []
-                l.append(Project.objects.all())
-                return l
+                return [Project.objects.all()]
     except ObjectDoesNotExist:
         return []
 
