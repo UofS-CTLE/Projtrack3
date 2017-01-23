@@ -7,17 +7,18 @@ from django.core.exceptions import ObjectDoesNotExist
 def check_dates(s_d, e_d):
     try:
         result = list(Project.objects.all())
+        ret = []
         if s_d != '':
             s_d = datetime.strptime(s_d, "%Y-%m-%d").date()
             for x in result:
-                if x.date < s_d:
-                    result.remove(x)
+                if x.date > s_d:
+                    ret.append(x)
         if e_d != '':
             e_d = datetime.strptime(e_d, "%Y-%m-%d").date()
             for x in result:
-                if x.date > e_d:
-                    result.remove(x)
-        return result
+                if x.date < e_d:
+                    ret.append(x)
+        return ret
     except ObjectDoesNotExist:
         return []
 
