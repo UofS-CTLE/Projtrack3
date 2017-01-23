@@ -18,6 +18,8 @@ def check_dates(s_d, e_d):
             for x in result:
                 if x.date < e_d:
                     ret.append(x)
+                elif x in ret:
+                    ret.remove(x)
         return ret
     except ObjectDoesNotExist:
         return []
