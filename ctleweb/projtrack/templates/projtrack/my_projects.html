@@ -1,7 +1,39 @@
+<!DOCTYPE html>
 {% extends "projtrack/home.html" %}
-{% block title %}{{ title_text }}{% endblock %}
-{% block content %}
-{% for o in projects %}
-<p>{{ o.title }}; {{ o.description }}; {{ o.client }}</p>
-{% endfor %}
-{% endblock %}
+<html>
+	<head>
+ 		{% block content %}
+		<title>Projtrack</title>
+		{% load static %}
+		<link rel="shortcut icon" href="{% static "projtrack/favicon.ico" %}" />
+		<link rel="stylesheet" href="{% static "projtrack/styles/projtrack.css" %}" />
+		<script src="{% static "projtrack/scripts/page.js" %}"></script>
+                <script>
+                window.onload = function() { 
+                    load_footer();
+                    load_navbar();
+                }
+                </script>
+        <h1>Projtrack</h1>
+        <ul class="nav nav-tabs">
+            <li role="presentation"><a href="/home/">Home</a></li>
+            <li role="presentation"><a href="/my_projects/">My Projects</a></li>
+            <li role="presentation"><a href="/add_project/">Add Project</a></li>
+            <li role="presentation"><a href="/all_projects/">All Projects</a></li>
+            <li role="presentation"><a href="/logout/">Sign Out</a></li>
+        </ul>
+		<script>
+			window.onload = function() { 
+				load_footer();
+				load_navbar();
+			}
+		</script>
+	</head>
+	<body>
+		{% block title %}{{ title_text }}{% endblock %}
+		{% for o in projects %}
+			<p>{{ o.title }}; {{ o.description }}; {{ o.client }}</p>
+		{% endfor %}
+	</body>
+	{% endblock %}
+</html>
