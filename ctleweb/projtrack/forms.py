@@ -1,7 +1,8 @@
 from django import forms
 from django.forms import ModelForm
 
-from .models import Type, Client, User, Department, Project, Semester
+from django.contrib.auth.models import User
+from .models import Type, Client, Department, Project, Semester
 
 
 class LoginForm(forms.Form):
