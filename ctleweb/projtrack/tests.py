@@ -1,7 +1,8 @@
 import django.test
 from projtrack.models import Client, Project, Type, User, Department, Semester
 from django.contrib.auth.models import User as App_User
-import re
+import re, datetime
+from .report_generator import generate_report, check_semester, check_client, check_dates, check_user, check_department, check_type, remove_duplicates
 
 
 class DepartmentTestCase(django.test.TestCase):
@@ -64,6 +65,7 @@ class ProjectTestCase(django.test.TestCase):
                                description="A project to test the application.",
                                type=Type.objects.get(name="Test"),
                                walk_in=False,
+                               date=str(datetime.date.today()),
                                semester=Semester.objects.create(name="Spring 2913"),
                                client=Client.objects.get(first_name="Ralph"),
                                users=User.objects.get(username="techconbob"))
@@ -99,3 +101,99 @@ class TestLoggedIn(django.test.TestCase):
     def test_logged_in(self):
         response = self.client.post("/home/", follow=True)
         self.assertContains(response, "Home", status_code=200)
+
+
+class TestReportGenerator(django.test.TestCase):
+    def setUp(self):
+        self.test_list = [1,2,1,3,2,4,3,5]
+        Project.objects.create(title="Test",
+                               description="Test",
+                               date=datetime.date.today(),
+                               type=Type.objects.create(name="Project"),
+                               walk_in=False,
+                               client=Client.objects.create(first_name="Bob",
+                                                     last_name="Roberts",
+                                                     department=Department.objects.create(name="Testing"),
+                                                     email='roberts@email.com'),
+                               users=User.objects.create(username="admin"),
+                               semester=Semester.objects.create(name="Test"))
+        Project.objects.create(title="Stuff",
+                               description="Why",
+                               date=datetime.date.today(),
+                               type=Type.objects.create(name="Test"),
+                               walk_in=False,
+                               client=Client.objects.create(first_name="Jerry",
+                                                     last_name="Jerries",
+                                                     department=Department.objects.create(name="Science"),
+                                                     email='jerries@email.com'),
+                               users=User.objects.create(username="techconbob"),
+                               semester=Semester.objects.create(name="Test2"))
+        Project.objects.create(title="Help",
+                               description="Testing",
+                               date=datetime.date.today(),
+                               type=Type.objects.create(name="Help"),
+                               walk_in=False,
+                               client=Client.objects.create(first_name="Larry",
+                                                     last_name="Lawrence",
+                                                     department=Department.objects.create(name="CTLE"),
+                                                     email='jerries@email.com'),
+                               users=User.objects.create(username="harry"),
+                               semester=Semester.objects.create(name="Later"))
+
+    def test_remove_duplicates(self):
+        self.assertEqual(remove_duplicates(self.test_list), [1,2,3,4,5])
+
+    def test_check_dates(self):
+        pass
+
+    def test_check_semester(self):
+        sem = Semester.objects.get(name="Test")
+        self.assertEqual(check_semester(sem),
+                         [Project.objects.get(semester=sem)])
+
+    def test_check_semester_2(self):
+        sem = Semester.objects.get(name="Test")
+        pro = check_semester(sem)
+        self.assertEqual(pro[0].title, "Test")
+
+    def test_semester_get(self):
+        sem = Semester.objects.get(name="Test")
+        self.assertNotEqual('', str(sem))
+
+    def test_get_user(self):
+        use = User.objects.get(username="techconbob")
+        self.assertNotEqual('', str(use))
+
+    def test_check_user(self):
+        use = User.objects.get(username="techconbob")
+        sem = Semester.objects.get(name="Test2")
+        self.assertEqual(check_semester(sem),
+                         [Project.objects.get(users=use)])
+
+    def test_get_client(self):
+        cli = Client.objects.get(email="roberts@email.com")
+        self.assertNotEqual('', str(cli))
+
+    def test_check_client(self):
+        sem = Client.objects.get(email="roberts@email.com")
+        self.assertEqual(check_client(sem),
+                         [Project.objects.get(client=sem)])
+
+    def test_get_department(self):
+        dept = Department.objects.get(name="Science")
+        self.assertNotEqual('', str(dept))
+
+    def test_check_department(self):
+        sci = Department.objects.get(name="Science")
+        cli = Client.objects.get(department=sci)
+        self.assertEqual(check_department(sci),
+                         [Project.objects.get(client=cli)])
+
+    def test_get_type(self):
+        typ = Type.objects.get(name="Project")
+        self.assertNotEqual('', str(typ))
+
+    def test_check_type(self):
+        sem = Type.objects.get(name="Project")
+        self.assertEqual(check_type(sem),
+                         [Project.objects.get(type=sem)])

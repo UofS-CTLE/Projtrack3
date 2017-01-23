@@ -18,11 +18,11 @@ function all {
     compile
     migrate
     run_tests
-    python manage.py createsuperuser
+    python3 manage.py createsuperuser
 }
 
 function run_tests {
-    python manage.py test
+    python3 manage.py test
 }
 
 function clean {
@@ -34,23 +34,26 @@ function clean {
 
 function compile {
     source_files=$(find . -name "*.py" ! -name "manage.py")
-    python -m py_compile $source_files
+    python3 -m py_compile $source_files
 }
 
 function migrate {
-    python manage.py makemigrations projtrack
-    python manage.py migrate
+    python3 manage.py makemigrations projtrack
+    python3 manage.py migrate
 }
 
 function deploy {
-    echo No deploy function implemented.
+    git add *
+    git commit
+    git push
 }
 
 function run {
-    python manage.py runserver 8080
+    python3 manage.py runserver 8080
 }
 
 case "$1" in
+
     compile)
         compile
         ;;
@@ -63,9 +66,9 @@ case "$1" in
         migrate
         ;;
 
-	test)
-		run_tests
-		;;
+    test)
+        run_tests
+        ;;
 
     run)
         run
@@ -81,8 +84,7 @@ case "$1" in
         ;;
 
     all-deploy)
-        all
-        deploy
+        all && clean && deploy
         ;;
 
     all)
