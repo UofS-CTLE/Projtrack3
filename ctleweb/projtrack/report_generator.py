@@ -17,7 +17,7 @@ def retrieve_most_recent_techcon(client):
     try:
         proj = list(Project.objects.get(client=client))
         proj = bubble_sort(proj)
-        return proj.pop()
+        return [proj.pop()]
     except TypeError:
         return [Project.objects.get(client=client)]
 
