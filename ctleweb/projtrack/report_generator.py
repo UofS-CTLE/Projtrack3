@@ -4,6 +4,23 @@ from .models import Project, Semester, User, Client, Department, Type
 
 from django.core.exceptions import ObjectDoesNotExist
 
+def bubble_sort(l):
+    for i in range(len(l)):
+        for j in range(len(l) - i - 1):
+            if l[j] > l[j+1]:
+                tmp = l[j]
+                l[j] = l[j+1]
+                l[j+1] = tmp
+    return l
+
+def retrieve_most_recent_techcon(client):
+    try:
+        proj = list(Project.objects.get(client=client))
+        proj = bubble_sort(proj)
+        return proj.pop()
+    except TypeError:
+        return [Project.objects.get(client=client)]
+
 def check_dates(s_d, e_d):
     try:
         result = list(Project.objects.all())
@@ -106,9 +123,9 @@ def check_type(proj):
 
 def generate_report(req):
     if req['most_recent_techcon']:
-        pass
+        report = retrieve_most_recent_techcon(req['client'])
     else:
-        report = set(list(Project.objects.all())) 
+        report = set(list(Project.objects.all()))
         rep = [
             (set(check_dates(req['start_date'], req['end_date']))),
             (set(check_semester(req['semester']))),
