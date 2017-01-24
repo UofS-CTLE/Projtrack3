@@ -43,6 +43,7 @@ class GenerateReportForm(forms.Form):
                                   required=False)
     client = forms.ModelChoiceField(queryset=Client.objects.all(),
                                     required=False)
+    most_recent_techcon = forms.BooleanField()
     department = forms.ModelChoiceField(queryset=Department.objects.all(),
                                         required=False)
     proj_type = forms.ModelChoiceField(queryset=Type.objects.all(),

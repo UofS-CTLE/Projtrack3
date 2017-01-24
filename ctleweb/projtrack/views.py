@@ -51,6 +51,7 @@ def report_page(request):
                     'semester': request.POST['semester'],
                     'user': request.POST['user'],
                     'client': request.POST['client'],
+                    'most_recent_techcon': request.POST['most_recent_techcon'],
                     'department': request.POST['department'],
                     'proj_type': request.POST['proj_type']
                 }
