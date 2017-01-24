@@ -1,7 +1,8 @@
 from django import forms
 from django.forms import ModelForm
 
-from .models import Type, Client, User, Department, Project, Semester
+from django.contrib.auth.models import User
+from .models import Type, Client, Department, Project, Semester
 
 
 class LoginForm(forms.Form):
@@ -42,6 +43,7 @@ class GenerateReportForm(forms.Form):
                                   required=False)
     client = forms.ModelChoiceField(queryset=Client.objects.all(),
                                     required=False)
+    most_recent_techcon = forms.BooleanField()
     department = forms.ModelChoiceField(queryset=Department.objects.all(),
                                         required=False)
     proj_type = forms.ModelChoiceField(queryset=Type.objects.all(),

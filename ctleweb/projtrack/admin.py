@@ -4,7 +4,6 @@ from .models import User, Client, Project, Department, Type, Semester
 
 # Register your models here.
 
-admin.site.register(User)
 admin.site.register(Client)
 admin.site.register(Project)
 admin.site.register(Department)

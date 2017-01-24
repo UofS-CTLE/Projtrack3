@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 import datetime
 
 # Create your models here.
@@ -22,14 +23,6 @@ class Client(models.Model):
         db_table = u'Client'
     def __str__(self):
         return (str(self.first_name) + " " + str(self.last_name))
-
-
-class User(models.Model):
-    username = models.CharField(max_length=100)
-    class Meta:
-        db_table = u'User'
-    def __str__(self):
-        return self.username
 
 
 class Type(models.Model):
