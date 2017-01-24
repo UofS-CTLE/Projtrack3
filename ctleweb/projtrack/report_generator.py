@@ -4,6 +4,23 @@ from .models import Project, Semester, User, Client, Department, Type
 
 from django.core.exceptions import ObjectDoesNotExist
 
+def bubble_sort(l):
+    for i in range(len(l)):
+        for j in range(len(l) - i - 1):
+            if l[j] > l[j+1]:
+                tmp = l[j]
+                l[j] = l[j+1]
+                l[j+1] = tmp
+    return l
+
+def retrieve_most_recent_techcon(client):
+    try:
+        proj = list(Project.objects.get(client=client))
+        proj = bubble_sort(proj)
+        return proj.pop()
+    except TypeError:
+        return [Project.objects.get(client=client)]
+
 def check_dates(s_d, e_d):
     try:
         result = list(Project.objects.all())
@@ -105,9 +122,11 @@ def check_type(proj):
         return []
 
 def generate_report(req):
-    # TODO The sheer volume of memory we're using here is ridiculous.
-    report = set(list(Project.objects.all())) 
-    rep = [
+    if req['most_recent_techcon']:
+        report = retrieve_most_recent_techcon(req['client'])
+    else:
+        report = set(list(Project.objects.all()))
+        rep = [
             (set(check_dates(req['start_date'], req['end_date']))),
             (set(check_semester(req['semester']))),
             (set(check_user(req['user']))),
@@ -115,6 +134,6 @@ def generate_report(req):
             (set(check_type(req['proj_type']))),
             (set(check_client(req['client'])))
             ]
-    for x in rep:
-        report = report & x
+        for x in rep:
+            report = report & x
     return report

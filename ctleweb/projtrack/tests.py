@@ -2,7 +2,7 @@ import django.test
 from projtrack.models import Client, Project, Type, User, Department, Semester
 from django.contrib.auth.models import User as App_User
 import re, datetime
-from .report_generator import generate_report, check_semester, check_client, check_dates, check_user, check_department, check_type
+from .report_generator import generate_report, check_semester, check_client, check_dates, check_user, check_department, check_type, bubble_sort
 
 
 class DepartmentTestCase(django.test.TestCase):
@@ -138,6 +138,14 @@ class TestReportGenerator(django.test.TestCase):
                                                      email='jerries@email.com'),
                                users=User.objects.create(username="harry"),
                                semester=Semester.objects.create(name="Later"))
+
+    def test_bubble_sort(self):
+        l = [3, 2, 5, 1, 4]
+        self.assertEqual(bubble_sort(l), [1, 2, 3, 4, 5])
+
+    def test_pop_bubble(self):
+        l = [3, 2, 5, 1, 4]
+        self.assertEqual(bubble_sort(l).pop(), 5)
 
     def test_check_dates0(self):
         self.assertEqual(check_dates('2017-01-01', ''),
