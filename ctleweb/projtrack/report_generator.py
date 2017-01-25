@@ -7,7 +7,7 @@ from django.core.exceptions import ObjectDoesNotExist
 def bubble_sort(l):
     for i in range(len(l)):
         for j in range(len(l) - i - 1):
-            if l[j] > l[j+1]:
+            if l[j].date > l[j+1].date:
                 tmp = l[j]
                 l[j] = l[j+1]
                 l[j+1] = tmp
@@ -133,4 +133,6 @@ def generate_report(req):
         ]
     for x in rep:
         report = report & x
+    if req['sort_by_date']:
+        report = bubble_sort(list(report))
     return report

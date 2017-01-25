@@ -52,7 +52,8 @@ def report_page(request):
                     'user': request.POST['user'],
                     'client': request.POST['client'],
                     'department': request.POST['department'],
-                    'proj_type': request.POST['proj_type']
+                    'proj_type': request.POST['proj_type'],
+                    'sort_by_date': request.POST.get('sort_by_date')
                 }
                 report = generate_report(req)
                 return render(request, 'projtrack/report_page.html',
