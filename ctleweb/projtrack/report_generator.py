@@ -7,7 +7,7 @@ from django.core.exceptions import ObjectDoesNotExist
 def bubble_sort(l):
     for i in range(len(l)):
         for j in range(len(l) - i - 1):
-            if l[j] > l[j+1]:
+            if l[j].date > l[j+1].date:
                 tmp = l[j]
                 l[j] = l[j+1]
                 l[j+1] = tmp
@@ -15,11 +15,11 @@ def bubble_sort(l):
 
 def retrieve_most_recent_techcon(client):
     try:
-        proj = list(Project.objects.get(client=client))
+        proj = list(Project.objects.filter(client=client))
         proj = bubble_sort(proj)
-        return proj.pop()
+        return [proj.pop()]
     except TypeError:
-        return [Project.objects.get(client=client)]
+        return [Project.objects.filter(client=client)]
 
 def check_dates(s_d, e_d):
     try:
@@ -48,9 +48,9 @@ def check_semester(sem):
     try:
         if sem != '':
             try:
-                return list(Project.objects.get(semester=sem))
+                return list(Project.objects.filter(semester=sem))
             except TypeError:
-                return [Project.objects.get(semester=sem)]
+                return [Project.objects.filter(semester=sem)]
         else:
             try:
                 return list(Project.objects.all())
@@ -63,9 +63,9 @@ def check_user(use):
     try:
         if use != '':
             try:
-                return list(Project.objects.get(users=use))
+                return list(Project.objects.filter(users=use))
             except TypeError:
-                return [Project.objects.get(users=use)]
+                return [Project.objects.filter(users=use)]
         else:
             try:
                 return list(Project.objects.all())
@@ -78,9 +78,9 @@ def check_client(cli):
     try:
         if cli != '':
             try:
-                return list(Project.objects.get(client=cli))
+                return list(Project.objects.filter(client=cli))
             except TypeError:
-                return [Project.objects.get(client=cli)]
+                return [Project.objects.filter(client=cli)]
         else:
             try:
                 return list(Project.objects.all())
@@ -93,11 +93,11 @@ def check_department(depart):
     try:
         if depart != '':
             try:
-                cli = Client.objects.get(department=depart)
-                return list(Project.objects.get(client=cli))
+                cli = Client.objects.filter(department=depart)
+                return list(Project.objects.filter(client=cli))
             except TypeError:
-                cli = Client.objects.get(department=depart)
-                return [Project.objects.get(client=cli)]
+                cli = Client.objects.filter(department=depart)
+                return [Project.objects.filter(client=cli)]
         else:
             try:
                 return list(Project.objects.all())
@@ -110,9 +110,9 @@ def check_type(proj):
     try:
         if proj != '':
             try:
-                return list(Project.objects.get(type=proj))
+                return list(Project.objects.filter(type=proj))
             except TypeError:
-                return [Project.objects.get(type=proj)]
+                return [Project.objects.filter(type=proj)]
         else:
             try:
                 return list(Project.objects.all())
@@ -122,18 +122,17 @@ def check_type(proj):
         return []
 
 def generate_report(req):
-    if req['most_recent_techcon']:
-        report = retrieve_most_recent_techcon(req['client'])
-    else:
-        report = set(list(Project.objects.all()))
-        rep = [
-            (set(check_dates(req['start_date'], req['end_date']))),
-            (set(check_semester(req['semester']))),
-            (set(check_user(req['user']))),
-            (set(check_department(req['department']))),
-            (set(check_type(req['proj_type']))),
-            (set(check_client(req['client'])))
-            ]
-        for x in rep:
-            report = report & x
+    report = set(list(Project.objects.all()))
+    rep = [
+        (set(check_dates(req['start_date'], req['end_date']))),
+        (set(check_semester(req['semester']))),
+        (set(check_user(req['user']))),
+        (set(check_department(req['department']))),
+        (set(check_type(req['proj_type']))),
+        (set(check_client(req['client'])))
+        ]
+    for x in rep:
+        report = report & x
+    if req['sort_by_date']:
+        report = bubble_sort(list(report))
     return report
