@@ -29,15 +29,8 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-left">
-              <li role="presentation"><a href="/home/" class="color-me">Home</a></li>
-            <li role="presentation"><a href="/my_projects/" class="color-me">My Projects</a></li>
-            <li role="presentation"><a href="/add_project/" class="color-me">Add Project</a></li>
-            <li role="presentation"><a href="/all_projects/" class="color-me">All Projects</a></li>
-            <li role="presentation"><a href="/logout/" class="color-me">Sign Out</a></li>
+            <li role="presentation"><a href="/logout/" class="color-me"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign Out</a></li>
           </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
-          </form>
         </div>
       </div>
     </nav>
@@ -53,16 +46,25 @@
 <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
+       	<ul class="nav nav-sidebar">
+            <li class="active"><a href="/home/" class="color-me-dos">Home<span class="sr-only">(current)</span></a></li>
+          </ul>
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="/home/">Home<span class="sr-only">(current)</span></a></li>
             <li><a href="/my_projects/" class="color-me-dos">My Projects</a></li>
-            <li><a href="/add_project/" class="color-me-dos">Add Project</a></li>
             <li><a href="/all_projects/" class="color-me-dos">All Projects</a></li>
-            <li><a href="/logout/" class="color-me-dos"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign Out</a></li>
+            <li><a href="/add_project/" class="color-me-dos">Add Project</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+          	<li><a href="/add_department/" class="color-me-dos">Add Department</a></li>
+          	<li><a href="/add_client/" class="color-me-dos">Add Client</a></li>
+            <li><a href="/client_view/" class="color-me-dos">All Clients</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+          <li><a href="/report_page/" class="color-me-dos">Reports</a></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Dashboard</h1>
+          <h1 class="page-header">Home</h1>
 
           <div class="row placeholders">
             <div class="col-xs-6 col-sm-3 placeholder">
@@ -219,20 +221,7 @@
       </div>
      </div>
 
-
-
-
-		<div id='navbar'></div>
-		<h2>{% block title %}Home{% endblock %}</h2>
-		<div id="content">
-			<button onclick="my_projects()">My Projects</button><br>
-			<button onclick="add_project()">Add a Project</button><br>
-			<button onclick="add_client()">Add a Client</button><br>
-			<button onclick="all_clients()">All Clients</button><br>
-			<button onclick="all_projects()">All Projects</button><br>
-			<button onclick="reports()">Reports</button><br>
 			{% endblock %}
-		</div>
 		<div>
 			<table id="footer">
 				<th>
