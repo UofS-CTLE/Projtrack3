@@ -50,6 +50,7 @@ class Project(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     users = models.ForeignKey(User, on_delete=models.CASCADE)
     semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
+    hours = models.PositiveIntegerField(default=0)
     class Meta:
         db_table = u'Project'
     def __str__(self):

@@ -1,7 +1,50 @@
-<h1>{% block title %}Report {{ date }}{% endblock %}</h1>
+<h1>{% block title %}Techcon Project Report{% endblock %}</h1>
 {% block content %}
 {% csrf_token %}
-{% for x in report %}
-<p>{{ x.title }} {{ x.date }} {{ x.description }} {{ x.type }} {{ x.client }} {{ x.users }} {{ x.semester }}</p>
+Date: {{ report.date }}
+Total Projects: {{ report.total_projects }}<br />
+Total Hours: {{ report.total_hours }}<br />
+Walk-ins: {{ report.walk_ins }} ({{ report.walk_in_percent }}%)<br />
+Projects per User<br />
+<table>
+	{% for key, value in report.users %}
+	<th>
+		<td>{{ key }}</td>
+		<td>{{ value }}</td>
+	</th>
+	{% endfor %}
+</table>
+Projects per Department<br />
+<table>
+	{% for key, value in report.depts %}
+	<th>
+		<td>{{ key }}</td>
+		<td>{{ value }}</td>
+		</th>
+	{% endfor %}
+</table>
+Projects per Type<br />
+<table>
+	{% for key, value in report.types %}
+	<th>
+		<td>{{ key }}</td>
+		<td>{{ value }}</td>
+		</th>
+	{% endfor %}
+</table>
+Statistics<br />
+<table>
+	{% for key, value in report.stats %}
+	<th>
+		<td>{{ key }}</td>
+		<td>{{ value }}</td>
+		</th>
+	{% endfor %}
+</table>
+Projects<br />
+{% for x in report.project_list %}
+<p>{{ x.title }} {{ x.client }} {{ x.users }} {{ x.semester }} {{ x.date }}</p>
+<p>{{ x.description }}</p>
+<br />
 {% endfor %}
 {% endblock %}
