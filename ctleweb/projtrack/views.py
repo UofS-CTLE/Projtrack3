@@ -57,8 +57,7 @@ def report_page(request):
                 }
                 report = generate_report(req)
                 return render(request, 'projtrack/report_page.html',
-                        {'report': report,
-                            'date': str(date.today())})
+                        {'report': report})
         else:
             form = GenerateReportForm()
             return render(request,

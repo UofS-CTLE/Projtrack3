@@ -1,46 +1,53 @@
 <h1>{% block title %}Techcon Project Report{% endblock %}</h1>
 {% block content %}
 {% csrf_token %}
-Date: {{ report.date }}
+Date: {{ report.date }}<br />
 Total Projects: {{ report.total_projects }}<br />
 Total Hours: {{ report.total_hours }}<br />
 Walk-ins: {{ report.walk_ins }} ({{ report.walk_in_percent }}%)<br />
 Projects per User<br />
 <table>
-	{% for key, value in report.users %}
-	<th>
-		<td>{{ key }}</td>
-		<td>{{ value }}</td>
-	</th>
-	{% endfor %}
-</table>
+    {% for key, projects, hours in report.users %}
+    <tr>
+        <td>{{ key }}</td>
+        <td>{{ projects }}</td>
+        <td>{{ hours }}</td>
+    </tr>
+    {% endfor %} 
+</table><br />
 Projects per Department<br />
 <table>
-	{% for key, value in report.depts %}
-	<th>
-		<td>{{ key }}</td>
-		<td>{{ value }}</td>
-		</th>
-	{% endfor %}
-</table>
+    {% for key,value in report.depts %}
+    <tr>
+        <td>{{ key }}</td>
+        <td>{{ value }}</td>
+    </tr>
+    {% endfor %}
+</table><br />
 Projects per Type<br />
 <table>
-	{% for key, value in report.types %}
-	<th>
-		<td>{{ key }}</td>
-		<td>{{ value }}</td>
-		</th>
-	{% endfor %}
-</table>
+    {% for key,value in report.types %}
+    <tr>
+        <td>{{ key }}</td>
+        <td>{{ value }}</td>
+    </tr>
+    {% endfor %}
+</table><br />
 Statistics<br />
 <table>
-	{% for key, value in report.stats %}
-	<th>
-		<td>{{ key }}</td>
-		<td>{{ value }}</td>
-		</th>
-	{% endfor %}
-</table>
+    <tr>
+        <td>Active Developers</td>
+        <td>{{ report.stats.active_devs }}</td>
+    </tr>
+    <tr>
+        <td>Average Projects per Developer</td>
+        <td>{{ report.stats.average_proj }}</td>
+    </tr>
+    <tr>
+        <td>Average Hours per Developer</td>
+        <td>{{ report.stats.average_hour }}</td>
+    </tr>
+</table><br />
 Projects<br />
 {% for x in report.project_list %}
 <p>{{ x.title }} {{ x.client }} {{ x.users }} {{ x.semester }} {{ x.date }}</p>

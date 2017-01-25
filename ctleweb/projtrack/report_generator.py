@@ -140,8 +140,8 @@ def generate_stats(report):
             if y.users is x:
                 proj += 1
                 hour += y.hours
-        users[x.email] = {'projects': proj,
-                          'hours': hour}
+        users[x.email]['projects'] = proj
+        users[x.email]['hours'] = hour
     depts = dict()
     for x in list(Department.objects.all()):
         proj = 0
@@ -165,8 +165,9 @@ def generate_stats(report):
         'average_proj': projects/len(users),
         'average_hour': hours/len(users)
     }
+    date_v = str(date.today())
     report = {
-        'date': date.today(),
+        'date': date_v,
         'total_projects': projects,
         'total_hours': hours,
         'walk_ins': walk_ins,
