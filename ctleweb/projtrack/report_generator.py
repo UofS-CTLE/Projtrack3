@@ -161,7 +161,7 @@ def generate_stats(report):
         walk_in_percent = 0
     stats = {
         'active_devs': len(users),
-        'average_proj': projects/len(users),
+        'average_proj': projects//len(users),
         'average_hour': hours/len(users)
     }
     date_v = str(date.today())
