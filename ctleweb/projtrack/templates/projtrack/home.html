@@ -1,240 +1,236 @@
 <!DOCTYPE html>
 {% extends "projtrack/base.html" %}
 <html>
-	<head>
+    <head>
         {% block content %}
-		<title>BLAISEtrack</title>
-		{% load static %}
-		<link rel="shortcut icon" href="{% static "projtrack/favicon.ico" %}" />
-		<link rel="stylesheet" href="{% static "projtrack/styles/projtrack.css" %}" />
-		<link rel="stylesheet" href="{% static "projtrack/styles/dashboard.css" %}" />
-		<script src="{% static "projtrack/scripts/page.js" %}"></script>
-                <script>
-                window.onload = function() { 
-                    load_footer();
-                    load_navbar();
-                }
-                </script>
+        <title>Projtrack</title>
+        {% load static %}
+        <link rel="shortcut icon" href="{% static "projtrack/favicon.ico" %}" />
+        <link rel="stylesheet" href="{% static "projtrack/styles/projtrack.css" %}" />
+        <link rel="stylesheet" href="{% static "projtrack/styles/dashboard.css" %}" />
+        <script src="{% static "projtrack/scripts/page.js" %}"></script>
+        <script>
+window.onload = function() { 
+    load_footer();
+    load_navbar();
+}
+        </script>
 
-     <nav class="navbar navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/home/"><img alt="Brand" style="width:25px;height:25px;" src="/static/Projtrack/favicon.ico"></a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-left">
-            <li role="presentation"><a href="/logout/" class="color-me"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign Out</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-        
-		<script>
-			window.onload = function() { 
-				load_footer();
-				load_navbar();
-			}
-		</script>
-	</head>
-	<body>
-<div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-       	<ul class="nav nav-sidebar">
-            <li class="active"><a href="/home/" class="color-me-dos">Home<span class="sr-only">(current)</span></a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="/my_projects/" class="color-me-dos">My Projects</a></li>
-            <li><a href="/all_projects/" class="color-me-dos">All Projects</a></li>
-            <li><a href="/add_project/" class="color-me-dos">Add Project</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-          	<li><a href="/add_department/" class="color-me-dos">Add Department</a></li>
-          	<li><a href="/add_client/" class="color-me-dos">Add Client</a></li>
-            <li><a href="/client_view/" class="color-me-dos">All Clients</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-          <li><a href="/report_page/" class="color-me-dos">Reports</a></li>
-          </ul>
-        </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Home</h1>
+        <nav class="navbar navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/home/"><img alt="Brand" style="width:25px;height:25px;" src="/static/Projtrack/favicon.ico"></a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-left">
+                        <li role="presentation"><a href="/logout/" class="color-me"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign Out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
 
-          <div class="row placeholders">
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img src="http://www.cs.scranton.edu/~beidler/cmps240/Photos/DSCN3513.jpg" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
+        <script>
+window.onload = function() { 
+    load_footer();
+    load_navbar();
+}
+        </script>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-3 col-md-2 sidebar">
+                    <ul class="nav nav-sidebar">
+                        <li class="active"><a href="/home/" class="color-me-dos">Home<span class="sr-only">(current)</span></a></li>
+                    </ul>
+                    <ul class="nav nav-sidebar">
+                        <li><a href="/my_projects/" class="color-me-dos">My Projects</a></li>
+                        <li><a href="/all_projects/" class="color-me-dos">All Projects</a></li>
+                        <li><a href="/add_project/" class="color-me-dos">Add Project</a></li>
+                    </ul>
+                    <ul class="nav nav-sidebar">
+                        <li><a href="/add_department/" class="color-me-dos">Add Department</a></li>
+                        <li><a href="/add_client/" class="color-me-dos">Add Client</a></li>
+                        <li><a href="/client_view/" class="color-me-dos">All Clients</a></li>
+                    </ul>
+                    <ul class="nav nav-sidebar">
+                        <li><a href="/report_page/" class="color-me-dos">Reports</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                    <h1 class="page-header">Home</h1>
+
+                    <div class="row placeholders">
+                        <div class="col-xs-6 col-sm-3 placeholder">
+                            <h4>Label</h4>
+                            <span class="text-muted">Something else</span>
+                        </div>
+                        <div class="col-xs-6 col-sm-3 placeholder">
+                            <h4>Label</h4>
+                            <span class="text-muted">Something else</span>
+                        </div>
+                        <div class="col-xs-6 col-sm-3 placeholder">
+                            <h4>Label</h4>
+                            <span class="text-muted">Something else</span>
+                        </div>
+                        <div class="col-xs-6 col-sm-3 placeholder">
+                             <h4>Label</h4>
+                            <span class="text-muted">Something else</span>
+                        </div>
+                    </div>
+                    <h2 class="sub-header">Section title</h2>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Header</th>
+                                    <th>Header</th>
+                                    <th>Header</th>
+                                    <th>Header</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1,001</td>
+                                    <td>Lorem</td>
+                                    <td>ipsum</td>
+                                    <td>dolor</td>
+                                    <td>sit</td>
+                                </tr>
+                                <tr>
+                                    <td>1,002</td>
+                                    <td>amet</td>
+                                    <td>consectetur</td>
+                                    <td>adipiscing</td>
+                                    <td>elit</td>
+                                </tr>
+                                <tr>
+                                    <td>1,003</td>
+                                    <td>Integer</td>
+                                    <td>nec</td>
+                                    <td>odio</td>
+                                    <td>Praesent</td>
+                                </tr>
+                                <tr>
+                                    <td>1,003</td>
+                                    <td>libero</td>
+                                    <td>Sed</td>
+                                    <td>cursus</td>
+                                    <td>ante</td>
+                                </tr>
+                                <tr>
+                                    <td>1,004</td>
+                                    <td>Kyle</td>
+                                    <td>Is</td>
+                                    <td>A</td>
+                                    <td>OCEAN MAN</td>
+                                </tr>
+                                <tr>
+                                    <td>1,005</td>
+                                    <td>Nulla</td>
+                                    <td>quis</td>
+                                    <td>sem</td>
+                                    <td>at</td>
+                                </tr>
+                                <tr>
+                                    <td>1,006</td>
+                                    <td>nibh</td>
+                                    <td>elementum</td>
+                                    <td>imperdiet</td>
+                                    <td>Duis</td>
+                                </tr>
+                                <tr>
+                                    <td>1,007</td>
+                                    <td>sagittis</td>
+                                    <td>ipsum</td>
+                                    <td>Praesent</td>
+                                    <td>mauris</td>
+                                </tr>
+                                <tr>
+                                    <td>1,008</td>
+                                    <td>Fusce</td>
+                                    <td>nec</td>
+                                    <td>tellus</td>
+                                    <td>sed</td>
+                                </tr>
+                                <tr>
+                                    <td>1,009</td>
+                                    <td>augue</td>
+                                    <td>semper</td>
+                                    <td>porta</td>
+                                    <td>Mauris</td>
+                                </tr>
+                                <tr>
+                                    <td>1,010</td>
+                                    <td>massa</td>
+                                    <td>Vestibulum</td>
+                                    <td>lacinia</td>
+                                    <td>arcu</td>
+                                </tr>
+                                <tr>
+                                    <td>1,011</td>
+                                    <td>eget</td>
+                                    <td>nulla</td>
+                                    <td>Class</td>
+                                    <td>aptent</td>
+                                </tr>
+                                <tr>
+                                    <td>1,012</td>
+                                    <td>taciti</td>
+                                    <td>sociosqu</td>
+                                    <td>ad</td>
+                                    <td>litora</td>
+                                </tr>
+                                <tr>
+                                    <td>1,013</td>
+                                    <td>torquent</td>
+                                    <td>per</td>
+                                    <td>conubia</td>
+                                    <td>nostra</td>
+                                </tr>
+                                <tr>
+                                    <td>1,014</td>
+                                    <td>per</td>
+                                    <td>inceptos</td>
+                                    <td>himenaeos</td>
+                                    <td>Curabitur</td>
+                                </tr>
+                                <tr>
+                                    <td>1,015</td>
+                                    <td>sodales</td>
+                                    <td>ligula</td>
+                                    <td>in</td>
+                                    <td>libero</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img src="https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAjXAAAAJDAxNzdkNjY5LWQyMDAtNDRkMy05Mjg3LTNlMzNmM2I5YjA5NA.jpg" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img src="http://www.cs.scranton.edu/~beidler/cmps356/Photos/DSCN3583.jpg" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img src="https://i1.sndcdn.com/avatars-000021744391-y9iqge-t500x500.jpg" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-          </div>
-          <h2 class="sub-header">Section title</h2>
-          <div class="table-responsive">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>sit</td>
-                </tr>
-                <tr>
-                  <td>1,002</td>
-                  <td>amet</td>
-                  <td>consectetur</td>
-                  <td>adipiscing</td>
-                  <td>elit</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>Integer</td>
-                  <td>nec</td>
-                  <td>odio</td>
-                  <td>Praesent</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>libero</td>
-                  <td>Sed</td>
-                  <td>cursus</td>
-                  <td>ante</td>
-                </tr>
-                <tr>
-                  <td>1,004</td>
-                  <td>Kyle</td>
-                  <td>Is</td>
-                  <td>A</td>
-                  <td>OCEAN MAN</td>
-                </tr>
-                <tr>
-                  <td>1,005</td>
-                  <td>Nulla</td>
-                  <td>quis</td>
-                  <td>sem</td>
-                  <td>at</td>
-                </tr>
-                <tr>
-                  <td>1,006</td>
-                  <td>nibh</td>
-                  <td>elementum</td>
-                  <td>imperdiet</td>
-                  <td>Duis</td>
-                </tr>
-                <tr>
-                  <td>1,007</td>
-                  <td>sagittis</td>
-                  <td>ipsum</td>
-                  <td>Praesent</td>
-                  <td>mauris</td>
-                </tr>
-                <tr>
-                  <td>1,008</td>
-                  <td>Fusce</td>
-                  <td>nec</td>
-                  <td>tellus</td>
-                  <td>sed</td>
-                </tr>
-                <tr>
-                  <td>1,009</td>
-                  <td>augue</td>
-                  <td>semper</td>
-                  <td>porta</td>
-                  <td>Mauris</td>
-                </tr>
-                <tr>
-                  <td>1,010</td>
-                  <td>massa</td>
-                  <td>Vestibulum</td>
-                  <td>lacinia</td>
-                  <td>arcu</td>
-                </tr>
-                <tr>
-                  <td>1,011</td>
-                  <td>eget</td>
-                  <td>nulla</td>
-                  <td>Class</td>
-                  <td>aptent</td>
-                </tr>
-                <tr>
-                  <td>1,012</td>
-                  <td>taciti</td>
-                  <td>sociosqu</td>
-                  <td>ad</td>
-                  <td>litora</td>
-                </tr>
-                <tr>
-                  <td>1,013</td>
-                  <td>torquent</td>
-                  <td>per</td>
-                  <td>conubia</td>
-                  <td>nostra</td>
-                </tr>
-                <tr>
-                  <td>1,014</td>
-                  <td>per</td>
-                  <td>inceptos</td>
-                  <td>himenaeos</td>
-                  <td>Curabitur</td>
-                </tr>
-                <tr>
-                  <td>1,015</td>
-                  <td>sodales</td>
-                  <td>ligula</td>
-                  <td>in</td>
-                  <td>libero</td>
-                </tr>
-              </tbody>
+        </div>
+        </div>
+
+        {% endblock %}
+        <div>
+            <table id="footer">
+                <th>
+                    <td>
+                        University of Scranton CTLE
+                    </td>
+                    <td id="version">
+                    </td>
+                    <td id="date">
+                    </td>
+                </th>
             </table>
-          </div>
-          </div>
         </div>
-      </div>
-     </div>
-
-			{% endblock %}
-		<div>
-			<table id="footer">
-				<th>
-					<td>
-						University of Scranton CTLE
-					</td>
-					<td id="version">
-					</td>
-					<td id="date">
-					</td>
-				</th>
-			</table>
-		</div>
-	</body>
+    </body>
 
 </html>
