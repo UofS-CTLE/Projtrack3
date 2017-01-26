@@ -7,13 +7,7 @@ Total Hours: {{ report.total_hours }}<br />
 Walk-ins: {{ report.walk_ins }} ({{ report.walk_in_percent }}%)<br />
 Projects per User<br />
 <table>
-    {% for key, projects, hours in report.users %}
-    <tr>
-        <td>{{ key }}</td>
-        <td>{{ projects }}</td>
-        <td>{{ hours }}</td>
-    </tr>
-    {% endfor %} 
+ 
 </table><br />
 Projects per Department<br />
 <table>
