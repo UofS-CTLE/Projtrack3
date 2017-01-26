@@ -11,19 +11,17 @@ Projects per User<br />
 </table><br />
 Projects per Department<br />
 <table>
-    {% for key,value in report.depts %}
+    {% for key in report.depts %}
     <tr>
         <td>{{ key }}</td>
-        <td>{{ value }}</td>
     </tr>
     {% endfor %}
 </table><br />
 Projects per Type<br />
 <table>
-    {% for key,value in report.types %}
+    {% for key in report.types %}
     <tr>
         <td>{{ key }}</td>
-        <td>{{ value }}</td>
     </tr>
     {% endfor %}
 </table><br />

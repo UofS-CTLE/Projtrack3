@@ -145,7 +145,7 @@ def generate_stats(report):
     for x in list(Department.objects.all()):
         proj = 0
         for y in list(Project.objects.all()):
-            if y.department is x:
+            if y.client.department is x:
                 proj += 1
         depts[x.name] = proj
     types = dict()
