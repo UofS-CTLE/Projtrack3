@@ -12,8 +12,6 @@ class Client(models.Model):
     department = models.ForeignKey(Department,
                                    on_delete=models.CASCADE)
 
-class User(models.Model):
-    username = models.CharField(max_length=100)
 
 class Type(models.Model):
     name = models.CharField(max_length=100)
