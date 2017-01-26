@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
+from django.shortcuts import redirect
 
 from .report_generator import generate_report
 
@@ -12,6 +13,9 @@ from .models import Client, Project, Type, Department, User
 from datetime import date, datetime
 
 # Create your views here.
+
+def issues(request):
+    return redirect('https://github.com/cyclerdan/Projtrack3/issues')
 
 
 def index(request):

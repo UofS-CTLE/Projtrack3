@@ -19,4 +19,5 @@ urlpatterns = [
     url(r'^my_projects/$', views.my_projects, name='my_projects'),
     url(r'^not_logged_in/$', views.not_logged_in, name='not_logged_in'),
     url(r'^logout/$', views.logout_view, name='logout'),
+    url(r'^issues/$', views.issues, name='issues'),
 ]
