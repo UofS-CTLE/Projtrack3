@@ -140,8 +140,7 @@ def generate_stats(report):
             if y.users is x:
                 proj += 1
                 hour += y.hours
-        users[x.email]['projects'] = proj
-        users[x.email]['hours'] = hour
+        users[x.email] = {'projects': proj, 'hours': hour}
     depts = dict()
     for x in list(Department.objects.all()):
         proj = 0
