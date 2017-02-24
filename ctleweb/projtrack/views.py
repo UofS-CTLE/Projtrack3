@@ -26,7 +26,7 @@ def index(request):
                                 password=request.POST['password'])
             if user is not None:
                 login(request, user)
-                return HttpResponseRedirect('/home/')
+                return HttpResponseRedirect('home/')
             else:
                 return render(request,
                               'projtrack/index.html',
@@ -41,7 +41,7 @@ def home(request):
     if request.user.is_authenticated:
         return render(request, 'projtrack/home.html')
     else:
-        return HttpResponseRedirect('/not_logged_in/')
+        return HttpResponseRedirect('projtrack3/not_logged_in/')
 
 
 def report_page(request):
@@ -68,9 +68,9 @@ def report_page(request):
                     'projtrack/form_page.html',
                     {'title_text': 'Generate a Report',
                         'form': form,
-                     'form_page': '/report_page/'})
+                     'form_page': 'projtrack3/report_page/'})
     else:
-        return HttpResponseRedirect('/not_logged_in/')
+        return HttpResponseRedirect('projtrack3/not_logged_in/')
 
 
 def my_projects(request):
@@ -88,7 +88,7 @@ def my_projects(request):
                       {'title_text': 'My Projects',
                        'projects': projects})
     else:
-        return HttpResponseRedirect('/not_logged_in/')
+        return HttpResponseRedirect('projtrack3/not_logged_in/')
 
 
 def all_projects(request):
@@ -98,7 +98,7 @@ def all_projects(request):
                       {'title_text': "All Projects",
                        'list_view': projects})
     else:
-        return HttpResponseRedirect('/not_logged_in/')
+        return HttpResponseRedirect('projtrack3/not_logged_in/')
 
 
 def add_project(request):
@@ -117,10 +117,10 @@ def add_project(request):
             form = AddProjectForm()
         return render(request, 'projtrack/form_page.html',
                       {'title_text': "Add Project", 'form': form,
-                       'form_page': "/add_project/",
+                       'form_page': "projtrack3/add_project/",
                        'error_message': error})
     else:
-        return HttpResponseRedirect('/not_logged_in/')
+        return HttpResponseRedirect('projtrack3/not_logged_in/')
 
 
 def add_client(request):
