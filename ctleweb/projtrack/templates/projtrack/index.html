@@ -17,14 +17,13 @@
           <h2>Projtrack v3</h2>
           <p>
             <div id="error" style="color: red;">{{ error_message }}</div>
-              <form action="/" method="post">
+              <form action="index/" method="post">
 	             {% csrf_token %}
 	             {% for field in form %}
 	             <p>{{ field.label_tag }} {{ field }}</p>
 	             {% endfor %}
 	             <input class="btn btn-lg btn-primary" type="submit" value="Login"></a>
               </form>
-          
         </div>
       </p>
 </div>
