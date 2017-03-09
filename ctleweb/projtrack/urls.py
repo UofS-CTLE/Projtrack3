@@ -6,7 +6,7 @@ from . import views
 
 app_name = 'projtrack'
 urlpatterns = [
-    url(r'^/$', views.index, name='index'),
+    url(r'^$', views.index, name='index'),
     url(r'^index/$', views.index, name='index'),
     url(r'^home/$', views.home, name='home'),
     url(r'^add_project/$', views.add_project, name='add_project'),
