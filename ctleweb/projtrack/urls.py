@@ -4,7 +4,8 @@ from django.conf import settings
 
 from . import views
 
-app_name = 'projtrack'
+app_name = 'projtrack3'
+
 urlpatterns = [
     url(r'^projtrack3/$', views.index, name='index'),
     url(r'^projtrack3/index/$', views.index, name='index'),
