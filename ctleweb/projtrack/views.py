@@ -26,7 +26,7 @@ def index(request):
                                 password=request.POST['password'])
             if user is not None:
                 login(request, user)
-                return HttpResponseRedirect('/projtrack3/home/')
+                return HttpResponseRedirect('projtrack3/home/')
             else:
                 return render(request,
                               'projtrack/index.html',
