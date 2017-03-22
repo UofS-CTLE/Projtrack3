@@ -26,7 +26,7 @@ def index(request):
                                 password=request.POST['password'])
             if user is not None:
                 login(request, user)
-                return HttpResponseRedirect('projtrack3/home/')
+                return HttpResponseRedirect('/home/')
             else:
                 return render(request,
                               'projtrack/index.html',
@@ -41,7 +41,7 @@ def home(request):
     if request.user.is_authenticated:
         return render(request, 'projtrack/home.html')
     else:
-        return HttpResponseRedirect('projtrack3/not_logged_in/')
+        return HttpResponseRedirect('/not_logged_in/')
 
 
 def report_page(request):
@@ -70,7 +70,7 @@ def report_page(request):
                         'form': form,
                      'form_page': 'projtrack3/report_page/'})
     else:
-        return HttpResponseRedirect('projtrack3/not_logged_in/')
+        return HttpResponseRedirect('/not_logged_in/')
 
 
 def my_projects(request):
@@ -88,7 +88,7 @@ def my_projects(request):
                       {'title_text': 'My Projects',
                        'projects': projects})
     else:
-        return HttpResponseRedirect('projtrack3/not_logged_in/')
+        return HttpResponseRedirect('/not_logged_in/')
 
 
 def all_projects(request):
@@ -98,7 +98,7 @@ def all_projects(request):
                       {'title_text': "All Projects",
                        'list_view': projects})
     else:
-        return HttpResponseRedirect('projtrack3/not_logged_in/')
+        return HttpResponseRedirect('/not_logged_in/')
 
 
 def add_project(request):
@@ -120,7 +120,7 @@ def add_project(request):
                        'form_page': "projtrack3/add_project/",
                        'error_message': error})
     else:
-        return HttpResponseRedirect('projtrack3/not_logged_in/')
+        return HttpResponseRedirect('/not_logged_in/')
 
 
 def add_client(request):
@@ -140,7 +140,7 @@ def add_client(request):
                        'form_page': "projtrack3/add_client/",
                        'error_message': error})
     else:
-        return HttpResponseRedirect('projtrack3/not_logged_in/')
+        return HttpResponseRedirect('/not_logged_in/')
 
 
 def client_view(request):
@@ -150,7 +150,7 @@ def client_view(request):
                       {'title_text': "All Clients",
                        'list_view': clients})
     else:
-        return HttpResponseRedirect('projtrack3/not_logged_in')
+        return HttpResponseRedirect('/not_logged_in')
 
 
 def add_department(request):
@@ -172,7 +172,7 @@ def add_department(request):
                        'form_page': "projtrack3/add_department/",
                        'error_message': error})
     else:
-        return HttpResponseRedirect('projtrack3/not_logged_in/')
+        return HttpResponseRedirect('/not_logged_in/')
 
 
 def add_type(request):
@@ -192,7 +192,7 @@ def add_type(request):
                       {'title_text': "Add Type", 'form': form,
                        'form_page': "projtrack3/add_type/"})
     else:
-        return HttpResponseRedirect('projtrack3/not_logged_in/')
+        return HttpResponseRedirect('/not_logged_in/')
 
 
 def not_logged_in(request):
@@ -201,4 +201,4 @@ def not_logged_in(request):
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect('projtrack3/index/')
+    return HttpResponseRedirect('/index/')
