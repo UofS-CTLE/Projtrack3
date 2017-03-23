@@ -169,7 +169,7 @@ def add_department(request):
             form = AddDeptForm()
         return render(request, 'projtrack/form_page.html',
                       {'title_text': "Add Department", 'form': form,
-                       'form_page': "projtrack3/add_department/",
+                       'form_page': "/add_department/",
                        'error_message': error})
     else:
         return HttpResponseRedirect('/not_logged_in/')
