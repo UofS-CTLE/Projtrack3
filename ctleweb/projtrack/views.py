@@ -68,7 +68,11 @@ def report_page(request):
                     'projtrack/form_page.html',
                     {'title_text': 'Generate a Report',
                         'form': form,
+<<<<<<< HEAD
                      'form_page': 'projtrack3/report_page'})
+=======
+                     'form_page': '/report_page'})
+>>>>>>> 4fb6213461075abd82c7dd4b4315b9aeee4a5c97
     else:
         return HttpResponseRedirect('/not_logged_in')
 
@@ -117,7 +121,11 @@ def add_project(request):
             form = AddProjectForm()
         return render(request, 'projtrack/form_page.html',
                       {'title_text': "Add Project", 'form': form,
+<<<<<<< HEAD
                        'form_page': "projtrack3/add_project",
+=======
+                       'form_page': "/add_project",
+>>>>>>> 4fb6213461075abd82c7dd4b4315b9aeee4a5c97
                        'error_message': error})
     else:
         return HttpResponseRedirect('/not_logged_in')
@@ -137,7 +145,11 @@ def add_client(request):
             form = AddClientForm()
         return render(request, 'projtrack/form_page.html',
                       {'title_text': "Add Client", 'form': form,
+<<<<<<< HEAD
                        'form_page': "projtrack3/add_client",
+=======
+                       'form_page': "/add_client",
+>>>>>>> 4fb6213461075abd82c7dd4b4315b9aeee4a5c97
                        'error_message': error})
     else:
         return HttpResponseRedirect('/not_logged_in')
@@ -190,7 +202,7 @@ def add_type(request):
             form = AddTypeForm()
         return render(request, 'projtrack/form_page.html',
                       {'title_text': "Add Type", 'form': form,
-                       'form_page': "projtrack3/add_type"})
+                       'form_page': "/add_type"})
     else:
         return HttpResponseRedirect('/not_logged_in')
 
