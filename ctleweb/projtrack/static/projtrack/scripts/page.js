@@ -4,4 +4,7 @@ load_footer = function() {
     var date = "1/6/2017";
     document.getElementById("version").innerHTML = version;
     document.getElementById("date").innerHTML = date;
+    if ((window.location.href).includes(localhost)) {
+        
+    }
 }
