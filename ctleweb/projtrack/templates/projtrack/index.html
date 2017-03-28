@@ -10,7 +10,11 @@
         <script>
             window.onload = function() {
                 load_footer();
-            }
+			}
+			console.log("Is this even working?");
+			if (window.location.includes("localhost")) {
+				document.forms[0].action = "/";
+			}
         </script>
 </head>
 {% block content %}

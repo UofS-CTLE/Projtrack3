@@ -4,7 +4,17 @@ load_footer = function() {
     var date = "1/6/2017";
     document.getElementById("version").innerHTML = version;
     document.getElementById("date").innerHTML = date;
-    if ((window.location.href).includes(localhost)) {
-        
+    var url = window.location.href;
+    console.log(url);
+    if ((url).includes("localhost")) {
+        console.log("Modifying form elements.");
+        for (var i = 0; i < document.forms.length; i++) {
+            var action = document.forms[i].action;
+            action = action.split("/");
+            action.splice(0, 1);
+            action = action.join("/");
+            action = "/" + action;
+            document.forms[i].action = action;
+        }
     }
 }
