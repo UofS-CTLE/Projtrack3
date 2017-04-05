@@ -1,4 +1,4 @@
-load_footer = function() {
+window.onload = function() {
     console.log("Footer loading.");
     var version = "3.0.3";
     var date = "1/6/2017";
@@ -9,9 +9,11 @@ load_footer = function() {
     if ((url).includes("localhost")) {
         console.log("Modifying form elements.");
         for (var i = 0; i < document.forms.length; i++) {
-            var action = document.forms[i].action;
-            action = "/projtrack3" + action;
-            document.forms[i].action = action;
+            var action = document.forms[i].action.split("/");
+            console.log(action);
+            action.splice(3,1);
+            console.log(action);
+            document.forms[i].action = action.join("/");
         }
     }
 }
