@@ -10,10 +10,7 @@ load_footer = function() {
         console.log("Modifying form elements.");
         for (var i = 0; i < document.forms.length; i++) {
             var action = document.forms[i].action;
-            action = action.split("/");
-            action.splice(0, 1);
-            action = action.join("/");
-            action = "/" + action;
+            action = "/projtrack3" + action;
             document.forms[i].action = action;
         }
     }
