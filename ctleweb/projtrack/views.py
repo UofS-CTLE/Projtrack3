@@ -188,7 +188,7 @@ def add_type(request):
             form = AddTypeForm()
         return render(request, 'projtrack/form_page.html',
                       {'title_text': "Add Type", 'form': form,
-                       'form_page': "/projtrack3/add_type"})
+                       'form_page': "/projtrack3/add_type/"})
     else:
         return redirect('/projtrack3/not_logged_in')
 
