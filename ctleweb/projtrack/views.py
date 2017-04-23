@@ -135,7 +135,7 @@ def add_client(request):
             form = AddClientForm()
         return render(request, 'projtrack/form_page.html',
                       {'title_text': "Add Client", 'form': form,
-                       'form_page': "/projtrack3/add_client",
+                       'form_page': "/projtrack3/add_client/",
                        'error_message': error})
     else:
         return redirect('/projtrack3/not_logged_in')
