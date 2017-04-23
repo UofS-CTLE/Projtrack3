@@ -66,7 +66,7 @@ def report_page(request):
                     'projtrack/form_page.html',
                     {'title_text': 'Generate a Report',
                         'form': form,
-                     'form_page': '/projtrack3/report_page'})
+                     'form_page': '/projtrack3/report_page/'})
     else:
         return redirect('/projtrack3/not_logged_in')
 
@@ -115,7 +115,7 @@ def add_project(request):
             form = AddProjectForm()
         return render(request, 'projtrack/form_page.html',
                       {'title_text': "Add Project", 'form': form,
-                       'form_page': "/projtrack3/add_project",
+                       'form_page': "/projtrack3/add_project/",
                        'error_message': error})
     else:
         return redirect('/projtrack3/not_logged_in')
