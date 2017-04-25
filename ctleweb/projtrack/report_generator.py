@@ -1,8 +1,9 @@
 from datetime import datetime, date
 
-from .models import Project, Semester, User, Client, Department, Type
-
 from django.core.exceptions import ObjectDoesNotExist
+
+from .models import Project, User, Client, Department, Type
+
 
 def bubble_sort(l):
     for i in range(len(l)):
@@ -13,6 +14,7 @@ def bubble_sort(l):
                 l[j+1] = tmp
     return l
 
+
 def retrieve_most_recent_techcon(client):
     try:
         proj = list(Project.objects.filter(client=client))
@@ -20,6 +22,7 @@ def retrieve_most_recent_techcon(client):
         return [proj.pop()]
     except TypeError:
         return [Project.objects.filter(client=client)]
+
 
 def check_dates(s_d, e_d):
     try:
@@ -44,6 +47,7 @@ def check_dates(s_d, e_d):
     except ObjectDoesNotExist:
         return []
 
+
 def check_semester(sem):
     try:
         if sem != '':
@@ -58,6 +62,7 @@ def check_semester(sem):
                 return [Project.objects.all()]
     except ObjectDoesNotExist:
         return []
+
 
 def check_user(use):
     try:
@@ -74,6 +79,7 @@ def check_user(use):
     except ObjectDoesNotExist:
         return []
 
+
 def check_client(cli):
     try:
         if cli != '':
@@ -88,6 +94,7 @@ def check_client(cli):
                 return [Project.objects.all()]
     except ObjectDoesNotExist:
         return []
+
 
 def check_department(depart):
     try:
@@ -106,6 +113,7 @@ def check_department(depart):
     except ObjectDoesNotExist:
         return []
 
+
 def check_type(proj):
     try:
         if proj != '':
@@ -120,6 +128,7 @@ def check_type(proj):
                 return [Project.objects.all()]
     except ObjectDoesNotExist:
         return []
+
 
 def generate_stats(report):
     # TODO REWRITE THIS FUNCTION GOOD LORD
@@ -177,6 +186,7 @@ def generate_stats(report):
         'stats': stats
     }
     return report
+
 
 def generate_report(req):
     proj_list = set(list(Project.objects.all()))

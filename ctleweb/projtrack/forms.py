@@ -1,7 +1,7 @@
 from django import forms
+from django.contrib.auth.models import User
 from django.forms import ModelForm
 
-from django.contrib.auth.models import User
 from .models import Type, Client, Department, Project, Semester
 
 
@@ -16,11 +16,13 @@ class AddProjectForm(ModelForm):
         field = '__all__'
         exclude = ('date',)
 
+
 class AddClientForm(ModelForm):
     class Meta:
         model = Client
         field = '__all__'
         exclude = ()
+
 
 class AddDeptForm(ModelForm):
     class Meta:
@@ -28,11 +30,13 @@ class AddDeptForm(ModelForm):
         field = '__all__'
         exclude = ()
 
+
 class AddTypeForm(ModelForm):
     class Meta:
         model = Type
         field = '__all__'
         exclude = ()
+
 
 class GenerateReportForm(forms.Form):
     start_date = forms.DateField(required=False)
