@@ -1,8 +1,11 @@
+import datetime
+
 import django.test
-from projtrack.models import Client, Project, Type, User, Department, Semester
 from django.contrib.auth.models import User as App_User
-import re, datetime
-from .report_generator import generate_report, check_semester, check_client, check_dates, check_user, check_department, check_type, bubble_sort, retrieve_most_recent_techcon
+from projtrack.models import Client, Project, Type, User, Department, Semester
+
+from .report_generator import check_semester, check_client, check_dates, check_department, \
+    check_type, bubble_sort, retrieve_most_recent_techcon
 
 
 class DepartmentTestCase(django.test.TestCase):
@@ -20,13 +23,13 @@ class DepartmentTestCase(django.test.TestCase):
 class ClientTestCase(django.test.TestCase):
     def setUp(self):
         Client.objects.create(first_name="Ralph",
-                last_name="Smith",
-                email="rsmith@email.com",
-                department=Department.objects.create(name="Literature"))
+                              last_name="Smith",
+                              email="rsmith@email.com",
+                              department=Department.objects.create(name="Literature"))
         Client.objects.create(first_name="Jill",
-                last_name="Jackson",
-                email="jjackson@email.com",
-                department=Department.objects.create(name="Science"))
+                              last_name="Jackson",
+                              email="jjackson@email.com",
+                              department=Department.objects.create(name="Science"))
         c = Client()
         c.first_name = "Jeff"
         c.last_name = "Guy"
@@ -111,9 +114,9 @@ class TestReportGenerator(django.test.TestCase):
                                type=Type.objects.create(name="Project"),
                                walk_in=False,
                                client=Client.objects.create(first_name="Bob",
-                                                     last_name="Roberts",
-                                                     department=Department.objects.create(name="Testing"),
-                                                     email='roberts@email.com'),
+                                                            last_name="Roberts",
+                                                            department=Department.objects.create(name="Testing"),
+                                                            email='roberts@email.com'),
                                users=User.objects.create(username="admin"),
                                semester=Semester.objects.create(name="Test"))
         Project.objects.create(title="Stuff",
@@ -122,9 +125,9 @@ class TestReportGenerator(django.test.TestCase):
                                type=Type.objects.create(name="Test"),
                                walk_in=False,
                                client=Client.objects.create(first_name="Jerry",
-                                                     last_name="Jerries",
-                                                     department=Department.objects.create(name="Science"),
-                                                     email='jerries@email.com'),
+                                                            last_name="Jerries",
+                                                            department=Department.objects.create(name="Science"),
+                                                            email='jerries@email.com'),
                                users=User.objects.create(username="techconbob"),
                                semester=Semester.objects.create(name="Test2"))
         Project.objects.create(title="Help",
@@ -133,9 +136,9 @@ class TestReportGenerator(django.test.TestCase):
                                type=Type.objects.create(name="Help"),
                                walk_in=False,
                                client=Client.objects.create(first_name="Larry",
-                                                     last_name="Lawrence",
-                                                     department=Department.objects.create(name="CTLE"),
-                                                     email='jerries@email.com'),
+                                                            last_name="Lawrence",
+                                                            department=Department.objects.create(name="CTLE"),
+                                                            email='jerries@email.com'),
                                users=User.objects.create(username="harry"),
                                semester=Semester.objects.create(name="Later"))
 
