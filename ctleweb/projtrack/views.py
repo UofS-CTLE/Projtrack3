@@ -1,16 +1,13 @@
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import redirect
-
-from .report_generator import generate_report
+from django.shortcuts import render
 
 from .forms import AddProjectForm, AddClientForm, AddDeptForm, AddTypeForm, GenerateReportForm
 from .forms import LoginForm
-from .models import Client, Project, Type, Department, User
+from .models import Client, Project, User
+from .report_generator import generate_report
 
-from datetime import date, datetime
 
 def issues(request):
     return redirect('https://github.com/cyclerdan/Projtrack3/issues')
@@ -117,6 +114,18 @@ def add_project(request):
                       {'title_text': "Add Project", 'form': form,
                        'form_page': "/projtrack3/add_project/",
                        'error_message': error})
+    else:
+        return redirect('/projtrack3/not_logged_in')
+
+
+def edit_project(request):
+    error = ""
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            pass
+        else:
+            form = AddProjectForm()
+        return render(request, 'projtrack/project_edit.html')
     else:
         return redirect('/projtrack3/not_logged_in')
 

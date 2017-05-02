@@ -1,6 +1,4 @@
 from django.conf.urls import url
-from django.conf.urls.static import static
-from django.conf import settings
 
 from . import views
 
@@ -21,4 +19,5 @@ urlpatterns = [
     url(r'^not_logged_in/$', views.not_logged_in, name='not_logged_in'),
     url(r'^logout/$', views.logout_view, name='logout'),
     url(r'^issues/$', views.issues, name='issues'),
+    url(r'^project_edit/$', views.edit_project, name='edit_project'),
 ]
