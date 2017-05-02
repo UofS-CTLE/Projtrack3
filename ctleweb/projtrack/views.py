@@ -219,13 +219,15 @@ def add_type(request):
                 t = form.save()
                 t.save()
                 form = AddTypeForm()
+                error = "Form submitted successfully."
             else:
                 error = "Form is invalid."
         else:
             form = AddTypeForm()
         return render(request, 'projtrack/form_page.html',
                       {'title_text': "Add Type", 'form': form,
-                       'form_page': "/add_type/"})
+                       'form_page': "/add_type/",
+                       'error_message': error})
     else:
         return redirect('/not_logged_in')
 
