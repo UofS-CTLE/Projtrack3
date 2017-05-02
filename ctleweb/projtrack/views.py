@@ -56,13 +56,13 @@ def report_page(request):
                 }
                 report = generate_report(req)
                 return render(request, 'projtrack/report_page.html',
-                        {'report': report})
+                              {'report': report})
         else:
             form = GenerateReportForm()
             return render(request,
-                    'projtrack/form_page.html',
+                          'projtrack/form_page.html',
                           {'title_text': 'Generate a Report',
-                        'form': form,
+                           'form': form,
                            'form_page': '/report_page/'})
     else:
         return redirect('/not_logged_in')
@@ -197,7 +197,7 @@ def add_department(request):
                 d = form.save()
                 d.save()
                 form = AddDeptForm()
-                form = AddDeptForm()
+                error = "Form submitted successfully."
             else:
                 error = "Form is invalid."
         else:
