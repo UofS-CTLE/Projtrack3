@@ -67,7 +67,10 @@ window.onload = function() {
                     <h1 class="page-header">My Projects</h1>
                 {% block title %}{{ title_text }}{% endblock %}
                 {% for o in projects %}
-                    <p>{{ o.title }}; {{ o.description }}; {{ o.client }} <a href="/project_edit/">Edit</a></p>
+                    <p>{{ o.title }}; {{ o.description }}; {{ o.client }}
+                        <a href="/project_edit/">Edit</a>
+                        <a href="/project_delete/{{ o.title }}">Delete</a>
+                    </p>
                 {% endfor %}
                 </div>
     </body>

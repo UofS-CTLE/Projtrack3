@@ -20,4 +20,5 @@ urlpatterns = [
     url(r'^logout/$', views.logout_view, name='logout'),
     url(r'^issues/$', views.issues, name='issues'),
     url(r'^project_edit/$', views.edit_project, name='edit_project'),
+    url(r'^project_delete/', views.project_delete, name='project_delete')
 ]

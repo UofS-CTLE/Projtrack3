@@ -160,6 +160,26 @@ def client_view(request):
         return redirect('/projtrack3/not_logged_in')
 
 
+def project_delete(request):
+    if request.user.is_authenticated:
+        try:
+            projects = []
+            u = User.objects.get(username=request.user.username)
+            # TODO Add delete code.
+            query = Project.objects.all()
+            for x in query:
+                if x.users.username == u.username:
+                    projects.append(x)
+        except ObjectDoesNotExist:
+            projects = ""
+        return render(request, 'projtrack/my_projects.html',
+                      {'title_text': 'My Projects',
+                       'projects': projects})
+    else:
+        return redirect('/projtrack3/not_logged_in')
+
+
+
 def add_department(request):
     error = ""
     if request.user.is_authenticated:
