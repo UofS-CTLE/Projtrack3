@@ -1,15 +1,17 @@
-from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponse
-from django.urls import reverse
-from django.views import generic
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponseRedirect
+from django.core.exceptions import ObjectDoesNotExist
+from django.shortcuts import redirect
+from django.shortcuts import render
 
+from .forms import AddProjectForm, AddClientForm, AddDeptForm, AddTypeForm, GenerateReportForm
 from .forms import LoginForm
-from .forms import AddProjectForm, AddClientForm, AddDeptForm, AddTypeForm
-from .models import Client, Project, Type, Department
+from .models import Client, Project, User
+from .report_generator import generate_report
 
-# Create your views here.
+
+def issues(request):
+    return redirect('https://github.com/cyclerdan/Projtrack3/issues')
+
 
 def index(request):
     if request.method == 'POST':
@@ -19,7 +21,7 @@ def index(request):
                                 password=request.POST['password'])
             if user is not None:
                 login(request, user)
-                return HttpResponseRedirect('/home/')
+                return redirect('/projtrack3/home')
             else:
                 return render(request,
                               'projtrack/index.html',
@@ -29,105 +31,201 @@ def index(request):
         form = LoginForm()
         return render(request, 'projtrack/index.html', {'form': form})
 
+
 def home(request):
     if request.user.is_authenticated:
         return render(request, 'projtrack/home.html')
     else:
-        return HttpResponseRedirect('/not_logged_in/')
+        return redirect('/projtrack3/not_logged_in')
+
+
+def report_page(request):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            form = GenerateReportForm(request.POST)
+            if form.is_valid():
+                req = {
+                    'start_date': request.POST['start_date'],
+                    'end_date': request.POST['end_date'],
+                    'semester': request.POST['semester'],
+                    'user': request.POST['user'],
+                    'client': request.POST['client'],
+                    'department': request.POST['department'],
+                    'proj_type': request.POST['proj_type'],
+                    'sort_by_date': request.POST.get('sort_by_date')
+                }
+                report = generate_report(req)
+                return render(request, 'projtrack/report_page.html',
+                        {'report': report})
+        else:
+            form = GenerateReportForm()
+            return render(request,
+                    'projtrack/form_page.html',
+                    {'title_text': 'Generate a Report',
+                        'form': form,
+                     'form_page': '/projtrack3/report_page/'})
+    else:
+        return redirect('/projtrack3/not_logged_in')
+
 
 def my_projects(request):
     if request.user.is_authenticated:
-        return render(request, 'projtrack/my_projects.html')
+        try:
+            projects = []
+            u = User.objects.get(username=request.user.username)
+            query = Project.objects.all()
+            for x in query:
+                if x.users.username == u.username:
+                    projects.append(x)
+        except ObjectDoesNotExist:
+            projects = ""
+        return render(request, 'projtrack/my_projects.html',
+                      {'title_text': 'My Projects',
+                       'projects': projects})
     else:
-        return HttpResponseRedirect('/not_logged_in/')
+        return redirect('/projtrack3/not_logged_in')
+
 
 def all_projects(request):
     if request.user.is_authenticated:
-        return render(request, 'projtrack/list_view.html',
-                      {'title_text': "All Projects"})
+        projects = Project.objects.all()
+        return render(request, 'projtrack/all_projects.html',
+                      {'title_text': "All Projects",
+                       'list_view': projects})
     else:
-        return HttpResponseRedirect('/not_logged_in/')
+        return redirect('/projtrack3/not_logged_in')
+
 
 def add_project(request):
+    error = ""
     if request.user.is_authenticated:
         if request.method == 'POST':
             form = AddProjectForm(request.POST)
             if form.is_valid():
                 # Project is added to the database here.
-                t = Project()
-                t.title = request.POST['title']
-                t.description = request.POST['description']
-                t.type = request.POST['type']
-                t.walk_in = request.POST['walk_in']
-                t.client = request.POST['client']
-                t.users = request.POST['users']
+                t = form.save()
                 t.save()
+                form = AddProjectForm()
+            else:
+                error = "Form is invalid."
         else:
             form = AddProjectForm()
         return render(request, 'projtrack/form_page.html',
-                      {'title_text': "Add Project", 'form': form})
+                      {'title_text': "Add Project", 'form': form,
+                       'form_page': "/projtrack3/add_project/",
+                       'error_message': error})
     else:
-        return HttpResponseRedirect('/not_logged_in/')
+        return redirect('/projtrack3/not_logged_in')
+
+
+def edit_project(request):
+    error = ""
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            pass
+        else:
+            form = AddProjectForm()
+        return render(request, 'projtrack/project_edit.html')
+    else:
+        return redirect('/projtrack3/not_logged_in')
+
 
 def add_client(request):
+    error = ""
     if request.user.is_authenticated:
         if request.method == 'POST':
             form = AddClientForm(request.POST)
             if form.is_valid():
-                t = Client()
-                t.first_name['first_name']
-                t.last_name['last_name']
-                t.email = request.POST['email']
-                t.department = request.POST['department']
+                t = form.save()
                 t.save()
+                form = AddClientForm()
+                error = "Form is invalid."
         else:
             form = AddClientForm()
         return render(request, 'projtrack/form_page.html',
-                      {'title_text': "Add Client", 'form': form})
+                      {'title_text': "Add Client", 'form': form,
+                       'form_page': "/projtrack3/add_client/",
+                       'error_message': error})
     else:
-        return HttpResponseRedirect('/not_logged_in/')
+        return redirect('/projtrack3/not_logged_in')
+
 
 def client_view(request):
     if request.user.is_authenticated:
+        clients = Client.objects.all()
         return render(request, 'projtrack/list_view.html',
-                      {'title_text': "All Clients"})
+                      {'title_text': "All Clients",
+                       'list_view': clients})
     else:
-        return HttpResponseRedirect('/not_logged_in')
+        return redirect('/projtrack3/not_logged_in')
+
+
+def project_delete(request):
+    if request.user.is_authenticated:
+        try:
+            projects = []
+            u = User.objects.get(username=request.user.username)
+            # TODO Add delete code.
+            query = Project.objects.all()
+            for x in query:
+                if x.users.username == u.username:
+                    projects.append(x)
+        except ObjectDoesNotExist:
+            projects = ""
+        return render(request, 'projtrack/my_projects.html',
+                      {'title_text': 'My Projects',
+                       'projects': projects})
+    else:
+        return redirect('/projtrack3/not_logged_in')
+
+
 
 def add_department(request):
+    error = ""
     if request.user.is_authenticated:
         if request.method == 'POST':
             form = AddDeptForm(request.POST)
             if form.is_valid():
-                t = Department()
-                t.name = request.POST['name']
-                t.save()
+                d = form.save()
+                d.save()
+                form = AddDeptForm()
+                form = AddDeptForm()
+            else:
+                error = "Form is invalid."
         else:
             form = AddDeptForm()
         return render(request, 'projtrack/form_page.html',
-                      {'title_text': "Add Department", 'form': form})
+                      {'title_text': "Add Department", 'form': form,
+                       'form_page': "/projtrack3/add_department/",
+                       'error_message': error})
     else:
-        return HttpResponseRedirect('/not_logged_in/')
+        return redirect('/projtrack3/not_logged_in')
+
 
 def add_type(request):
+    error = ""
     if request.user.is_authenticated:
         if request.method == 'POST':
             form = AddTypeForm(request.POST)
             if form.is_valid():
-                t = Type()
-                t.name = request.POST['name']
+                t = form.save()
                 t.save()
+                form = AddTypeForm()
+            else:
+                error = "Form is invalid."
         else:
             form = AddTypeForm()
         return render(request, 'projtrack/form_page.html',
-                      {'title_text': "Add Type", 'form': form})
-
+                      {'title_text': "Add Type", 'form': form,
+                       'form_page': "/projtrack3/add_type/"})
     else:
-        return HttpResponseRedirect('/not_logged_in/')
+        return redirect('/projtrack3/not_logged_in')
+
 
 def not_logged_in(request):
     return render(request, 'projtrack/not_logged_in.html')
 
+
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect('/index/')
+    return redirect('/projtrack3/index')

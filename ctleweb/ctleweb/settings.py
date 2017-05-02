@@ -26,7 +26,8 @@ SECRET_KEY = 'x6p1b3-ushmwvww)g9f$+d730#dvk2l5we(58ptxf(=+h5(^sw'
 DEBUG = True
 
 ALLOWED_HOSTS = ['testserver',
-                 'localhost']
+                 'localhost',
+		               'ctleweb.scranton.edu']
 
 
 # Application definition
@@ -119,4 +120,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/projtrack3/static/'
+
+if not DEBUG:
+    CACHES= {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+            'LOCATION': '127.0.0.1:11211',
+        }
+    }
+else:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+        }
+    }
