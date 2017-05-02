@@ -25,7 +25,7 @@ def index(request):
             else:
                 return render(request,
                               'projtrack/index.html',
-                              {'error_message': "Invalid username or password.",
+                              {'user': user, 'error_message': "Invalid username or password.",
                                'form': form})
     else:
         form = LoginForm()
@@ -34,7 +34,7 @@ def index(request):
 
 def home(request):
     if request.user.is_authenticated:
-        return render(request, 'projtrack/home.html')
+        return render(request, 'projtrack/home.html', {'user': request.user})
     else:
         return redirect('/not_logged_in')
 
@@ -56,12 +56,12 @@ def report_page(request):
                 }
                 report = generate_report(req)
                 return render(request, 'projtrack/report_page.html',
-                              {'report': report})
+                              {'user': request.user, 'report': report})
         else:
             form = GenerateReportForm()
             return render(request,
                           'projtrack/form_page.html',
-                          {'title_text': 'Generate a Report',
+                          {'user': request.user, 'title_text': 'Generate a Report',
                            'form': form,
                            'form_page': '/report_page/'})
     else:
@@ -80,7 +80,7 @@ def my_projects(request):
         except ObjectDoesNotExist:
             projects = ""
         return render(request, 'projtrack/my_projects.html',
-                      {'title_text': 'My Projects',
+                      {'user': request.user, 'title_text': 'My Projects',
                        'projects': projects})
     else:
         return redirect('/not_logged_in')
@@ -90,7 +90,7 @@ def all_projects(request):
     if request.user.is_authenticated:
         projects = Project.objects.all()
         return render(request, 'projtrack/all_projects.html',
-                      {'title_text': "All Projects",
+                      {'user': request.user, 'title_text': "All Projects",
                        'list_view': projects})
     else:
         return redirect('/not_logged_in')
@@ -111,7 +111,7 @@ def add_project(request):
         else:
             form = AddProjectForm()
         return render(request, 'projtrack/form_page.html',
-                      {'title_text': "Add Project", 'form': form,
+                      {'user': request.user, 'title_text': "Add Project", 'form': form,
                        'form_page': "/add_project/",
                        'error_message': error})
     else:
@@ -132,7 +132,7 @@ def edit_project(request):
         else:
             form = AddProjectForm()
         return render(request, 'projtrack/project_edit.html',
-                      {'title_text': "Edit Project", 'form': form,
+                      {'user': request.user, 'title_text': "Edit Project", 'form': form,
                        'form_page': "/edit_project/",
                        'error_message': error})
     else:
@@ -152,7 +152,7 @@ def add_client(request):
         else:
             form = AddClientForm()
         return render(request, 'projtrack/form_page.html',
-                      {'title_text': "Add Client", 'form': form,
+                      {'user': request.user, 'title_text': "Add Client", 'form': form,
                        'form_page': "/add_client/",
                        'error_message': error})
     else:
@@ -182,7 +182,7 @@ def project_delete(request):
         except ObjectDoesNotExist:
             projects = ""
         return render(request, 'projtrack/my_projects.html',
-                      {'title_text': 'My Projects',
+                      {'user': request.user, 'title_text': 'My Projects',
                        'projects': projects})
     else:
         return redirect('/not_logged_in')
@@ -203,7 +203,7 @@ def add_department(request):
         else:
             form = AddDeptForm()
         return render(request, 'projtrack/form_page.html',
-                      {'title_text': "Add Department", 'form': form,
+                      {'user': request.user, 'title_text': "Add Department", 'form': form,
                        'form_page': "/add_department/",
                        'error_message': error})
     else:
@@ -225,7 +225,7 @@ def add_type(request):
         else:
             form = AddTypeForm()
         return render(request, 'projtrack/form_page.html',
-                      {'title_text': "Add Type", 'form': form,
+                      {'user': request.user, 'title_text': "Add Type", 'form': form,
                        'form_page': "/add_type/",
                        'error_message': error})
     else:
