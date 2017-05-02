@@ -64,14 +64,28 @@
           			</ul>
         		</div>
         	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-         		<h1 class="page-header">{{ title_text }}</h1>
-          			{% block title %}{{ title_text }}{% endblock %}
-                {% block stuff %}
-                {% for o in list_view %}
-                  <p>{{ o.title }}; {{ o.description }}; {{ o.client }}; {{ o.users }}; {{ o.date }}</p>
-                {% endfor %}
-                {% endblock %}
-			</div>
+                    <h1 class="page-header">{{ title_text }}</h1>
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Client</th>
+                            <th>Users</th>
+                            <th>Date</th>
+                            <th></th>
+                        </tr>
+                        {% for o in list_view %}
+                        <tr>
+                            <td>{{ o.title }}</td>
+                            <td>{{ o.description }}</td>
+                            <td>{{ o.client }}</td>
+                            <td>{{ o.users }}</td>
+                            <td>{{ o.date }}</td>
+                            <td><a href="/projtrack3/project_edit/">Edit</a></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+			     </div>
       {% endblock %}
       	</div>
       }
