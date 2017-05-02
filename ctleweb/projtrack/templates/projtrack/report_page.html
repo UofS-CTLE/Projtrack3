@@ -2,36 +2,36 @@
     <title>Report {{ report.date }}</title>
 </head>
 <h1>{% block title %}Techcon Project Report{% endblock %}</h1>
-<a href='/projtrack3/report_page/'>Return to the report generation page.</a>
-<br />
-<br />
+<a href='/report_page/'>Return to the report generation page.</a>
+<br/>
+<br/>
 {% block content %}
 {% csrf_token %}
-Date: {{ report.date }}<br />
-Total Projects: {{ report.total_projects }}<br />
-Total Hours: {{ report.total_hours }}<br />
-Walk-ins: {{ report.walk_ins }} ({{ report.walk_in_percent }}%)<br />
-Projects per User<br />
+Date: {{ report.date }}<br/>
+Total Projects: {{ report.total_projects }}<br/>
+Total Hours: {{ report.total_hours }}<br/>
+Walk-ins: {{ report.walk_ins }} ({{ report.walk_in_percent }}%)<br/>
+Projects per User<br/>
 <table>
- 
-</table><br />
-Projects per Department<br />
+
+</table><br/>
+Projects per Department<br/>
 <table>
     {% for key in report.depts %}
     <tr>
         <td>{{ key }}</td>
     </tr>
     {% endfor %}
-</table><br />
-Projects per Type<br />
+</table><br/>
+Projects per Type<br/>
 <table>
     {% for key in report.types %}
     <tr>
         <td>{{ key }}</td>
     </tr>
     {% endfor %}
-</table><br />
-Statistics<br />
+</table><br/>
+Statistics<br/>
 <table>
     <tr>
         <td>Active Developers</td>
@@ -45,11 +45,11 @@ Statistics<br />
         <td>Average Hours per Developer</td>
         <td>{{ report.stats.average_hour }}</td>
     </tr>
-</table><br />
-Projects<br />
+</table><br/>
+Projects<br/>
 {% for x in report.project_list %}
 <p>{{ x.title }} {{ x.client }} {{ x.users }} {{ x.semester }} {{ x.date }}</p>
 <p>{{ x.description }}</p>
-<br />
+<br/>
 {% endfor %}
 {% endblock %}
