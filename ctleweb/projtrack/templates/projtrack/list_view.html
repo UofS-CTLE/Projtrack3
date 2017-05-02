@@ -65,12 +65,22 @@ window.onload = function() {
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                     <h1 class="page-header">{{ title_text }}</h1>
-                    {% block title %}{{ title_text }}{% endblock %}
-                    {% block stuff %}
-                    {% for o in list_view %}
-                    <p>{{ o.first_name }} {{o.last_name }}; {{ o.email }}</p>
-                    {% endfor %}
-                    {% endblock %}
+                    <table class="table table-hover">
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th></th>
+                        </tr>
+                        {% for o in list_view %}
+                        <tr>
+                            <td>{{o.first_name}}</td>
+                            <td>{{o.last_name}}</td>
+                            <td>{{o.email}}</td>
+                            <td><a href="/projtrack3/project_edit/">Edit????</a></td>
+                        </tr>
+                        {% endfor %}
+                    </table>
                     {% endblock %}
                 </div>
             </div>
