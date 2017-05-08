@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.shortcuts import render
 
 from .forms import AddProjectForm, AddClientForm, AddDeptForm, AddTypeForm, GenerateReportForm
@@ -118,11 +118,12 @@ def add_project(request):
         return redirect('/not_logged_in')
 
 
-def edit_project(request):
+def edit_project(request, id=None):
     error = ""
     if request.user.is_authenticated:
         if request.method == 'POST':
-            form = AddProjectForm(request.POST)
+            project = get_object_or_404(Project, pk=id)
+            form = AddProjectForm(request.POST or None, instance=project)
             if form.is_valid():
                 t = form.save()
                 t.save()
@@ -130,8 +131,9 @@ def edit_project(request):
             else:
                 error = "Form is invalid."
         else:
-            form = AddProjectForm()
-        return render(request, 'projtrack/project_edit.html',
+            project = get_object_or_404(Project, pk=id)
+            form = AddProjectForm(instance=project)
+        return render(request, 'projtrack/form_page.html',
                       {'user': request.user, 'title_text': "Edit Project", 'form': form,
                        'form_page': "/edit_project/",
                        'error_message': error})

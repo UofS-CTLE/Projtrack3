@@ -100,7 +100,7 @@ window.onload = function() {
                                 <a class="dropdown-item">{{ field }}</a>
                             </div>
                             {% else %}
-                            <p>{{field.label_tag}}{{field}}</p>
+                            <p>{{field.label_tag}}<br>{{field}}</p>
                             {% endif %}
                             {% endfor %}
                             <input type='submit' value='Submit' />
