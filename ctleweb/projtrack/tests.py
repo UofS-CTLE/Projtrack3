@@ -107,14 +107,6 @@ class TestNavigation(django.test.TestCase):
         response = self.client.post("/home/", follow=True)
         self.assertContains(response, "Home", status_code=200)
 
-    def test_edit_page(self):
-        response = self.client.get("/project_edit/")
-        self.assertContains(response, "Edit Project", status_code=200)
-
-    def test_delete_page(self):
-        response = self.client.get("/project_delete/")
-        self.assertContains(response, "My Projects", status_code=200)
-
 
 class TestReportGenerator(django.test.TestCase):
     def setUp(self):
