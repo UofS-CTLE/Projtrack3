@@ -21,7 +21,7 @@ def index(request):
                                 password=request.POST['password'])
             if user is not None:
                 login(request, user)
-                return redirect('/home')
+                return redirect('/projtrack3/home')
             else:
                 return render(request,
                               'projtrack/index.html',
@@ -36,7 +36,7 @@ def home(request):
     if request.user.is_authenticated:
         return render(request, 'projtrack/home.html', {'user': request.user})
     else:
-        return redirect('/not_logged_in')
+        return redirect('/projtrack3/not_logged_in')
 
 
 def report_page(request):
@@ -63,9 +63,9 @@ def report_page(request):
                           'projtrack/form_page.html',
                           {'user': request.user, 'title_text': 'Generate a Report',
                            'form': form,
-                           'form_page': '/report_page/'})
+                           'form_page': '/projtrack3/report_page/'})
     else:
-        return redirect('/not_logged_in')
+        return redirect('/projtrack3/not_logged_in')
 
 
 def my_projects(request):
@@ -83,7 +83,7 @@ def my_projects(request):
                       {'user': request.user, 'title_text': 'My Projects',
                        'projects': projects})
     else:
-        return redirect('/not_logged_in')
+        return redirect('/projtrack3/not_logged_in')
 
 
 def all_projects(request):
@@ -93,7 +93,7 @@ def all_projects(request):
                       {'user': request.user, 'title_text': "All Projects",
                        'list_view': projects})
     else:
-        return redirect('/not_logged_in')
+        return redirect('/projtrack3/not_logged_in')
 
 
 def add_project(request):
@@ -112,10 +112,10 @@ def add_project(request):
             form = AddProjectForm()
         return render(request, 'projtrack/form_page.html',
                       {'user': request.user, 'title_text': "Add Project", 'form': form,
-                       'form_page': "/add_project/",
+                       'form_page': "/projtrack3/add_project/",
                        'error_message': error})
     else:
-        return redirect('/not_logged_in')
+        return redirect('/projtrack3/not_logged_in')
 
 
 def edit_project(request, id=None):
@@ -135,10 +135,10 @@ def edit_project(request, id=None):
             form = AddProjectForm(instance=project)
         return render(request, 'projtrack/form_page.html',
                       {'user': request.user, 'title_text': "Edit Project", 'form': form,
-                       'form_page': "/edit_project/",
+                       'form_page': "/projtrack3/edit_project/",
                        'error_message': error})
     else:
-        return redirect('/not_logged_in')
+        return redirect('/projtrack3/not_logged_in')
 
 
 def add_client(request):
@@ -155,10 +155,10 @@ def add_client(request):
             form = AddClientForm()
         return render(request, 'projtrack/form_page.html',
                       {'user': request.user, 'title_text': "Add Client", 'form': form,
-                       'form_page': "/add_client/",
+                       'form_page': "/projtrack3/add_client/",
                        'error_message': error})
     else:
-        return redirect('/not_logged_in')
+        return redirect('/projtrack3/not_logged_in')
 
 
 def client_view(request):
@@ -168,7 +168,7 @@ def client_view(request):
                       {'title_text': "All Clients",
                        'list_view': clients})
     else:
-        return redirect('/not_logged_in')
+        return redirect('/projtrack3/not_logged_in')
 
 
 def project_delete(request):
@@ -187,7 +187,7 @@ def project_delete(request):
                       {'user': request.user, 'title_text': 'My Projects',
                        'projects': projects})
     else:
-        return redirect('/not_logged_in')
+        return redirect('/projtrack3/not_logged_in')
 
 
 def add_department(request):
@@ -206,10 +206,10 @@ def add_department(request):
             form = AddDeptForm()
         return render(request, 'projtrack/form_page.html',
                       {'user': request.user, 'title_text': "Add Department", 'form': form,
-                       'form_page': "/add_department/",
+                       'form_page': "/projtrack3/add_department/",
                        'error_message': error})
     else:
-        return redirect('/not_logged_in')
+        return redirect('/projtrack3/not_logged_in')
 
 
 def add_type(request):
@@ -228,10 +228,10 @@ def add_type(request):
             form = AddTypeForm()
         return render(request, 'projtrack/form_page.html',
                       {'user': request.user, 'title_text': "Add Type", 'form': form,
-                       'form_page': "/add_type/",
+                       'form_page': "/projtrack3/add_type/",
                        'error_message': error})
     else:
-        return redirect('/not_logged_in')
+        return redirect('/projtrack3/not_logged_in')
 
 
 def not_logged_in(request):
@@ -240,4 +240,4 @@ def not_logged_in(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('/index')
+    return redirect('/projtrack3/index')
