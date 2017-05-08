@@ -38,7 +38,7 @@ function clean {
 
 function compile {
     source_files=$(find . -name "*.py" ! -name "manage.py")
-    python -m py_compile $source_files
+    python -m py_compile ${source_files}
 }
 
 function migrate {

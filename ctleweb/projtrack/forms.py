@@ -14,7 +14,7 @@ class AddProjectForm(ModelForm):
     class Meta:
         model = Project
         field = '__all__'
-        exclude = ('date',)
+        exclude = ('date', 'deleted')
 
 
 class AddClientForm(ModelForm):

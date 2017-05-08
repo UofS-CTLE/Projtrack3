@@ -56,11 +56,13 @@ class Project(models.Model):
     description = models.CharField(max_length=500)
     date = models.DateField(editable=False, default=str(datetime.date.today()))
     type = models.ForeignKey(Type, on_delete=models.CASCADE)
-    walk_in = models.BooleanField()
+    walk_in = models.BooleanField(default=False)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     users = models.ForeignKey(User, on_delete=models.CASCADE)
     semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
     hours = models.PositiveIntegerField(default=0)
+    completed = models.BooleanField(default=False)
+    deleted = models.BooleanField(default=False)
 
     class Meta:
         db_table = u'Project'
