@@ -11,11 +11,11 @@ Date: {{ report.date }}<br/>
 Total Projects: {{ report.total_projects }}<br/>
 Total Hours: {{ report.total_hours }}<br/>
 Walk-ins: {{ report.walk_ins }} ({{ report.walk_in_percent }}%)<br/>
-Projects per User<br/>
+<h3>Projects per User</h3><br/>
 <table>
 
 </table><br/>
-Projects per Department<br/>
+<h3>Projects per Department</h3><br/>
 <table>
     {% for key in report.depts %}
     <tr>
@@ -23,7 +23,7 @@ Projects per Department<br/>
     </tr>
     {% endfor %}
 </table><br/>
-Projects per Type<br/>
+<h3>Projects per Type</h3><br/>
 <table>
     {% for key in report.types %}
     <tr>
@@ -31,10 +31,10 @@ Projects per Type<br/>
     </tr>
     {% endfor %}
 </table><br/>
-Statistics<br/>
+<h3>Statistics</h3><br/>
 <table>
     <tr>
-        <td>Active Developers</td>
+        <td><h4>Active Developers</h4></td>
         <td>{{ report.stats.active_devs }}</td>
     </tr>
     <tr>
@@ -46,7 +46,7 @@ Statistics<br/>
         <td>{{ report.stats.average_hour }}</td>
     </tr>
 </table><br/>
-Projects<br/>
+<h3>Projects</h3><br/>
 {% for x in report.project_list %}
 <p>{{ x.title }} {{ x.client }} {{ x.users }} {{ x.semester }} {{ x.date }}</p>
 <p>{{ x.description }}</p>
