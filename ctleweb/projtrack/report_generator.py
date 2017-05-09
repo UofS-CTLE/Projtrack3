@@ -4,6 +4,8 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from .models import Project, User, Client, Department, Type
 
+from django.template.defaulttags import register
+
 
 def bubble_sort(l):
     for i in range(len(l)):
@@ -205,3 +207,8 @@ def generate_report(req):
     report = generate_stats(proj_list)
     report['project_list'] = proj_list
     return report
+
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)
