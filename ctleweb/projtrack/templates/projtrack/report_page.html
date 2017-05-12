@@ -3,6 +3,11 @@
 {% load projtrack_filters %}
 <head>
     <title>Report {{ report.date }}</title>
+    <style>
+	table, th, td {
+	    border: 1px solid black;
+	}
+    </style>
 </head>
 <h1>{% block title %}Techcon Project Report{% endblock %}</h1>
 <a href='/projtrack3/report_page/'>Return to the report generation page.</a>
@@ -51,7 +56,7 @@ Walk-ins: {{ report.walk_ins }} ({{ report.walk_in_percent }}%)<br/>
 </table><br/>
 <h3>Projects</h3><br/>
 {% for x in report.project_list %}
-<table style="boarder: 1px solid black;">
+<table> 
     <tr>
         <td>{{ x.title }}</td>
         <td>{{ x.client }}</td>
