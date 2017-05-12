@@ -59,12 +59,20 @@ Walk-ins: {{ report.walk_ins }} ({{ report.walk_in_percent }}%)<br/>
 </table><br/>
 <h3>Projects</h3><br/>
 <table>
+    <tr>
+        <td>Title</td>
+        <td>Client</td>
+        <td>Techcon</td>
+        <td>Hours</td>
+        <td>Date</td>
+        <td>Description</td>
+    </tr>
 {% for x in report.project_list %}
     <tr>
         <td>{{ x.title }}</td>
         <td>{{ x.client }}</td>
         <td>{{ x.users }}</td>
-        <td>{{ x.semester }}</td>
+        <td>{{ x.hours }}</td>
         <td>{{ x.date }}</td>
         <td>{{ x.description }}</td>
     </tr>
