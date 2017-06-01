@@ -26,7 +26,7 @@ function all {
 }
 
 function run_tests {
-    python manage.py test
+    python manage.py test projtrack.tests
 }
 
 function clean {
