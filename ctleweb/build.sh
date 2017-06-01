@@ -15,6 +15,8 @@ function script_help {
     echo -e '\tdeploy: deploys the app to production'
     echo -e '\tall-run: cleans, compiles, migrates, and starts the development server'
     echo -e '\tall-deploy: cleans, compiles, migrates, and deploys to production'
+    echo -e '\tall: performs all cleaning, compiling, and testing functions'
+    echo -e '\trestart: restarts the production Apache daemon'
 }
 
 function all {
@@ -93,6 +95,10 @@ case "$1" in
 
     all)
         all
+        ;;
+
+    restart)
+        sudo service httpd restart
         ;;
 
     *)
