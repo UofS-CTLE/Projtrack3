@@ -17,6 +17,7 @@ function script_help {
     echo -e '\tall-deploy: cleans, compiles, migrates, and deploys to production'
     echo -e '\tall: performs all cleaning, compiling, and testing functions'
     echo -e '\trestart: restarts the production Apache daemon'
+    echo -e '\tpopulate: populates the database'
 }
 
 function all {
@@ -99,6 +100,10 @@ case "$1" in
 
     restart)
         sudo service httpd restart
+        ;;
+
+    populate)
+        python Populate_Projtrack3.py
         ;;
 
     *)

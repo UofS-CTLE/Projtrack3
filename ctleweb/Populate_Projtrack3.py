@@ -1,4 +1,11 @@
+import django
 import os
+from django.conf import settings
+from projtrack.models import Department, Client, Type
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ctlweb.settings')
+django.setup()
+settings.configure()
 
 
 def populate():
@@ -360,6 +367,4 @@ def add_type(name):
 if __name__ == '__main__':
     print("Populating database...")
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ctleweb.settings')
-    from ctleweb.projtrack.models import Department, Client, Type
-
     populate()
