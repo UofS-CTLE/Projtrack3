@@ -97,3 +97,4 @@ ctleweb/db.sqlite3
 ctleweb/projtrack/migrations
 projtrack/__pycache__/
 ctleweb/__pycache__/
+/.idea/

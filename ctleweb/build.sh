@@ -26,7 +26,7 @@ function all {
 }
 
 function run_tests {
-    python3 manage.py test
+    python manage.py test projtrack.tests
 }
 
 function clean {
@@ -38,7 +38,7 @@ function clean {
 
 function compile {
     source_files=$(find . -name "*.py" ! -name "manage.py")
-    python3 -m py_compile $source_files
+    python -m py_compile ${source_files}
 }
 
 function migrate {

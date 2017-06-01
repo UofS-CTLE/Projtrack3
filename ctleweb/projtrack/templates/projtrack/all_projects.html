@@ -25,11 +25,14 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/projtrack3/home/"><img alt="Brand" style="width:25px;height:25px;" src="{% static "projtrack/favicon.ico" %}"></a>
+            <a class="navbar-brand" href="/projtrack3/home/"><img alt="Brand" style="width:25px;height:25px;"
+                                                                  src="{% static 'projtrack/favicon.ico' %}"></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-left">
-            <li role="presentation"><a href="/projtrack3/logout/" class="color-me"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign Out</a></li>
+              <li role="presentation"><a href="/projtrack3/logout/" class="color-me"><span class="glyphicon glyphicon-log-out"
+                                                                                aria-hidden="true"></span> Sign Out</a>
+              </li>
           </ul>
         </div>
       </div>
@@ -47,34 +50,47 @@
       		<div class="row">
         		<div class="col-sm-3 col-md-2 sidebar">
        				<ul class="nav nav-sidebar">
-            			<li><a href="/projtrack3/home/" class="color-me-dos">Home<span class="sr-only">(current)</span></a></li>
+                        <li><a href="/projtrack3/home/" class="color-me-dos">Home<span class="sr-only">(current)</span></a></li>
           			</ul>
           			<ul class="nav nav-sidebar">
-            			<li><a href="/projtrack3/my_projects/" class="color-me-dos">My Projects</a></li>
-            			<li class="active"><a href="/projtrack3/all_projects/" class="color-me-dos">All Projects</a></li>
-            			<li><a href="/projtrack3/add_project/" class="color-me-dos">Add Project</a></li>
+                        <li><a href="/projtrack3/my_projects/" class="color-me-dos">My Projects</a></li>
+                        <li class="active"><a href="/projtrack3/all_projects/" class="color-me-dos">All Projects</a></li>
+                        <li><a href="/projtrack3/add_project/" class="color-me-dos">Add Project</a></li>
           			</ul>
           			<ul class="nav nav-sidebar">
-          				<li><a href="/projtrack3/add_department/" class="color-me-dos">Add Department</a></li>
-          				<li><a href="/projtrack3/add_client/" class="color-me-dos">Add Client</a></li>
-            			<li><a href="/projtrack3/client_view/" class="color-me-dos">All Clients</a></li>
+                        <li><a href="/projtrack3/add_department/" class="color-me-dos">Add Department</a></li>
+                        <li><a href="/projtrack3/add_client/" class="color-me-dos">Add Client</a></li>
+                        <li><a href="/projtrack3/client_view/" class="color-me-dos">All Clients</a></li>
           			</ul>
           			<ul class="nav nav-sidebar">
-          				<li><a href="/projtrack3/report_page/" class="color-me-dos">Reports</a></li>
+                        <li><a href="/projtrack3/report_page/" class="color-me-dos">Reports</a></li>
           			</ul>
         		</div>
         	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-         		<h1 class="page-header">{{ title_text }}</h1>
-          			{% block title %}{{ title_text }}{% endblock %}
-                {% block stuff %}
-                {% for o in list_view %}
-                  <p>{{ o.title }}; {{ o.description }}; {{ o.client }}; {{ o.users }}; {{ o.date }}</p>
-                {% endfor %}
-                {% endblock %}
-			</div>
+                <h1 class="page-header">{{ title_text }}</h1>
+                <table class="table table-hover">
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Client</th>
+                        <th>Users</th>
+                        <th>Date</th>
+                        <th>Completed</th>
+                    </tr>
+                    {% for o in list_view %}
+                    <tr>
+                        <td>{{ o.title }}</td>
+                        <td>{{ o.description }}</td>
+                        <td>{{ o.client }}</td>
+                        <td>{{ o.users }}</td>
+                        <td>{{ o.date }}</td>
+                        <td>{{ o.completed }}</td>
+                        <td><a href="/projtrack3/project_edit/{{ o.id }}">Edit</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
       {% endblock %}
       	</div>
-      }
-      }
 	</body>
 </html>

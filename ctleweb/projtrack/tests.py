@@ -71,7 +71,9 @@ class ProjectTestCase(django.test.TestCase):
                                date=str(datetime.date.today()),
                                semester=Semester.objects.create(name="Spring 2913"),
                                client=Client.objects.get(first_name="Ralph"),
-                               users=User.objects.get(username="techconbob"))
+                               users=User.objects.get(username="techconbob"),
+                               completed=False,
+                               deleted=False)
 
     def test_user(self):
         p = Project.objects.get(title="Test Project")
@@ -105,14 +107,6 @@ class TestNavigation(django.test.TestCase):
         response = self.client.post("/home/", follow=True)
         self.assertContains(response, "Home", status_code=200)
 
-    def test_edit_page(self):
-        response = self.client.get("/project_edit/")
-        self.assertContains(response, "Edit Project", status_code=200)
-
-    def test_delete_page(self):
-        response = self.client.get("/project_delete/")
-        self.assertContains(response, "My Projects", status_code=200)
-
 
 class TestReportGenerator(django.test.TestCase):
     def setUp(self):
@@ -126,7 +120,9 @@ class TestReportGenerator(django.test.TestCase):
                                                             department=Department.objects.create(name="Testing"),
                                                             email='roberts@email.com'),
                                users=User.objects.create(username="admin"),
-                               semester=Semester.objects.create(name="Test"))
+                               semester=Semester.objects.create(name="Test"),
+                               completed=False,
+                               deleted=False)
         Project.objects.create(title="Stuff",
                                description="Why",
                                date=datetime.date.today(),
@@ -137,7 +133,9 @@ class TestReportGenerator(django.test.TestCase):
                                                             department=Department.objects.create(name="Science"),
                                                             email='jerries@email.com'),
                                users=User.objects.create(username="techconbob"),
-                               semester=Semester.objects.create(name="Test2"))
+                               semester=Semester.objects.create(name="Test2"),
+                               completed=False,
+                               deleted=False)
         Project.objects.create(title="Help",
                                description="Testing",
                                date=datetime.date.today(),
@@ -148,7 +146,9 @@ class TestReportGenerator(django.test.TestCase):
                                                             department=Department.objects.create(name="CTLE"),
                                                             email='jerries@email.com'),
                                users=User.objects.create(username="harry"),
-                               semester=Semester.objects.create(name="Later"))
+                               semester=Semester.objects.create(name="Later"),
+                               completed=False,
+                               deleted=False)
 
     def test_bubble_sort(self):
         l = [3, 2, 5, 1, 4]

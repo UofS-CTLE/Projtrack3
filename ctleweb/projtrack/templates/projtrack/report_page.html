@@ -1,37 +1,48 @@
+<!DOCTYPE html>
+<html>
+{% load projtrack_filters %}
 <head>
     <title>Report {{ report.date }}</title>
+    <style>
+	table, th, td {
+	    border: 1px solid black;
+	    padding: 5px;
+	}
+    </style>
 </head>
 <h1>{% block title %}Techcon Project Report{% endblock %}</h1>
 <a href='/projtrack3/report_page/'>Return to the report generation page.</a>
-<br />
-<br />
+<br/>
+<br/>
 {% block content %}
 {% csrf_token %}
-Date: {{ report.date }}<br />
-Total Projects: {{ report.total_projects }}<br />
-Total Hours: {{ report.total_hours }}<br />
-Walk-ins: {{ report.walk_ins }} ({{ report.walk_in_percent }}%)<br />
-Projects per User<br />
+Date: {{ report.date }}<br/>
+Total Projects: {{ report.total_projects }}<br/>
+Total Hours: {{ report.total_hours }}<br/>
+Walk-ins: {{ report.walk_ins }} ({{ report.walk_in_percent }}%)<br/>
+<h3>Projects per User</h3><br/>
 <table>
- 
-</table><br />
-Projects per Department<br />
+
+</table><br/>
+<h3>Projects per Department</h3><br/>
 <table>
     {% for key in report.depts %}
     <tr>
         <td>{{ key }}</td>
+        <td>{{ report.depts|get_item:key }}</td>
     </tr>
     {% endfor %}
-</table><br />
-Projects per Type<br />
+</table><br/>
+<h3>Projects per Type</h3><br/>
 <table>
     {% for key in report.types %}
     <tr>
         <td>{{ key }}</td>
+        <td>{{ report.types|get_item:key }}</td>
     </tr>
     {% endfor %}
-</table><br />
-Statistics<br />
+</table><br/>
+<h3>Statistics</h3><br/>
 <table>
     <tr>
         <td>Active Developers</td>
@@ -45,11 +56,27 @@ Statistics<br />
         <td>Average Hours per Developer</td>
         <td>{{ report.stats.average_hour }}</td>
     </tr>
-</table><br />
-Projects<br />
+</table><br/>
+<h3>Projects</h3><br/>
+<table>
+    <tr>
+        <td>Title</td>
+        <td>Client</td>
+        <td>Techcon</td>
+        <td>Hours</td>
+        <td>Date</td>
+        <td>Description</td>
+    </tr>
 {% for x in report.project_list %}
-<p>{{ x.title }} {{ x.client }} {{ x.users }} {{ x.semester }} {{ x.date }}</p>
-<p>{{ x.description }}</p>
-<br />
+    <tr>
+        <td>{{ x.title }}</td>
+        <td>{{ x.client }}</td>
+        <td>{{ x.users }}</td>
+        <td>{{ x.hours }}</td>
+        <td>{{ x.date }}</td>
+        <td>{{ x.description }}</td>
+    </tr>
 {% endfor %}
+</table>
 {% endblock %}
+</html>
