@@ -359,7 +359,7 @@ def add_type(name):
 # Start execution here!
 if __name__ == '__main__':
     print("Populating database...")
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ctle.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ctleweb.settings')
     from ctleweb.projtrack.models import Department, Client, Type
 
     populate()
