@@ -13,7 +13,7 @@ def populate():
         add_department(object)
 
 
-clients = [['Aileen', 'McHale', 'aileen.mchale@scranton.edu' , 'CTLE'],
+    clients = [['Aileen', 'McHale', 'aileen.mchale@scranton.edu' , 'CTLE'],
            ['Betsey', 'Moylan', 'Betsey.moylan@scranton.edu' , 'FAC'],
            ['Brian', 'Snapp', 'brian.snapp@scranton.edu' , 'CTLE'],
            ['Patrick', 'Mohr', 'jpatrick.mohr@scranton.edu' , 'Philosophy'],
@@ -322,6 +322,9 @@ clients = [['Aileen', 'McHale', 'aileen.mchale@scranton.edu' , 'CTLE'],
 for object in clients:
     add_client(object[0], object[1], object[2], object[3])
 
+    types  = ['CMS','Website','Visual Argument','Digitizing','Recording','Software','Research','Scanning','CD/DVD','Miscellaneous','Professional Development','MS Powerpoint','MS Excel','MS Word','MS Access','Windows Movie Maker','iMovie','Image Editing','PDF','File Conversion','Video','Desire  Learn','Documentation','Cross Training']
+    for object in types:
+        add_type(object)
     # Print out what we have added to the user.
     #for c in Category.objects.all():
     #    for p in Page.objects.filter(category=c):
@@ -332,17 +335,17 @@ def add_department(name):
     d.save()
     return d
 def add_client(first_name, last_name, email, department):
-    c = Department.objects.get_or_create(first_name=first_name, last_name=last_name, email=email, department=department)[0]
+    c = Client.objects.get_or_create(first_name=first_name, last_name=last_name, email=email, department=department)[0]
     c.save()
     return c
 def add_type(name):
-    t = Department.objects.get_or_create(name=name)[0]
+    t = Type.objects.get_or_create(name=name)[0]
     t.save()
     return t
-def add_project(title, description, type, walk_in, client, users):
+'''def add_project(title, description, type, walk_in, client, users):
     p = Department.objects.get_or_create(title=title, description=description, type=type, walk_in=walk_in, client=client, users=users)[0]
     p.save()
-    return p
+    return p'''
 
 
 
