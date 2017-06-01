@@ -1,10 +1,9 @@
 import os
 
 
-#import django
+import django
 
-
-#from ctleweb.projtrack.models import Department, Client, Type, Project
+from ctleweb.projtrack.models import Department, Client, Type, Project
 
 
 def populate():
