@@ -1,11 +1,5 @@
 import os
 
-
-import django
-
-from ctleweb.projtrack.models import Department, Client, Type, Project
-
-
 def populate():
     departments = ['Mathematics', 'Computer Science', 'CTLE', 'History', 'Student', 'ISP', 'KSOM', 'Recreation', 'Counseling', 'Philosophy', 'OIM', 'Physics', 'Biology', 'Nursing', 'English', 'Criminal Justice', 'Theology', 'Athletics', 'Physical Therapy', 'FAC', 'Psychology', 'Multicultural Affairs', 'Foreign Languages', 'Education', 'Communication', 'HAHR', 'Annual Given Programs', 'Human Resources', 'Excercise Science', 'Occupational Therapy', 'Student Affairs', 'Library', 'PCPS', 'Chemistry', 'HADM', 'World languages and Culture ', 'Public Safety', 'Accounting', 'Management', 'Art & History', 'Wellness Center', 'Business', 'Career Services']
     
@@ -351,4 +345,8 @@ def add_type(name):
 
 # Start execution here!
 if __name__ == '__main__':
+    print("Populating database...")
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ctle.settings')
+    from ctleweb.projtrack.models import Department, Client, Type
+
     populate()
