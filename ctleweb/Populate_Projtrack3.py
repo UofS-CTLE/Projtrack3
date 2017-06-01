@@ -1,11 +1,11 @@
+# This doesn't even pretend to work yet.
+
 import django
 import os
-from django.conf import settings
 from projtrack.models import Department, Client, Type
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ctlweb.settings')
 django.setup()
-settings.configure()
 
 
 def populate():
@@ -357,14 +357,15 @@ def add_type(name):
     t.save()
     return t
 
-
-'''def add_project(title, description, type, walk_in, client, users):
-    p = Department.objects.get_or_create(title=title, description=description, type=type, walk_in=walk_in, client=client, users=users)[0]
+'''
+def add_project(title, description, type, walk_in, client, users):
+    p = Department.objects.get_or_create(title=title, description=description, type=type, walk_in=walk_in, 
+                                         client=client, users=users)[0]
     p.save()
-    return p'''
+    return p
+'''
 
 # Start execution here!
 if __name__ == '__main__':
     print("Populating database...")
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ctleweb.settings')
     populate()
