@@ -6,7 +6,7 @@ from django.shortcuts import render
 from .forms import AddProjectForm, AddClientForm, AddDeptForm, AddTypeForm, GenerateReportForm
 from .forms import LoginForm
 from .models import Client, Project, User
-from .report_generator import generate_report
+from .report_generator import generate_report, generate_stats
 
 
 def issues(request):
@@ -55,8 +55,9 @@ def report_page(request):
                     'sort_by_date': request.POST.get('sort_by_date')
                 }
                 report = generate_report(req)
+                stats = generate_stats(report)
                 return render(request, 'projtrack/report_page.html',
-                              {'user': request.user, 'report': report})
+                              {'user': request.user, 'report': report, 'stats': stats})
         else:
             form = GenerateReportForm()
             return render(request,
