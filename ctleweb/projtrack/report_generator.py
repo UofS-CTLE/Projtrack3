@@ -202,4 +202,6 @@ def generate_report(req):
         proj_list = proj_list & x
     if req['sort_by_date']:
         proj_list = bubble_sort(list(proj_list))
-    return proj_list
+    report = generate_stats(proj_list)
+    report['project_list'] = proj_list
+    return report
