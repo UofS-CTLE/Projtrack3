@@ -34,7 +34,7 @@ Walk-ins: {{ report.walk_ins }} ({{ report.walk_in_percent }}%)<br/>
     {% for key in report.depts %}
     <tr>
         <td>{{ key }}</td>
-        <td>{{ report.depts|get_item:key }}</td>
+        <td>{{ (report.depts|get_item:key) }}</td>
     </tr>
     {% endfor %}
 </table><br/>
