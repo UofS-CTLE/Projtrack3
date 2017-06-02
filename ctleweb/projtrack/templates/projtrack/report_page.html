@@ -32,7 +32,7 @@ Walk-ins: {{ report.walk_ins }} ({{ report.walk_in_percent }}%)<br/>
 <h3>Projects per Department</h3><br/>
 <table>
     {% for key in report.depts %}
-    report.depts
+    {{ report.depts }}
     <tr>
         <td>{{ key }}</td>
         <td>{{ report.depts|get_item:key }}</td>
