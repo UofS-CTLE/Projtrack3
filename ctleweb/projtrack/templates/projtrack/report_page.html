@@ -21,14 +21,10 @@ Total Projects: {{ report.total_projects }}<br/>
 Total Hours: {{ report.total_hours }}<br/>
 Walk-ins: {{ report.walk_ins }} ({{ report.walk_in_percent }}%)<br/>
 <h3>Projects per User</h3><br/>
-<table>
     {% for key in report.users %}
-    <tr>
-        <td>{{ key }}</td>
-        <td>{{ report.users|get_item:key }}</td>
-    </tr>
+        {{ key }} {{ report.users|get_item:key }}<br/>
     {% endfor %}
-</table><br/>
+<br/>
 <h3>Projects per Department</h3><br/>
 <table>
     {% for key in report.depts %}
