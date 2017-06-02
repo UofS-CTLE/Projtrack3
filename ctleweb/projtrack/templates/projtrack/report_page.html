@@ -27,6 +27,7 @@ Walk-ins: {{ report.walk_ins }} ({{ report.walk_in_percent }}%)<br/>
         <td>{{ key }}</td>
         <td>{{ report.users|get_item:key }}</td>
     </tr>
+    {% endfor %}
 </table><br/>
 <h3>Projects per Department</h3><br/>
 <table>
