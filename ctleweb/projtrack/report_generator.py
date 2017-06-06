@@ -131,7 +131,7 @@ def check_type(proj):
 
 
 def generate_stats(report):
-   hours = 0
+    hours = 0
     walk_ins = 0
     projects = len(report)
     users = dict()
