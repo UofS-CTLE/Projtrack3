@@ -29,7 +29,7 @@ def index(request):
                                'form': form})
     else:
         form = LoginForm()
-        return render(request, 'projtrack/index.html', {'form': form})
+        return render(request, 'projtrack/index.html', {'form': form, 'user': user})
 
 
 def home(request):
@@ -165,7 +165,7 @@ def client_view(request):
     if request.user.is_authenticated:
         clients = Client.objects.all()
         return render(request, 'projtrack/list_view.html',
-                      {'title_text': "All Clients",
+                      {'title_text': "All Clients",'user': request.user,
                        'list_view': clients})
     else:
         return redirect('/projtrack3/not_logged_in')
