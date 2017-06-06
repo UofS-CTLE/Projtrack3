@@ -1,5 +1,5 @@
 # Projtrack 3
-
+***!!! IMPORTANT The development server currently does not work. Any testing will need to be done in the eventual production environment. !!!***
 ***Remember to run build.sh before opening a pull request.***
 
 This project's dependencies include Django.
@@ -52,4 +52,4 @@ When contributing to the project:
 **Only working code should ever be committed to master.**
 
 # Testing with an admin account
-Since the binary files and database files are not being shared, the administrative/user accounts will not be shared on the Github repository. In order to access admin functions, you'll need to run `python manage.py createsuperuser` to set up the environment.
+Since the binary files and database files are not being shared, the administrative/user accounts will not be shared on the Github repository. In order to access admin functions on the development server, you'll need to run `python manage.py createsuperuser` to set up the environment.
