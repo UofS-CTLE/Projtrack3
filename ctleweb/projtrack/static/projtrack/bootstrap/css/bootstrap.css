@@ -6,8 +6,8 @@
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 html {
   font-family: sans-serif;
-  -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 150%;
+      -ms-text-size-adjust: 150%;
 }
 body {
   margin: 0;
