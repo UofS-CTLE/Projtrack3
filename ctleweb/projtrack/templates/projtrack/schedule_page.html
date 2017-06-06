@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+{% load projtrack_filters %}
+<head>
+    <title>Report {{ schedule.date }}</title>
+    <style>
+	table, th, td {
+	    border: 1px solid black;
+	    padding: 5px;
+	}
+
+    </style>
+</head>
+<h1>{% block title %}Techcon Schedule{% endblock %}</h1>
+<br/>
+<br/>
+{% block content %}
+{% csrf_token %}
+{% endblock %}
+</html>
