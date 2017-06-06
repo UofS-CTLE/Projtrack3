@@ -6,7 +6,11 @@
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 html {
   font-family: sans-serif;
+<<<<<<< HEAD
   -webkit-text-size-adjust: 150%;
+=======
+  -webkit-text-size-adjust: 100%;
+>>>>>>> parent of d2035c6... I put the change back to what it was before
       -ms-text-size-adjust: 150%;
 }
 body {
