@@ -8,6 +8,14 @@ from .report_generator import check_semester, check_client, check_dates, check_d
     check_type, bubble_sort, retrieve_most_recent_techcon
 
 
+class ScheduleTestCase(django.test.TestCase):
+    def setUp(self):
+        pass
+
+    def test_schedule_one(self):
+        pass
+
+
 class DepartmentTestCase(django.test.TestCase):
     def setUp(self):
         Department.objects.create(name="A")

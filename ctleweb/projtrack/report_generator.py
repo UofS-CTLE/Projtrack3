@@ -132,7 +132,7 @@ def check_type(proj):
 
 def generate_stats(report):
     # TODO REWRITE THIS FUNCTION GOOD LORD
-    # TODO THIS IS SOME OF THE WORST CODE I'VE EVER WRITTEN
+    # TODO THIS IS SOE OF THE WORST CODE I'VE EVER WRITTEN
     # TODO This *SHOULD NOT* make it past the Alpha stage.
     hours = 0
     walk_ins = 0
@@ -146,7 +146,7 @@ def generate_stats(report):
         proj = 0
         hour = 0
         for y in list(Project.objects.all()):
-            if y.users.email is x.email:
+            if y.users.email == x.email:
                 proj += 1
                 hour += y.hours
         users[x.email] = {'projects': proj, 'hours': hour}
@@ -154,14 +154,14 @@ def generate_stats(report):
     for x in list(Department.objects.all()):
         proj = 0
         for y in list(Project.objects.all()):
-            if y.client.department.name is x.name:
+            if y.client.department.name == x.name:
                 proj += 1
         depts[x.name] = proj
     types = dict()
     for x in list(Type.objects.all()):
         proj = 0
         for y in list(Project.objects.all()):
-            if y.type is x:
+            if y.type == x:
                 proj += 1
         types[x.name] = proj
     try:
