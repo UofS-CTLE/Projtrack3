@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ -n '/bin/python3' ]; then
-	alias python=python3
+	alias python=python
 fi
 
 function script_help {
@@ -25,7 +25,7 @@ function all {
     compile
     migrate
     run_tests
-    python3 manage.py createsuperuser
+    python manage.py createsuperuser
 }
 
 function run_tests {
@@ -45,8 +45,8 @@ function compile {
 }
 
 function migrate {
-    python3 manage.py makemigrations projtrack
-    python3 manage.py migrate
+    python manage.py makemigrations projtrack
+    python manage.py migrate
 }
 
 function deploy {
@@ -56,7 +56,7 @@ function deploy {
 }
 
 function run {
-    python3 manage.py runserver 8080
+    python manage.py runserver 8080
 }
 
 case "$1" in
