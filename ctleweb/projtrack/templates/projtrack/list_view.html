@@ -72,13 +72,14 @@ window.onload = function() {
                             <th>First Name</th>
                             <th>Last Name</th>
                             <th>Email</th>
-                            <th></th>
+                            <th>Department</th>
                         </tr>
                         {% for o in list_view %}
                         <tr>
-                            <td>{{o.first_name}}</td>
-                            <td>{{o.last_name}}</td>
-                            <td>{{o.email}}</td>
+                            <td>{{ o.first_name }}</td>
+                            <td>{{ o.last_name }}</td>
+                            <td>{{ o.email }}</td>
+                            <td>{{ o.department }}</td>
                         </tr>
                         {% endfor %}
                     </table>

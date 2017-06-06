@@ -1,24 +1,20 @@
 # This doesn't even pretend to work yet.
 
-import django
-import os
-from projtrack.models import Department, Client, Type
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ctlweb.settings')
-django.setup()
-
+import sqlite3
 
 def populate():
+    conn = sqlite3.connect('db.sqlite3')
+    c = conn.cursor()
     departments = ['Mathematics', 'Computer Science', 'CTLE', 'History', 'Student', 'ISP', 'KSOM', 'Recreation',
                    'Counseling', 'Philosophy', 'OIM', 'Physics', 'Biology', 'Nursing', 'English', 'Criminal Justice',
                    'Theology', 'Athletics', 'Physical Therapy', 'FAC', 'Psychology', 'Multicultural Affairs',
                    'Foreign Languages', 'Education', 'Communication', 'HAHR', 'Annual Given Programs',
                    'Human Resources', 'Exercise Science', 'Occupational Therapy', 'Student Affairs', 'Library', 'PCPS',
-                   'Chemistry', 'HADM', 'World languages and Culture ', 'Public Safety', 'Accounting', 'Management',
+                   'Chemistry', 'HADM', 'World Languages and Culture', 'Public Safety', 'Accounting', 'Management',
                    'Art & History', 'Wellness Center', 'Business', 'Career Services']
 
     for obj in departments:
-        add_department(obj)
+        add_department(c, obj)
 
     clients = [['Aileen', 'McHale', 'aileen.mchale@scranton.edu', 'CTLE'],
                ['Betsey', 'Moylan', 'Betsey.moylan@scranton.edu', 'FAC'],
@@ -104,7 +100,6 @@ def populate():
                ['George', 'Gomez', 'george.gomez@scranton.edu', 'Annual Given Programs'],
                ['Patricia ', 'Wisniewski', 'patricia.wisniewski@scranton.edu', 'Annual Given Programs'],
                ['Denise', 'Karpowicz', 'denise.karpowicz@scranton.edu', 'CTLE'],
-               ['Blank', 'Blank', 'Blank', 'Mathematics'],
                ['Patrick', 'Clark', 'Patrick.clark@scranton.edu', 'Annual Given Programs'],
                ['Jeremy', 'Brees', 'jeremy.brees@scranton.edu', 'KSOM'],
                ['Andrew', 'Gregorowicz', 'andrew.gregorowicz@scranton.edu', 'KSOM'],
@@ -206,7 +201,7 @@ def populate():
                ['Julia', 'Guzman', 'julia.guzman@scranton.edu', 'Occupational Therapy'],
                ['Roger ', 'Lloyd', 'roger.lloyd@scranton.edu', 'Mathematics'],
                ['Allison', 'Lai', 'allison.lai@scranton.edu', 'CTLE'],
-               ['alex', 'pinarreta', 'alex.pinarreta@scranton.edu', 'Annual Given Programs'],
+               ['Alex', 'Pinarreta', 'alex.pinarreta@scranton.edu', 'Annual Given Programs'],
                ['Raquel', 'Biondi', 'raquel.biondi@scranton.edu', 'Accounting'],
                ['Bernie', 'Gilligan', 'bernard.gilligan@scranton.edu', 'Nursing'],
                ['Clay', 'Nottleman', 'clay.nottleman@scranton.edu', 'Human Resources'],
@@ -239,7 +234,7 @@ def populate():
                ['Doug', 'Boyle', 'doug.boyle@scranton.edu', 'Accounting'],
                ['vincent', 'castellani', 'vincent.castellani@scranton.edu', 'KSOM'],
                ['Luke', 'Vitagliano', 'luke.vitagliano@scranton.edu', 'Counseling'],
-               ['hanna', 'sandor', 'hanna.sandor@scranton.edu', 'Nursing'],
+               ['Hanna', 'Sandor', 'hanna.sandor@scranton.edu', 'Nursing'],
                ['Alex', 'Ochalski', 'alex.ochalski@scranton.edu', 'Student'],
                ['Sarah', 'Novak', 'sarah.novak@scranton.edu', 'Student'],
                ['Lisa ', 'Lesneski', 'Lisa.lesneski@scranton.edu', 'Nursing'],
@@ -248,8 +243,8 @@ def populate():
                ['Julie', 'Brackeva-Phillips', 'julie.brackeva-phillips@scranton.edu', 'CTLE'],
                ['Joan', 'Grossman', 'joan.grossman@scranton.edu', 'Accounting'],
                ['Susan ', 'Scanland', 'susan.scanland@scratnon.edu', 'Accounting'],
-               ['anthony', 'marasco', 'anthony.marasco@scranton.edu', 'CTLE'],
-               ['jinghan', 'cai', 'jinghan.cai@scranton.edu', 'KSOM'],
+               ['Anthony', 'Marasco', 'anthony.marasco@scranton.edu', 'CTLE'],
+               ['Jinghan', 'Cai', 'jinghan.cai@scranton.edu', 'KSOM'],
                ['Vincent', 'Marshall', 'vincent.marshall@scranton.edu', 'Accounting'],
                ['Kyle', 'Hassett', 'kyle.hassett@scranton.edu', 'CTLE'],
                ['Blaise', 'Casillo', 'blaise.casillo@scranton.edu', 'CTLE'],
@@ -277,12 +272,12 @@ def populate():
                ['Terri Freeman', 'Smith', 'terrifreeman.smith@scranton.edu', 'Human Resources'],
                ['Laura', 'Skoronski', 'laura.skoronski@scranton.edu', 'Nursing'],
                ['Oliver', 'Morgan', 'oliver.morgan@scranton.edu', 'Counseling'],
-               ['joseph', 'gnall', 'joseph.gnall@scranton.edu', 'Computer Science'],
+               ['Joseph', 'Gnall', 'joseph.gnall@scranton.edu', 'Computer Science'],
                ['Joan', 'Grossman', 'joan.grossman@scranton.edu', 'Exercise Science'],
                ['David', 'Dzurec', 'david.dzurec@scranton.edu', 'History'],
                ['Kenneth', 'Carroll', 'kenneth.carroll@scranton.edu', 'Student'],
-               ['kim', 'paulsen', 'kim.paulsen@scranton.edu', 'CTLE'],
-               ['jennifer', 'kaschak', 'jennifer.kaschak@scranton.edu', 'Education'],
+               ['Kim', 'Paulsen', 'kim.paulsen@scranton.edu', 'CTLE'],
+               ['Jennifer', 'Kaschak', 'jennifer.kaschak@scranton.edu', 'Education'],
                ['Irene', 'Goll', 'irene.goll@scranton.edu', 'KSOM'],
                ['Sean', 'Batzel', 'sean.batzel@scranton.edu', 'Computer Science'],
                ['John', 'Norocross', 'john.norcross@scranton.edu', 'Psychology'],
@@ -324,38 +319,37 @@ def populate():
                ['Rose', 'Termini', 'rosemary.termini@scranton.edu', 'CTLE'],
                ['Amanda', 'Ellard', 'amanda.ellard@scranton.edu', 'Counseling']]
     for obj in clients:
-        add_client(obj[0], obj[1], obj[2], obj[3])
+        add_client(c, obj[0], obj[1], obj[2], departments.index(obj[3]))
 
     types = ['CMS', 'Website', 'Visual Argument', 'Digitizing', 'Recording', 'Software', 'Research', 'Scanning',
              'CD/DVD', 'Miscellaneous', 'Professional Development', 'MS Powerpoint', 'MS Excel', 'MS Word', 'MS Access',
              'Windows Movie Maker', 'iMovie', 'Image Editing', 'PDF', 'File Conversion', 'Video', 'Desire  Learn',
              'Documentation', 'Cross Training']
     for obj in types:
-        add_type(obj)
+        add_type(c, obj)
         # Print out what we have added to the user.
         # for c in Category.objects.all():
         #    for p in Page.objects.filter(category=c):
 
 
 #        print "- {0} - {1}".format(str(c), str(p))
+    conn.commit()
+    conn.close()
 
 
-def add_department(name):
-    d = Department.objects.get_or_create(name=name)[0]
-    d.save()
-    return d
+def add_department(conn, name):
+    params = (name, )
+    conn.execute('INSERT INTO Department VALUES (NULL, ?)', params)
 
 
-def add_client(first_name, last_name, email, department):
-    c = Client.objects.get_or_create(first_name=first_name, last_name=last_name, email=email, department=department)[0]
-    c.save()
-    return c
+def add_client(conn, first_name, last_name, email, department):
+    params = (first_name, last_name, email, department)
+    conn.execute('INSERT INTO Client VALUES (NULL, ?, ?, ?, ?)', params)
 
 
-def add_type(name):
-    t = Type.objects.get_or_create(name=name)[0]
-    t.save()
-    return t
+def add_type(conn, name):
+    params = (name, )
+    conn.execute('INSERT INTO Type VALUES (NULL, ?)', params)
 
 '''
 def add_project(title, description, type, walk_in, client, users):
