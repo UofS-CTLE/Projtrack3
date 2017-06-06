@@ -25,11 +25,11 @@ def index(request):
             else:
                 return render(request,
                               'projtrack/index.html',
-                              {'user': user, 'error_message': "Invalid username or password.",
+                              {'user': request.user, 'error_message': "Invalid username or password.",
                                'form': form})
     else:
         form = LoginForm()
-        return render(request, 'projtrack/index.html', {'form': form, 'user': user})
+        return render(request, 'projtrack/index.html', {'form': form, 'user': request.user})
 
 
 def home(request):
