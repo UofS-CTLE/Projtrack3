@@ -16,7 +16,7 @@
 		<form action="/projtrack3/" method="post">
 			{% csrf_token %}
 			{% for field in form %}
-			<p>{{ field.label_tag }} {{ field }}</p>
+			<p style="font-size: 150%">{{ field.label_tag }} {{ field }}</p>
 			{% endfor %}
 			<input class="btn btn-lg btn-primary" type="submit" value="Login"></a>
 	</form>
