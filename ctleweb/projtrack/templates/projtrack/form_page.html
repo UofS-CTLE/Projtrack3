@@ -89,7 +89,7 @@ window.onload = function() {
                     <p>{{ error_message }}</p>
 
                     {% block form %}
-                    <form action="{{ form_page }}" method="post">
+                    <form action="{{ form_page }}" method="post" style="font-size: 150%;">
                         <div class="form-group">
                             {% csrf_token %}
                             {% for field in form %}
