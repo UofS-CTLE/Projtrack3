@@ -12,7 +12,7 @@
 <div class="container">
 	<h2>Projtrack v3</h2>
 	<p>
-		<div id="error" style="color: red;">{{ error_message }}</div>
+		<div id="error" style="color: red; font-size: 150%">{{ error_message }}</div>
 		<form action="/projtrack3/" method="post">
 			{% csrf_token %}
 			{% for field in form %}
