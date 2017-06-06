@@ -161,10 +161,7 @@ def generate_stats(report):
             if y.type == x:
                 proj += 1
         types[x.name] = proj
-    try:
-        walk_in_percent = ((walk_ins / projects) * 100)
-    except ZeroDivisionError:
-        walk_in_percent = 0
+    walk_in_percent = ((float(walk_ins) / float(projects)) * 100)
     stats = {
         'active_devs': len(users),
         'average_proj': projects//len(users),
