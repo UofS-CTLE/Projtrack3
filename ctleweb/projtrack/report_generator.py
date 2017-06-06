@@ -131,10 +131,7 @@ def check_type(proj):
 
 
 def generate_stats(report):
-    # TODO REWRITE THIS FUNCTION GOOD LORD
-    # TODO THIS IS SOME OF THE WORST CODE I'VE EVER WRITTEN
-    # TODO This *SHOULD NOT* make it past the Alpha stage.
-    hours = 0
+   hours = 0
     walk_ins = 0
     projects = len(report)
     users = dict()
