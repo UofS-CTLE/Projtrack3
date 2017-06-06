@@ -146,7 +146,7 @@ def generate_stats(report):
         proj = 0
         hour = 0
         for y in list(Project.objects.all()):
-            if y.users is x:
+            if y.users.email is x.email:
                 proj += 1
                 hour += y.hours
         users[x.email] = {'projects': proj, 'hours': hour}
@@ -154,7 +154,7 @@ def generate_stats(report):
     for x in list(Department.objects.all()):
         proj = 0
         for y in list(Project.objects.all()):
-            if y.client.department is x:
+            if y.client.department.name is x.name:
                 proj += 1
         depts[x.name] = proj
     types = dict()
