@@ -21,7 +21,6 @@ function script_help {
 }
 
 function all {
-    clean
     compile
     migrate
     run_tests
