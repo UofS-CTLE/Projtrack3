@@ -2,7 +2,7 @@
 ***!!! IMPORTANT The development server currently does not work. Any testing will need to be done in the eventual production environment. !!!***
 ***Remember to run build.sh before opening a pull request.***
 
-This project's dependencies include Django.
+This project's dependencies include Django and the Django REST Framework (starting in release 3.0.3-beta.6).
 
 [Projtrack 3 Wiki](https://github.com/cyclerdan/Projtrack3/wiki/)
 
@@ -17,6 +17,7 @@ Download [Git](https://git-scm.com/download/win), [Python](https://www.python.or
 Once **pip** is installed, run
 ```
 > pip install django
+> pip install djangorestframework
 ```
 Using the git command line installed with **git**, execute
 ```
@@ -33,7 +34,8 @@ to start the development server running.
 ### Getting Started
 Ensure that **git**, **python**, and **pip** are present on your system. If they are, run
 ```
-$ pip install django
+$ sudo pip install django
+$ sudo pip install djangorestframework
 $ git clone https://github.com/cyclerdan/Projtrack3.git
 ```
 to set up the project and
