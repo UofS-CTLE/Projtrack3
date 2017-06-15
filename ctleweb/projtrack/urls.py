@@ -1,8 +1,17 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
+from rest_framework import routers
 
 from . import views
 
 app_name = 'projtrack3'
+
+router = routers.DefaultRouter()
+
+router.register(r'projectss', views.ProjectSerializerView)
+router.register(r'clients', views.ClientSerializerView)
+router.register(r'departments', views.DepartmentSerializerView)
+router.register(r'types', views.TypeSerializerView)
+
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -19,5 +28,7 @@ urlpatterns = [
     url(r'^not_logged_in/$', views.not_logged_in, name='not_logged_in'),
     url(r'^logout/$', views.logout_view, name='logout'),
     url(r'^issues/$', views.issues, name='issues'),
-    url(r'^project_edit/(?P<id>\d+)/$', views.edit_project, name='edit_project')
+    url(r'^project_edit/(?P<id>\d+)/$', views.edit_project, name='edit_project'),
+    url(r'^api/', include(router.urls)),
+    url(r'^api_auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

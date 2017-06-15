@@ -2,11 +2,13 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import redirect, get_object_or_404
 from django.shortcuts import render
+from rest_framework import viewsets
 
 from .forms import AddProjectForm, AddClientForm, AddDeptForm, AddTypeForm, GenerateReportForm
 from .forms import LoginForm
-from .models import Client, Project, User
+from .models import Client, Project, User, Type
 from .report_generator import generate_report
+from .serializers import ProjectSerializer, TypeSerializer, DepartmentSerializer, ClientSerializer
 
 
 def issues(request):
@@ -241,3 +243,23 @@ def not_logged_in(request):
 def logout_view(request):
     logout(request)
     return redirect('/projtrack3/index')
+
+
+class ProjectSerializerView(viewsets.ModelViewSet):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+
+
+class ClientSerializerView(viewsets.ModelViewSet):
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializer
+
+
+class DepartmentSerializerView(viewsets.ModelViewSet):
+    queryset = Project.objects.all()
+    serializer_class = DepartmentSerializer
+
+
+class TypeSerializerView(viewsets.ModelViewSet):
+    queryset = Type.objects.all()
+    serializer_class = TypeSerializer
