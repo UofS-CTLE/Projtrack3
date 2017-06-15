@@ -7,7 +7,7 @@ app_name = 'projtrack3'
 
 router = routers.DefaultRouter()
 
-router.register(r'projectss', views.ProjectSerializerView)
+router.register(r'projects', views.ProjectSerializerView)
 router.register(r'clients', views.ClientSerializerView)
 router.register(r'departments', views.DepartmentSerializerView)
 router.register(r'types', views.TypeSerializerView)
