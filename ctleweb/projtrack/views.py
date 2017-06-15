@@ -137,7 +137,7 @@ def edit_project(request, id=None):
             form = AddProjectForm(instance=project)
         return render(request, 'projtrack/form_page.html',
                       {'user': request.user, 'title_text': "Edit Project", 'form': form,
-                       'form_page': "/projtrack3/edit_project/",
+                       'form_page': "/projtrack3/project_edit/",
                        'error_message': error})
     else:
         return redirect('/projtrack3/not_logged_in')
