@@ -169,12 +169,13 @@ def client_view(request):
         return redirect('projtrack:not_logged_in')
 
 
-def project_delete(request):
+def project_delete(request, id=None):
     if request.user.is_authenticated:
         try:
+            p = get_object_or_404(Project, pk=id)
             projects = []
             u = User.objects.get(username=request.user.username)
-            # TODO Add delete code.
+            Project.objects.filter(id=p.id).delete()
             query = Project.objects.all()
             for x in query:
                 if x.users.username == u.username:

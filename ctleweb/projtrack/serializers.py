@@ -13,18 +13,24 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Project
+        fields = ('title', 'description', 'date', 'type', 'walk_in',
+                  'client', 'users', 'semester', 'hours', 'completed',
+                  'deleted')
 
 
 class ClientSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Client
+        fields = ('first_name', 'last_name', 'email', 'department')
 
 
 class DepartmentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Department
+        fields = ('name',)
 
 
 class TypeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Type
+        fields = ('name',)

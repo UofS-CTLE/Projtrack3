@@ -81,6 +81,7 @@
                             <th>Date Entered</th>
                             <th>Completed</th>
                             <th></th>
+                            <th></th>
                         </tr>
                         {% for o in projects %}
                         <tr>
@@ -91,10 +92,13 @@
                             <td>{{ o.date }}</td>
                             <td>{{ o.completed }}</td>
                             <td><a href="{% url 'projtrack:edit_project' o.id %}">Edit</a></td>
+                            <td><a href="{% url 'projtrack:project_delete' o.id %}">Delete</a></td>
                         </tr>
                         {% endfor %}
                     </table>
                 </div>
+            </div>
+        </div>
     </body>
     {% endblock %}
 </html>

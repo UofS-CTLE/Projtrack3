@@ -76,7 +76,7 @@
                         <th>Client</th>
                         <th>Users</th>
                         <th>Date</th>
-			<th>Hours</th>
+			            <th>Hours</th>
                         <th>Completed</th>
                     </tr>
                     {% for o in list_view %}
@@ -86,10 +86,8 @@
                         <td>{{ o.client }}</td>
                         <td>{{ o.users }}</td>
                         <td>{{ o.date }}</td>
-			<td>{{ o.hours }}</td>
+			            <td>{{ o.hours }}</td>
                         <td>{{ o.completed }}</td>
-                        <td>{{ o.deleted }}</td>
-                        <td><a href="{% url 'projtrack:edit_project' o.id %}">Edit</a></td>
                     </tr>
                     {% endfor %}
                 </table>
