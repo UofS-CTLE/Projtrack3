@@ -11,7 +11,7 @@
     </style>
 </head>
 <h1>{% block title %}Techcon Project Report{% endblock %}</h1>
-<a href='/projtrack3/report_page/'>Return to the report generation page.</a>
+<a href="{% url 'projtrack3:report_page' %}">Return to the report generation page.</a>
 <br/>
 <br/>
 {% block content %}

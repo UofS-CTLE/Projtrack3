@@ -8,12 +8,12 @@
 	<link href="signin.css" rel="stylesheet">
 </head>
 {% block content %}
-<script src="{% static "projtrack/scripts/page.js" %}"></script>
+<script src="{% static 'projtrack/scripts/page.js' %}"></script>
 <div class="container">
 	<h2>Projtrack v3</h2>
 	<p>
 		<div id="error" style="color: red; font-size: 150%">{{ error_message }}</div>
-		<form action="/projtrack3/" method="post">
+	<form action="/projtrack:index/" method="post">
 			{% csrf_token %}
 			{% for field in form %}
 			<p style="font-size: 150%">{{ field.label_tag }} {{ field }}</p>
