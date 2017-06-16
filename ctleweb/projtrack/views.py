@@ -60,10 +60,9 @@ def report_page(request):
         else:
             form = GenerateReportForm()
             return render(request,
-                          'projtrack/form_page.html',
+                          'projtrack/report_generator.html',
                           {'user': request.user, 'title_text': 'Generate a Report',
-                           'form': form,
-                           'form_page': '/projtrack3/report_page/'})
+                           'form': form})
     else:
         return redirect('projtrack:not_logged_in')
 
@@ -110,9 +109,8 @@ def add_project(request):
                 error = "Form is invalid."
         else:
             form = AddProjectForm()
-        return render(request, 'projtrack/form_page.html',
+        return render(request, 'projtrack/add_project.html',
                       {'user': request.user, 'title_text': "Add Project", 'form': form,
-                       'form_page': "/projtrack3/add_project/",
                        'error_message': error})
     else:
         return redirect('projtrack:not_logged_in')
@@ -133,9 +131,8 @@ def edit_project(request, id=None):
         else:
             project = get_object_or_404(Project, pk=id)
             form = AddProjectForm(instance=project)
-        return render(request, 'projtrack/form_page.html',
+        return render(request, 'projtrack/project_edit.html',
                       {'user': request.user, 'title_text': "Edit Project", 'form': form,
-                       'form_page': "/projtrack3/edit_project/",
                        'error_message': error})
     else:
         return redirect('projtrack:not_logged_in')
@@ -153,9 +150,8 @@ def add_client(request):
                 error = "Form is invalid."
         else:
             form = AddClientForm()
-        return render(request, 'projtrack/form_page.html',
+        return render(request, 'projtrack/add_client.html',
                       {'user': request.user, 'title_text': "Add Client", 'form': form,
-                       'form_page': "/projtrack3/add_client/",
                        'error_message': error})
     else:
         return redirect('projtrack:not_logged_in')
@@ -204,9 +200,8 @@ def add_department(request):
                 error = "Form is invalid."
         else:
             form = AddDeptForm()
-        return render(request, 'projtrack/form_page.html',
+        return render(request, 'projtrack/add_department.html',
                       {'user': request.user, 'title_text': "Add Department", 'form': form,
-                       'form_page': "/projtrack3/add_department/",
                        'error_message': error})
     else:
         return redirect('projtrack:not_logged_in')
@@ -226,9 +221,8 @@ def add_type(request):
                 error = "Form is invalid."
         else:
             form = AddTypeForm()
-        return render(request, 'projtrack/form_page.html',
+        return render(request, 'projtrack/add_type.html',
                       {'user': request.user, 'title_text': "Add Type", 'form': form,
-                       'form_page': "/projtrack3/add_type/",
                        'error_message': error})
     else:
         return redirect('projtrack:not_logged_in')
