@@ -26,12 +26,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-            <a class="navbar-brand" href="/projtrack3/home/"><img alt="Brand" style="width:25px;height:25px;"
+            <a class="navbar-brand" href="{% url 'projtrack:home' %}"><img alt="Brand" style="width:25px;height:25px;"
                                                                   src="{% static 'projtrack/favicon.ico' %}"></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-left">
-                <li role="presentation"><a href="/projtrack3/logout/" class="color-me" style="font-size: 175%"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign Out</a></li>
+                <li role="presentation"><a href="{% url 'projtrack:logout' %}" class="color-me" style="font-size: 175%"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign Out</a></li>
                 <li role="presentation" style="font-size: 250%; padding-top: 4px;">{{ user }}</li>
           </ul>
         </div>
@@ -51,20 +51,20 @@
       		<div class="row">
         		<div class="col-sm-3 col-md-2 sidebar">
        				<ul class="nav nav-sidebar">
-                        <li><a href="/projtrack3/home/" class="color-me-dos">Home<span class="sr-only">(current)</span></a></li>
+                        <li><a href="{% url 'projtrack:home' %}" class="color-me-dos">Home<span class="sr-only">(current)</span></a></li>
           			</ul>
           			<ul class="nav nav-sidebar">
-                        <li><a href="/projtrack3/my_projects/" class="color-me-dos">My Projects</a></li>
-                        <li class="active"><a href="/projtrack3/all_projects/" class="color-me-dos">All Projects</a></li>
-                        <li><a href="/projtrack3/add_project/" class="color-me-dos">Add Project</a></li>
+                        <li><a href="{% url 'projtrack:my_projects' %}" class="color-me-dos">My Projects</a></li>
+                        <li class="active"><a href="{% url 'projtrack:all_projects' %}" class="color-me-dos">All Projects</a></li>
+                        <li><a href="{% url 'projtrack:add_project' %}" class="color-me-dos">Add Project</a></li>
           			</ul>
           			<ul class="nav nav-sidebar">
-                        <li><a href="/projtrack3/add_department/" class="color-me-dos">Add Department</a></li>
-                        <li><a href="/projtrack3/add_client/" class="color-me-dos">Add Client</a></li>
-                        <li><a href="/projtrack3/client_view/" class="color-me-dos">All Clients</a></li>
+                        <li><a href="{% url 'projtrack:add_department' %}" class="color-me-dos">Add Department</a></li>
+                        <li><a href="{% url 'projtrack:add_client' %}" class="color-me-dos">Add Client</a></li>
+                        <li><a href="{% url 'projtrack:client_view' %}" class="color-me-dos">All Clients</a></li>
           			</ul>
           			<ul class="nav nav-sidebar">
-                        <li><a href="/projtrack3/report_page/" class="color-me-dos">Reports</a></li>
+                        <li><a href="{% url 'projtrack:report_page' %}" class="color-me-dos">Reports</a></li>
           			</ul>
         		</div>
         	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -89,7 +89,7 @@
 			<td>{{ o.hours }}</td>
                         <td>{{ o.completed }}</td>
                         <td>{{ o.deleted }}</td>
-                        <td><a href="/projtrack3/project_edit/{{ o.id }}">Edit</a></td>
+                        <td><a href="{% url 'projtrack:edit_project' o.id %}">Edit</a></td>
                     </tr>
                     {% endfor %}
                 </table>
