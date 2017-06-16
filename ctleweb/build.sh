@@ -35,6 +35,8 @@ function clean {
     rm db.sqlite3
     rm -rf projtrack/migrations/*
     files=$(find . -name "__pycache__")
+    files2=$(find . -iregex ".*\.\(pyc\)")
+    rm -rf $files2
     rm -rf $files
 }
 
