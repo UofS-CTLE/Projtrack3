@@ -118,28 +118,6 @@ def add_project(request):
         return redirect('projtrack:not_logged_in')
 
 
-def edit_project(request, id):
-    error = ""
-    if request.user.is_authenticated:
-        if request.method == 'POST':
-            project = Project.objects.get(id=id)
-            form = AddProjectForm(request.POST or None, instance=project)
-            if form.is_valid():
-                t = form.save()
-                t.save()
-                form = AddProjectForm()
-            else:
-                error = "Form is invalid."
-        else:
-            project = Project.objects.get(id=id)
-            form = AddProjectForm(instance=project)
-        return render(request, 'projtrack/project_edit.html',
-                      {'user': request.user, 'title_text': "Edit Project", 'form': form,
-                       'error_message': error})
-    else:
-        return redirect('projtrack:not_logged_in')
-
-
 def add_client(request):
     error = ""
     if request.user.is_authenticated:
@@ -165,6 +143,28 @@ def client_view(request):
         return render(request, 'projtrack/list_view.html',
                       {'title_text': "All Clients", 'user': request.user,
                        'list_view': clients})
+    else:
+        return redirect('projtrack:not_logged_in')
+
+
+def edit_project(request, id=None):
+    error = ""
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            project = Project.objects.get(id=id)
+            form = AddProjectForm(request.POST or None, instance=project)
+            if form.is_valid():
+                t = form.save()
+                t.save()
+                form = AddProjectForm()
+            else:
+                error = "Form is invalid."
+        else:
+            project = Project.objects.get(id=id)
+            form = AddProjectForm(instance=project)
+        return render(request, 'projtrack/project_edit.html',
+                      {'user': request.user, 'title_text': "Edit Project", 'form': form,
+                       'error_message': error})
     else:
         return redirect('projtrack:not_logged_in')
 
