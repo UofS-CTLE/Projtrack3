@@ -1,5 +1,4 @@
 # Projtrack 3
-***!!! IMPORTANT The development server currently does not work. Any testing will need to be done in the eventual production environment. !!!***
 ***Remember to run build.sh before opening a pull request.***
 
 This project's dependencies include Django and the Django REST Framework (starting in release 3.0.3-beta.6).

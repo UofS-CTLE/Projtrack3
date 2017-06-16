@@ -118,11 +118,11 @@ def add_project(request):
         return redirect('projtrack:not_logged_in')
 
 
-def edit_project(request, id=None):
+def edit_project(request, id):
     error = ""
     if request.user.is_authenticated:
         if request.method == 'POST':
-            project = get_object_or_404(Project, pk=id)
+            project = Project.objects.get(id=id)
             form = AddProjectForm(request.POST or None, instance=project)
             if form.is_valid():
                 t = form.save()
@@ -131,7 +131,7 @@ def edit_project(request, id=None):
             else:
                 error = "Form is invalid."
         else:
-            project = get_object_or_404(Project, pk=id)
+            project = Project.objects.get(id=id)
             form = AddProjectForm(instance=project)
         return render(request, 'projtrack/project_edit.html',
                       {'user': request.user, 'title_text': "Edit Project", 'form': form,
