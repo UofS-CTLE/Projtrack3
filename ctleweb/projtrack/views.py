@@ -151,8 +151,7 @@ def edit_project(request, id=None):
     error = ""
     if request.user.is_authenticated:
         if request.method == 'POST':
-            project = Project.objects.get(id=id)
-            form = AddProjectForm(request.POST or None, instance=project)
+            form = AddProjectForm(request.POST or None, instance=Project.objects.get(id=id))
             if form.is_valid():
                 t = form.save()
                 t.save()
@@ -160,11 +159,11 @@ def edit_project(request, id=None):
             else:
                 error = "Form is invalid."
         else:
-            project = Project.objects.get(id=id)
+            project = get_object_or_404(Project, pk=id)
             form = AddProjectForm(instance=project)
         return render(request, 'projtrack/project_edit.html',
-                      {'user': request.user, 'title_text': "Edit Project", 'form': form,
-                       'error_message': error})
+                      {'user': request.user, 'title_text': "Edit Project", 'form': form, 'error_message': error,
+                       'id': id})
     else:
         return redirect('projtrack:not_logged_in')
 
@@ -183,8 +182,7 @@ def project_delete(request, id=None):
         except ObjectDoesNotExist:
             projects = ""
         return render(request, 'projtrack/my_projects.html',
-                      {'user': request.user, 'title_text': 'My Projects',
-                       'projects': projects})
+                      {'user': request.user, 'title_text': 'My Projects', 'projects': projects})
     else:
         return redirect('projtrack:not_logged_in')
 

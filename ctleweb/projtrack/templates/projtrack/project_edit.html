@@ -98,7 +98,7 @@ window.onload = function() {
                     <p>{{ error_message }}</p>
 
                     {% block form %}
-                    <form action="{% url 'projtrack:edit_project' %}" method="post" style="font-size: 150%;">
+                    <form action="{% url 'projtrack:edit_project' id=id  %}" method="post" style="font-size: 150%;">
                         <div class="form-group">
                             {% csrf_token %}
                             {% for field in form %}
