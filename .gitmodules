@@ -1,0 +1,3 @@
+[submodule "DroidTrack"]
+	path = DroidTrack
+	url = https://github.com/Romulus10/DroidTrack.git
