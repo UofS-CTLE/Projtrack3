@@ -26,8 +26,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['testserver',
                  'localhost',
-                 'ctleweb.scranton.edu'
-		 '192.168.1.25']
+                 'ctleweb.scranton.edu',
+                 '192.168.1.25',
+                 '192.168.1.23']
 
 # Application definition
 

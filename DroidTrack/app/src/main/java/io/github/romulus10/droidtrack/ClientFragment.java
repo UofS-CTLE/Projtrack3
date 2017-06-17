@@ -1,6 +1,7 @@
 package io.github.romulus10.droidtrack;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -20,6 +22,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.client.HttpClient;
+import cz.msebera.android.httpclient.client.methods.HttpGet;
+import cz.msebera.android.httpclient.entity.mime.content.StringBody;
+import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
+import cz.msebera.android.httpclient.protocol.HTTP;
 import io.github.romulus10.droidtrack.dummy.DummyContent;
 import io.github.romulus10.droidtrack.dummy.DummyContent.DummyItem;
 
@@ -85,43 +92,27 @@ public class ClientFragment extends Fragment {
             }
             recyclerView.setAdapter(new MyClientRecyclerViewAdapter(DummyContent.ITEMS, mListener));
         }
-        return view;
-    }
 
-    public void apiCall() throws JSONException {
         RequestParams rp = new RequestParams();
-        String username = ((MainActivity)getActivity()).username;
-        String password = ((MainActivity)getActivity()).password;
-        rp.add("username", username);
-        rp.add("password", password);
-        String url = "api_clients";
-        HttpUtils.get(url, rp, new JsonHttpResponseHandler() {
+        rp.add("username", "aaa"); rp.add("password", "aaa@123");
+
+        HttpUtils.post("clients/", rp, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                Log.d("asd", "---------------- this is response : " + response);
                 try {
-                    jArray = new JSONArray(response);
-                    Log.d("CLIENT FRAGMENT", response.toString());
+                    JSONObject serverResp = new JSONObject(response.toString());
                 } catch (JSONException e) {
+                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
-        });
-        ArrayList<String> lst = new ArrayList<String>();
-        if (jArray != null) {
-            for (int i = 0; i < jArray.length(); i++) {
-                try {
-                    lst.add(jArray.getString(i));
-                } catch (JSONException e) {
-                    Log.d("CLIENT_FRAGMENT", "JSONException.");
-                }
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray timeline) {
             }
-        }
-        final ArrayAdapter<String> aa = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1, lst);
+        });
+
+        return view;
     }
 
 

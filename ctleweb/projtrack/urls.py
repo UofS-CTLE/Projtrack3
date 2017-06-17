@@ -11,6 +11,7 @@ router.register(r'projects', views.ProjectSerializerView)
 router.register(r'clients', views.ClientSerializerView)
 router.register(r'departments', views.DepartmentSerializerView)
 router.register(r'types', views.TypeSerializerView)
+router.register(r'semesters', views.SemesterSerializerView)
 
 
 urlpatterns = [
