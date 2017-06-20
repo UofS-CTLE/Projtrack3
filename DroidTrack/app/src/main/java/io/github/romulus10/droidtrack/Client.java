@@ -10,4 +10,9 @@ public class Client {
     public String last_name;
     public String email;
     public Department department;
+
+    @Override
+    public String toString() {
+        return this.email;
+    }
 }

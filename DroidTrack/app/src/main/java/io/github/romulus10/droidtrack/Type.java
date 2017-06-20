@@ -7,4 +7,8 @@ package io.github.romulus10.droidtrack;
 public class Type {
     public int id;
     public String name;
+
+    public String toString() {
+        return this.name;
+    }
 }

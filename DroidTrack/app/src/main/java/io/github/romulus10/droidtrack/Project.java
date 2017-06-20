@@ -16,4 +16,9 @@ public class Project {
     public int hours;
     public boolean completed;
     public boolean deleted;
+
+    @Override
+    public String toString() {
+        return this.title;
+    }
 }
