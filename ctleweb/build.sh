@@ -18,6 +18,9 @@ function script_help {
     echo -e '\tall: performs all cleaning, compiling, and testing functions'
     echo -e '\trestart: restarts the production Apache daemon'
     echo -e '\tpopulate: populates the database'
+    echo -e '\tup: activates the virtual environment'
+    echo -e '\tdown: deactivates the virtual environment'
+    echo -e '\tinstall: installs the project in a virtual environment'
 }
 
 function all {
@@ -106,6 +109,21 @@ case "$1" in
     populate)
         python Populate_Projtrack3.py
         ;;
+	
+    up)
+    	source projtrack3/bin/activate
+    	;;
+	
+    down)
+    	deactivate
+	;;
+	
+    install)
+    	virtualenv projtrack3
+	source projtrack3/bin/activate
+    	pip install django
+	pip install djangorestframework
+	;;
 
     *)
         script_help
