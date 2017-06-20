@@ -32,6 +32,4 @@ urlpatterns = [
     url(r'^project_edit/$', views.edit_project, name='edit_project'),
     url(r'^project_edit/(?P<id>\d+)/$', views.edit_project, name='edit_project'),
     url(r'^project_delete/(?P<id>\d+)/$', views.project_delete, name='project_delete'),
-    url(r'^api/', include(router.urls)),
-    url(r'^api_auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

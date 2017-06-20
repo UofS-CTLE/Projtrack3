@@ -77,7 +77,7 @@ def my_projects(request):
             u = User.objects.get(username=request.user.username)
             query = Project.objects.all()
             for x in query:
-                if x.users.username == u.username and not x.deleted:
+                if x.users.username == u.username:
                     projects.append(x)
         except ObjectDoesNotExist:
             projects = ""
