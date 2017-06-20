@@ -7,6 +7,7 @@ my $filename = $ARGV[0];
 my $file = path($filename);
 
 my $data = $file->slurp_utf8;
+$data =~ s/\/projtrack:home/{%url 'projtrack:home' %}/g;
 $data =~ s/\/projtrack3\/home\//{% url 'projtrack:home' %}/g;
 $data =~ s/\/projtrack3\/all_projects\//{% url 'projtrack:all_projects' %}/g;
 $data =~ s/\/projtrack3\/my_projects\//{% url 'projtrack:my_projects' %}/g;
