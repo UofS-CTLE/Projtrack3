@@ -2,8 +2,8 @@
 <head>
 	<title>Projtrack</title>
 	<div id="pagetitle">{% load static %}</div>
-	<link rel="stylesheet" href="{% static "projtrack/styles/login_page.css" %}" />
-	<link rel="shortcut icon" href="{% static "projtrack/favicon.ico" %}" />
+	<link rel="stylesheet" href="{% static 'projtrack/styles/login_page.css' %}" />
+	<link rel="shortcut icon" href="{% static 'projtrack/favicon.ico' %}" />
 	<!-- Custom styles for this template -->
 	<link href="signin.css" rel="stylesheet">
 </head>
@@ -25,9 +25,9 @@
   </div>
   <div>
 	  <div class="row">
-		  <div class="col-md-4"></div>
-		  <div class="col-md-4">
-			  <table id="footer">
+		  <div class="col-md-1"></div>
+		  <div class="col-md-10">
+			  <table id="footer" width="100%" style="margin:0;padding:0;">
 				  <th>
 					  <td>University of Scranton CTLE</td>
 					  <td id="version"></td>
@@ -35,7 +35,7 @@
 				  </th>
 			  </table>
 		  </div>
-		  <div class="col-md-4"></div>
+		  <div class="col-md-1"></div>
 	  </div>
   </div>
   {% endblock %}
