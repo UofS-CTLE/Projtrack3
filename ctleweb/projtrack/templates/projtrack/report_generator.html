@@ -5,15 +5,15 @@
         {% block content %}
         <title>Projtrack</title>
         {% load static %}
-        <link rel="shortcut icon" href="{% static 'projtrack/favicon.ico' %}" />
-        <link rel="stylesheet" href="{% static 'projtrack/styles/projtrack.css' %}" />
-        <link rel="stylesheet" href="{% static 'projtrack/styles/dashboard.css' %}" />
+        <link rel="shortcut icon" href="{% static 'projtrack/favicon.ico' %}"/>
+        <link rel="stylesheet" href="{% static 'projtrack/styles/projtrack.css' %}"/>
+        <link rel="stylesheet" href="{% static 'projtrack/styles/dashboard.css' %}"/>
         <script src="{% static 'projtrack/scripts/page.js' %}"></script>
         <script>
-            window.onload = function() { 
-            load_footer();
-            load_navbar();
-            }
+window.onload = function() { 
+    load_footer();
+    load_navbar();
+}
         </script>
 
         <nav class="navbar navbar-fixed-top">
@@ -41,10 +41,10 @@
         </nav>
 
         <script>
-            window.onload = function() { 
-                load_footer();
-                load_navbar();
-            }
+window.onload = function() { 
+    load_footer();
+    load_navbar();
+}
         </script>
     </head>
     <body>
@@ -56,50 +56,66 @@
                         </li>
                     </ul>
                     <ul class="nav nav-sidebar">
-                        <li class="active"><a href="{% url 'projtrack3:my_projects' %}" class="color-me-dos">My
-                            Projects</a></li>
+                        <li><a href="{% url 'projtrack3:my_projects' %}" class="color-me-dos">My Projects</a></li>
                         <li><a href="{% url 'projtrack3:all_projects' %}" class="color-me-dos">All Projects</a></li>
+                        <!--If to handle highlighted left navbar-->
+                        {% if title_text == "Add Project" %}
+                        <li class="active"><a href="{% url 'projtrack3:add_project' %}" class="color-me-dos">Add
+                            Project</a></li>
+                        {% else %}
                         <li><a href="{% url 'projtrack3:add_project' %}" class="color-me-dos">Add Project</a></li>
+                        {% endif %}
                     </ul>
                     <ul class="nav nav-sidebar">
+                        <!--If to handle highlighted left navbar-->
+                        {% if title_text == "Add Department" %}
+                        <li class="active"><a href="{% url 'projtrack3:add_department' %}" class="color-me-dos">Add
+                            Department</a></li>
+                        {% else %}
                         <li><a href="{% url 'projtrack3:add_department' %}" class="color-me-dos">Add Department</a></li>
+                        {% endif %}
+                        <!--If to handle highlighted left navbar-->
+                        {% if title_text == "Add Client" %}
+                        <li class="active"><a href="{% url 'projtrack3:add_client' %}" class="color-me-dos">Add
+                            Client</a></li>
+                        {% else %}
                         <li><a href="{% url 'projtrack3:add_client' %}" class="color-me-dos">Add Client</a></li>
+                        {% endif %}
                         <li><a href="{% url 'projtrack3:client_view' %}" class="color-me-dos">All Clients</a></li>
                     </ul>
                     <ul class="nav nav-sidebar">
+                        <!--If to handle highlighted left navbar-->
+                        {% if title_text == "Generate a Report" %}
+                        <li class="active"><a href="{% url 'projtrack3:report_page' %}" class="color-me-dos">Reports</a>
+                        </li>
+                        {% else %}
                         <li><a href="{% url 'projtrack3:report_page' %}" class="color-me-dos">Reports</a></li>
+                        {% endif %}
                     </ul>
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                     <h1 class="page-header">{{ title_text }}</h1>
-                    <table class="table table-hover" style="font-size: 150%;">
-                        <tr>
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th>Client</th>
-			                <th>Hours</th>
-                            <th>Date Entered</th>
-                            <th>Completed</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                        {% for o in projects %}
-                        <tr>
-                            <td>{{ o.title }}</td>
-                            <td>{{ o.description }}</td>
-                            <td>{{ o.client }}</td>
-			                <td>{{ o.hours }}</td>
-                            <td>{{ o.date }}</td>
-                            <td>{{ o.completed }}</td>
-                            <td><a href="{% url 'projtrack:edit_project' id=o.id %}">Edit</a></td>
-                            <td><a href="{% url 'projtrack:project_delete' id=o.id %}">Delete</a></td>
-                        </tr>
-                        {% endfor %}
-                    </table>
-                </div>
-            </div>
-        </div>
-    </body>
-    {% endblock %}
-</html>
+                    <p>{{ error_message }}</p>
 
+                    {% block form %}
+                    <form action="{% url 'projtrack:report_page'}" method="post" style="font-size: 150%;">
+                        <div class="form-group">
+                            {% csrf_token %}
+                            {% for field in form %}
+                            {% if field.label_tag == "Department:" %}
+                            {{ field.label_tag }}
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item">{{ field }}</a>
+                            </div>
+                            {% else %}
+                            <p>{{field.label_tag}}<br>{{field}}</p>
+                            {% endif %}
+                            {% endfor %}
+                            <input type='submit' value='Submit' />
+                        </div>
+                    </form>
+                    {% endblock %}
+                </div>
+                {% endblock %}
+    </body>
+</html>

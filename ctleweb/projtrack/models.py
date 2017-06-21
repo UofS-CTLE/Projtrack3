@@ -62,7 +62,6 @@ class Project(models.Model):
     semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
     hours = models.PositiveIntegerField(default=0)
     completed = models.BooleanField(default=False)
-    deleted = models.BooleanField(default=False)
 
     class Meta:
         db_table = u'Project'
