@@ -80,8 +80,7 @@ class ProjectTestCase(django.test.TestCase):
                                semester=Semester.objects.create(name="Spring 2913"),
                                client=Client.objects.get(first_name="Ralph"),
                                users=User.objects.get(username="techconbob"),
-                               completed=False,
-                               deleted=False)
+                               completed=False)
 
     def test_user(self):
         p = Project.objects.get(title="Test Project")
@@ -129,8 +128,7 @@ class TestReportGenerator(django.test.TestCase):
                                                             email='roberts@email.com'),
                                users=User.objects.create(username="admin"),
                                semester=Semester.objects.create(name="Test"),
-                               completed=False,
-                               deleted=False)
+                               completed=False)
         Project.objects.create(title="Stuff",
                                description="Why",
                                date=datetime.date.today(),
@@ -142,8 +140,7 @@ class TestReportGenerator(django.test.TestCase):
                                                             email='jerries@email.com'),
                                users=User.objects.create(username="techconbob"),
                                semester=Semester.objects.create(name="Test2"),
-                               completed=False,
-                               deleted=False)
+                               completed=False)
         Project.objects.create(title="Help",
                                description="Testing",
                                date=datetime.date.today(),
@@ -155,8 +152,7 @@ class TestReportGenerator(django.test.TestCase):
                                                             email='jerries@email.com'),
                                users=User.objects.create(username="harry"),
                                semester=Semester.objects.create(name="Later"),
-                               completed=False,
-                               deleted=False)
+                               completed=False)
 
     def test_bubble_sort(self):
         l = [3, 2, 5, 1, 4]
