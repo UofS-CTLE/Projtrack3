@@ -15,6 +15,8 @@ def issues(request):
 
 
 def index(request):
+    if request.user.is_authenticated():
+        return redirect('projtrack:home')
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
