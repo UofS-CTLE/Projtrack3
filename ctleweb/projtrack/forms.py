@@ -13,6 +13,9 @@ class LoginForm(forms.Form):
 class AddProjectForm(ModelForm):
     class Meta:
         model = Project
+        widgets = {
+            'description': forms.Textarea(attrs={'cols': 50, 'rows': 5}),
+        }
         field = '__all__'
         exclude = ('date',)
 
