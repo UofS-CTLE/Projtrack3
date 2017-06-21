@@ -109,6 +109,10 @@ case "$1" in
     populate)
         python Populate_Projtrack3.py
         ;;
+
+    server-env)
+        source /usr/local/venvs/projtrack3env/bin/activate
+        ;;
 	
     up)
     	source projtrack3/bin/activate
