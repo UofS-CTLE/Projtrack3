@@ -6,7 +6,7 @@ from django.shortcuts import render
 
 from .forms import AddProjectForm, AddClientForm, AddDeptForm, AddTypeForm, GenerateReportForm
 from .forms import LoginForm
-from .models import Client, Project, Type, Department, Semester
+from .models import Client, Project
 from .report_generator import generate_report
 
 
@@ -75,7 +75,7 @@ def my_projects(request):
         try:
             projects = []
             u = User.objects.get(username=request.user.username)
-            query = Project.objects.all()
+            query = Project.objects.all().order_by('title')
             for x in query:
                 if x.users.username == u.username:
                     projects.append(x)
@@ -140,7 +140,7 @@ def add_client(request):
 
 def client_view(request):
     if request.user.is_authenticated:
-        clients = Client.objects.all()
+        clients = Client.objects.all().order_by('name')
         return render(request, 'projtrack/list_view.html',
                       {'title_text': "All Clients", 'user': request.user,
                        'list_view': clients})
@@ -176,7 +176,7 @@ def project_delete(request, id=None):
             projects = []
             u = User.objects.get(username=request.user.username)
             Project.objects.filter(id=p.id).delete()
-            query = Project.objects.all()
+            query = Project.objects.all().order_by('title')
             for x in query:
                 if x.users.username == u.username:
                     projects.append(x)
