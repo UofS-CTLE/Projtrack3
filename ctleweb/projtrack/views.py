@@ -7,7 +7,7 @@ from rest_framework import viewsets, permissions
 
 from .forms import AddProjectForm, AddClientForm, AddDeptForm, AddTypeForm, GenerateReportForm
 from .forms import LoginForm
-from .models import Client, Project, Type, Department, Semester
+from .models import Client, Project
 from .report_generator import generate_report
 from .serializers import ProjectSerializer, TypeSerializer, DepartmentSerializer, ClientSerializer, SemesterSerializer
 
@@ -77,7 +77,7 @@ def my_projects(request):
         try:
             projects = []
             u = User.objects.get(username=request.user.username)
-            query = Project.objects.all()
+            query = Project.objects.all().order_by('date')
             for x in query:
                 if x.users.username == u.username:
                     projects.append(x)
@@ -92,7 +92,7 @@ def my_projects(request):
 
 def all_projects(request):
     if request.user.is_authenticated:
-        projects = Project.objects.all()
+        projects = Project.objects.all().order_by('date')
         return render(request, 'projtrack/all_projects.html',
                       {'user': request.user, 'title_text': "All Projects",
                        'list_view': projects})
@@ -110,6 +110,7 @@ def add_project(request):
                 t = form.save()
                 t.save()
                 form = AddProjectForm()
+                error = "Form submitted successfully."
             else:
                 error = "Form is invalid."
         else:
@@ -130,6 +131,8 @@ def add_client(request):
                 t = form.save()
                 t.save()
                 form = AddClientForm()
+                error = "Form submitted successfully."
+            else:
                 error = "Form is invalid."
         else:
             form = AddClientForm()
@@ -142,7 +145,7 @@ def add_client(request):
 
 def client_view(request):
     if request.user.is_authenticated:
-        clients = Client.objects.all()
+        clients = Client.objects.all().order_by('last_name')
         return render(request, 'projtrack/list_view.html',
                       {'title_text': "All Clients", 'user': request.user,
                        'list_view': clients})
@@ -159,6 +162,7 @@ def edit_project(request, id=None):
                 t = form.save()
                 t.save()
                 form = AddProjectForm()
+                error = "Form submitted successfully."
             else:
                 error = "Form is invalid."
         else:
@@ -178,7 +182,7 @@ def project_delete(request, id=None):
             projects = []
             u = User.objects.get(username=request.user.username)
             Project.objects.filter(id=p.id).delete()
-            query = Project.objects.all()
+            query = Project.objects.all().order_by('title')
             for x in query:
                 if x.users.username == u.username:
                     projects.append(x)
