@@ -128,6 +128,7 @@ def add_client(request):
                 t = form.save()
                 t.save()
                 form = AddClientForm()
+            else:
                 error = "Form is invalid."
         else:
             form = AddClientForm()
