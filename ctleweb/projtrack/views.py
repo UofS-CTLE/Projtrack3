@@ -108,6 +108,7 @@ def add_project(request):
                 t = form.save()
                 t.save()
                 form = AddProjectForm()
+                error = "Form submitted successfully."
             else:
                 error = "Form is invalid."
         else:
@@ -128,6 +129,7 @@ def add_client(request):
                 t = form.save()
                 t.save()
                 form = AddClientForm()
+                error = "Form submitted successfully."
             else:
                 error = "Form is invalid."
         else:
@@ -158,6 +160,7 @@ def edit_project(request, id=None):
                 t = form.save()
                 t.save()
                 form = AddProjectForm()
+                error = "Form submitted successfully."
             else:
                 error = "Form is invalid."
         else:
