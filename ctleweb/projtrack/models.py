@@ -12,6 +12,7 @@ class Department(models.Model):
 
     class Meta:
         db_table = u'Department'
+        ordering = ['name']
 
     def __str__(self):
         return self.name
@@ -26,6 +27,7 @@ class Client(models.Model):
 
     class Meta:
         db_table = u'Client'
+        ordering = ['first_name']
 
     def __str__(self):
         return str(self.first_name) + " " + str(self.last_name)
@@ -36,6 +38,7 @@ class Type(models.Model):
 
     class Meta:
         db_table = u'Type'
+        ordering = ['name']
 
     def __str__(self):
         return self.name
@@ -46,6 +49,7 @@ class Semester(models.Model):
 
     class Meta:
         db_table = u'Semester'
+        ordering = ['name']
 
     def __str__(self):
         return self.name
@@ -65,6 +69,7 @@ class Project(models.Model):
 
     class Meta:
         db_table = u'Project'
+        ordering = ['title']
 
     def __str__(self):
         return self.title
