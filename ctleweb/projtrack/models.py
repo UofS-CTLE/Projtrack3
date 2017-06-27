@@ -27,7 +27,7 @@ class Client(models.Model):
 
     class Meta:
         db_table = u'Client'
-        ordering = ['last_name']
+        ordering = ['first_name']
 
     def __str__(self):
         return str(self.first_name) + " " + str(self.last_name)

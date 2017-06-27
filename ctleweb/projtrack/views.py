@@ -143,7 +143,7 @@ def add_client(request):
 
 def client_view(request):
     if request.user.is_authenticated:
-        clients = Client.objects.all().order_by('first_name')
+        clients = Client.objects.all().order_by('last_name')
         return render(request, 'projtrack/list_view.html',
                       {'title_text': "All Clients", 'user': request.user,
                        'list_view': clients})
