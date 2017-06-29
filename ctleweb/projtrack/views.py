@@ -241,4 +241,3 @@ def not_logged_in(request):
 def logout_view(request):
     logout(request)
     return redirect('projtrack:index')
-
