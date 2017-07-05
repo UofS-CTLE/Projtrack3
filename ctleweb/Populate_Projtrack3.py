@@ -79,7 +79,6 @@ def populate():
                ['David', 'Gallick', 'david.gallick@scranton.edu', 'Counseling'],
                ['Jamie ', 'Trnka', 'jamie.trnka@scranton.edu', 'World Languages and Culture'],
                ['Maria', 'Virbitsky', 'virbitsky.maria@scranton.edu', 'Annual Given Programs'],
-               ['Stacy', 'Smulowitz', 'stacy.smulowitz@scranton.edu', 'Annual Given Programs'],
                ['Laura ', 'VanVokenburg', 'laura.vanvolkenburg@scranton.edu', 'Occupational Therapy'],
                ['Margarete', 'Zalon', 'Margarete.Zalon@scranton.edu', 'Nursing'],
                ['Jennifer', 'Voorman', 'Jennifer.Voorman@scranton.edu', 'Occupational Therapy'],
@@ -94,7 +93,6 @@ def populate():
                ['Marlene ', 'Morgan', 'marlene.morgan@scranton.edu', 'Occupational Therapy'],
                ['Kelly', 'Babinski', 'kelly.babinski@scranton.edu', 'Student'],
                ['Vincent', 'Yanusaskas ', 'vincent.vanusaskas@scranton.edu', 'Student Affairs'],
-               ['Stephen', 'Mansour', 'stephen.mansour@scranton.edu', 'KSOM'],
                ['Michael', 'Friedman', 'michael.friedman@scranton.edu', 'English'],
                ['Xiong', 'Zhongcheng', 'zhongcheng.xiong@scranton.edu', 'Mathematics'],
                ['George', 'Gomez', 'george.gomez@scranton.edu', 'Annual Given Programs'],
@@ -304,15 +302,12 @@ def populate():
                ['Rose', 'Termini', 'rosemary.termini@scranton.edu', 'CTLE'],
                ['Amanda', 'Ellard', 'amanda.ellard@scranton.edu', 'Counseling'],
                ['Jose', 'Sanchez', 'jose.sanchez@scranton.edu', 'Accounting'],
-               ['Paul', 'Datti', 'paul.datti@scranton.edu', 'Counseling'],
                ['Laura', 'Stack', 'laura.stack@scranton.edu', 'HADM'],
-               ['Gloria', 'Wenze', 'gloria.wenze@scranton.edu', 'Education'],
                ['Kimberly', 'Subasic', 'kimberly.subasic@scranton.edu', 'Nursing'],
                ['John', 'Sailors', 'john.sailors@scranton.edu', 'Management'],
                ['Kristen', 'Thomas', 'kristen.thomas@scranton.edu', 'CTLE'],
                ['Steven', 'Szdlowski', 'steven.szdlowski@scranton.edo', 'HADM'],
                ['Diane', 'Collens', 'diane.collens@scranton.edu', 'English'],
-               ['Vanessa', 'Silla', 'vanessa.silla@scranton.edu', 'Education'],
                ['Rose', 'Termini', 'rosemary.termini@scranton.edu', 'CTLE']]
     for obj in clients:
         add_client(c, obj[0], obj[1], obj[2], departments.index(obj[3]))
