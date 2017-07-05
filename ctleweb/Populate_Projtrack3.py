@@ -1,6 +1,5 @@
-# This doesn't even pretend to work yet.
-
 import sqlite3
+
 
 def populate():
     conn = sqlite3.connect('db.sqlite3')
