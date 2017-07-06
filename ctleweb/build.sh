@@ -21,6 +21,8 @@ function script_help {
     echo -e '\tup: activates the virtual environment'
     echo -e '\tdown: deactivates the virtual environment'
     echo -e '\tinstall: installs the project in a virtual environment'
+    echo -e '\tbackup: saves an SQL dump of the database to the current home directory'
+    echo -e '\trestore [filename]: recreates the database from an sql file.'
 }
 
 function all {
@@ -63,7 +65,27 @@ function run {
     python manage.py runserver 8080
 }
 
+function backup {
+    sqlite3 db.sqlite3 .schema > backup.sql
+    sqlite3 db.sqlite3 .dump >> backup.sql
+    date=$(date +%Y%m%d)
+    mv backup.sql ~/backup-$date.sql
+    echo Database backed up to $HOME\backup-$date.sql
+}
+
+function restore {
+    cat $1 | sqlite3 db.sqlite3
+}
+
 case "$1" in
+
+    backup)
+        backup
+        ;;
+
+    restore)
+        restore $2
+        ;;
 
     compile)
         compile
