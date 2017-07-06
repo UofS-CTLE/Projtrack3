@@ -5,6 +5,12 @@ if [ -n '/bin/python3' ]; then
 fi
 
 function script_help {
+    echo This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or \(at your option\t any later version.
+    echo
+    echo This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY\; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+    echo
+    echo You should have received a copy of the GNU General Public License along with this program. If not, see https://www.gnu.org/licenses/.
+    echo
     echo This script runs all cleaning, compiling/optimizing, database building, and testing.
     echo usage:
     echo -e '\t./build.sh [command]'
@@ -23,6 +29,7 @@ function script_help {
     echo -e '\tinstall: installs the project in a virtual environment'
     echo -e '\tbackup: saves an SQL dump of the database to the current home directory'
     echo -e '\trestore [filename]: recreates the database from an sql file.'
+    echo -e '\tserver-env: activates the ctleweb server virtual environment'
 }
 
 function all {
