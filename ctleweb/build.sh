@@ -146,9 +146,9 @@ case "$1" in
 	
     install)
     	virtualenv projtrack3
-	source projtrack3/bin/activate
+	    source projtrack3/bin/activate
     	pip install django
-	pip install djangorestframework
+	    pip install djangorestframework
 	;;
 
     *)
