@@ -139,7 +139,7 @@ def generate_stats(report):
         hours += x.hours
         if x.walk_in:
             walk_ins += 1
-    for x in list(User.objects.all()):
+    for x in list(User.objects.filter(is_active=True)):
         proj = 0
         hour = 0
         for y in list(Project.objects.all()):
