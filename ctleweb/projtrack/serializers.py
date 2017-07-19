@@ -26,7 +26,7 @@ class TypeSerializer(serializers.ModelSerializer):
 
 class SemesterSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Type
+        model = Semester
         fields = ('id', 'name')
 
 
