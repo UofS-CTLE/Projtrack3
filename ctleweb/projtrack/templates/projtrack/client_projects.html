@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% extends "projtrack/home.html" %}
+{% extends "projtrack/base.html" %}
 <html>
     <head>
         {% block content %}
@@ -10,10 +10,10 @@
         <link rel="stylesheet" href="{% static 'projtrack/styles/dashboard.css' %}" />
         <script src="{% static 'projtrack/scripts/page.js' %}"></script>
         <script>
-            window.onload = function() { 
-            load_footer();
-            load_navbar();
-            }
+window.onload = function() { 
+    load_footer();
+    load_navbar();
+}
         </script>
 
         <nav class="navbar navbar-fixed-top">
@@ -41,10 +41,10 @@
         </nav>
 
         <script>
-            window.onload = function() { 
-                load_footer();
-                load_navbar();
-            }
+window.onload = function() { 
+    load_footer();
+    load_navbar();
+}
         </script>
     </head>
     <body>
@@ -56,15 +56,15 @@
                         </li>
                     </ul>
                     <ul class="nav nav-sidebar">
-                        <li class="active"><a href="{% url 'projtrack3:my_projects' %}" class="color-me-dos">My
-                            Projects</a></li>
+                        <li><a href="{% url 'projtrack3:my_projects' %}" class="color-me-dos">My Projects</a></li>
                         <li><a href="{% url 'projtrack3:all_projects' %}" class="color-me-dos">All Projects</a></li>
                         <li><a href="{% url 'projtrack3:add_project' %}" class="color-me-dos">Add Project</a></li>
                     </ul>
                     <ul class="nav nav-sidebar">
                         <li><a href="{% url 'projtrack3:add_department' %}" class="color-me-dos">Add Department</a></li>
                         <li><a href="{% url 'projtrack3:add_client' %}" class="color-me-dos">Add Client</a></li>
-                        <li><a href="{% url 'projtrack3:client_view' %}" class="color-me-dos">All Clients</a></li>
+                        <li class="active"><a href="{% url 'projtrack3:client_view' %}" class="color-me-dos">All
+                            Clients</a></li>
                     </ul>
                     <ul class="nav nav-sidebar">
                         <li><a href="{% url 'projtrack3:report_page' %}" class="color-me-dos">Reports</a></li>
@@ -73,34 +73,30 @@
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                     <h1 class="page-header">{{ title_text }}</h1>
+                    <h2>{{ client_name }}</h2>
                     <table class="table table-hover" style="font-size: 150%;">
                         <tr>
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th>Client</th>
-			                <th>Hours</th>
-                            <th>Date Entered</th>
-                            <th>Completed</th>
-                            <th></th>
-                            <th></th>
+                            <td>Title</td>
+                            <td>Techcon</td>
+                            <td>Date</td>
+                            <td>Type</td>
+                            <td>Completed</td>
+                            <td>Description</td>
                         </tr>
-                        {% for o in projects %}
+                        {% for o in list_view %}
                         <tr>
                             <td>{{ o.title }}</td>
-                            <td>{{ o.description }}</td>
-                            <td>{{ o.client }}</td>
-			                <td>{{ o.hours }}</td>
+                            <td>{{ o.users }}</td>
                             <td>{{ o.date }}</td>
+                            <td>{{ o.type }}</td>
                             <td>{{ o.completed }}</td>
-                            <td><a href="{% url 'projtrack:edit_project' id=o.id %}">Edit</a></td>
-                            <td><a href="{% url 'projtrack:project_delete' id=o.id %}">Delete</a></td>
+                            <td>{{ o.description }}</td>
                         </tr>
                         {% endfor %}
                     </table>
+                    {% endblock %}
                 </div>
             </div>
-        </div>
     </body>
-    {% endblock %}
-</html>
 
+</html>

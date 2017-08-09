@@ -41,9 +41,11 @@ class AddTypeForm(ModelForm):
         exclude = ()
 
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
+
 class GenerateReportForm(forms.Form):
-    start_date = forms.DateField(required=False)
-    end_date = forms.DateField(required=False)
     semester = forms.ModelChoiceField(queryset=Semester.objects.all(),
                                       required=False)
     user = forms.ModelChoiceField(queryset=User.objects.all(),

@@ -68,6 +68,7 @@ window.onload = function() {
                     </ul>
                     <ul class="nav nav-sidebar">
                         <li><a href="{% url 'projtrack3:report_page' %}" class="color-me-dos">Reports</a></li>
+                        <li><a href="/projtrack3/admin/" class="color-me-dos">Admin Page</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -78,6 +79,7 @@ window.onload = function() {
                             <th>Last Name</th>
                             <th>Email</th>
                             <th>Department</th>
+                            <td>Projects</td>
                         </tr>
                         {% for o in list_view %}
                         <tr>
@@ -85,6 +87,7 @@ window.onload = function() {
                             <td>{{ o.last_name }}</td>
                             <td>{{ o.email }}</td>
                             <td>{{ o.department }}</td>
+                            <td><a href="{% url 'projtrack:client_projects' id=o.id %}">Go To</a></td>
                         </tr>
                         {% endfor %}
                     </table>

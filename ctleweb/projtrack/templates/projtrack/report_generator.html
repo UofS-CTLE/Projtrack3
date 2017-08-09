@@ -8,6 +8,7 @@
         <link rel="shortcut icon" href="{% static 'projtrack/favicon.ico' %}"/>
         <link rel="stylesheet" href="{% static 'projtrack/styles/projtrack.css' %}"/>
         <link rel="stylesheet" href="{% static 'projtrack/styles/dashboard.css' %}"/>
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
         <script src="{% static 'projtrack/scripts/page.js' %}"></script>
         <script>
 window.onload = function() { 
@@ -91,6 +92,7 @@ window.onload = function() {
                         {% else %}
                         <li><a href="{% url 'projtrack3:report_page' %}" class="color-me-dos">Reports</a></li>
                         {% endif %}
+                        <li><a href="/projtrack3/admin/" class="color-me-dos">Admin Page</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -101,6 +103,12 @@ window.onload = function() {
                     <form action="{% url 'projtrack:report_page' %}" method="post" style="font-size: 150%;">
                         <div class="form-group">
                             {% csrf_token %}
+                            <strong>Start Date:</strong><br/>
+                            <input id="start_date" name="date" placeholder="MM/DD/YYY" type="date"/>
+                            <br/>
+                            <strong>End Date:</strong><br/>
+                            <input id="end_date" name="date" placeholder="MM/DD/YYY" type="date"/>
+                            <br/>
                             {% for field in form %}
                             {% if field.label_tag == "Department:" %}
                             {{ field.label_tag }}
