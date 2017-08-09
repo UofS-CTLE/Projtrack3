@@ -73,21 +73,24 @@ window.onload = function() {
                 </div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                     <h1 class="page-header">{{ title_text }}</h1>
+                    <h2>{{ client_name }}</h2>
                     <table class="table table-hover" style="font-size: 150%;">
                         <tr>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Email</th>
-                            <th>Department</th>
-                            <td>Projects</td>
+                            <td>Title</td>
+                            <td>Techcon</td>
+                            <td>Date</td>
+                            <td>Type</td>
+                            <td>Completed</td>
+                            <td>Description</td>
                         </tr>
                         {% for o in list_view %}
                         <tr>
-                            <td>{{ o.first_name }}</td>
-                            <td>{{ o.last_name }}</td>
-                            <td>{{ o.email }}</td>
-                            <td>{{ o.department }}</td>
-                            <td><a href="{% url 'projtrack:client_projects' id=o.id %}">Go To</a></td>
+                            <td>{{ o.title }}</td>
+                            <td>{{ o.users }}</td>
+                            <td>{{ o.date }}</td>
+                            <td>{{ o.type }}</td>
+                            <td>{{ o.completed }}</td>
+                            <td>{{ o.description }}</td>
                         </tr>
                         {% endfor %}
                     </table>

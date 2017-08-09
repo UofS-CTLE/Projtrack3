@@ -151,6 +151,20 @@ def client_view(request):
         return redirect('projtrack:not_logged_in')
 
 
+def client_projects(request, id=None):
+    if request.user.is_authenticated:
+        client = Client.objects.get(id=id)
+        try:
+            projects = list(Project.objects.get(client=client))
+        except TypeError:
+            projects = [Project.objects.get(client=client)]
+        return render(request, 'projtrack/client_projects.html',
+                      {'title_text': "Projects for " + str(client), 'user': request.user,
+                       'list_view': projects})
+    else:
+        return redirect('projtrack:not_logged_in')
+
+
 def edit_project(request, id=None):
     error = ""
     if request.user.is_authenticated:
