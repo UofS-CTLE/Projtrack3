@@ -42,8 +42,10 @@ class AddTypeForm(ModelForm):
 
 
 class GenerateReportForm(forms.Form):
-    start_date = forms.DateField(required=False, widget=forms.TextInput(attrs={'class': 'datepicker'}))
-    end_date = forms.DateField(required=False, widget=forms.TextInput(attrs={'class': 'datepicker'}))
+    from functools import partial
+    DateInput = partial(forms.DateInput, {'class': 'datepicker'})
+    start_date = forms.DateField(required=False, widget=forms.DateInput())
+    end_date = forms.DateField(required=False, widget=forms.DateInput())
     semester = forms.ModelChoiceField(queryset=Semester.objects.all(),
                                       required=False)
     user = forms.ModelChoiceField(queryset=User.objects.all(),
