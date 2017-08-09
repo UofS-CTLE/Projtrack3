@@ -3,11 +3,13 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import redirect, get_object_or_404
 from django.shortcuts import render
+from rest_framework import viewsets, permissions
 
 from .forms import AddProjectForm, AddClientForm, AddDeptForm, AddTypeForm, GenerateReportForm
 from .forms import LoginForm
 from .models import Client, Project
 from .report_generator import generate_report
+from .serializers import ProjectSerializer, TypeSerializer, DepartmentSerializer, ClientSerializer, SemesterSerializer
 
 
 def issues(request):
@@ -255,3 +257,33 @@ def not_logged_in(request):
 def logout_view(request):
     logout(request)
     return redirect('projtrack:index')
+
+
+class ProjectSerializerView(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+
+
+class ClientSerializerView(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializer
+
+
+class DepartmentSerializerView(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = Department.objects.all()
+    serializer_class = DepartmentSerializer
+
+
+class TypeSerializerView(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = Type.objects.all()
+    serializer_class = TypeSerializer
+
+
+class SemesterSerializerView(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = Semester.objects.all()
+    serializer_class = SemesterSerializer
