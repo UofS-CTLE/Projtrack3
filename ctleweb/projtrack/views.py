@@ -48,8 +48,8 @@ def report_page(request):
             form = GenerateReportForm(request.POST)
             if form.is_valid():
                 req = {
-                    # 'start_date': request.POST['start_date'],
-                    # 'end_date': request.POST['end_date'],
+                    'start_date': request.POST['start_date'],
+                    'end_date': request.POST['end_date'],
                     'semester': request.POST['semester'],
                     'user': request.POST['user'],
                     'client': request.POST['client'],
