@@ -34,7 +34,7 @@ def check_dates(s_d, e_d):
                 if x.date > s_d:
                     ret.append(x)
         if e_d != '':
-            e_d = datetime.strptime(e_d, "%%m/%d/%Y").date()
+            e_d = datetime.strptime(e_d, "%m/%d/%Y").date()
             for x in result:
                 if x.date < e_d:
                     ret.append(x)
