@@ -99,12 +99,6 @@ window.onload = function() {
             <form action="{% url 'projtrack:report_page' %}" method="post" style="font-size: 150%;">
                 <div class="form-group">
                     {% csrf_token %}
-                    <strong>Start Date:</strong><br/>
-                    <input class="" id="start_date" name="date" placeholder="MM/DD/YYY" type="date"/>
-                    <br/>
-                    <strong>End Date:</strong><br/>
-                    <input class="" id="end_date" name="date" placeholder="MM/DD/YYY" type="date"/>
-                    <br/>
                     {% for field in form %}
                     {% if field.label_tag == "Department:" %}
                     {{ field.label_tag }}
