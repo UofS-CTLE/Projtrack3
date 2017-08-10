@@ -69,7 +69,7 @@ class Project(models.Model):
 
     class Meta:
         db_table = u'Project'
-        ordering = ['title']
+        ordering = ['date']
 
     def __str__(self):
         return self.title
