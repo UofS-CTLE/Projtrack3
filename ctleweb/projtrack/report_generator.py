@@ -32,22 +32,26 @@ def check_dates(s_d, e_d):
             s_d = datetime.strptime(s_d, "%m/%d/%Y").date()
             e_d = datetime.strptime(e_d, "%m/%d/%Y").date()
             for x in result:
-                if (x.date >= s_d) and (x.date <= e_d):
-                    ret.append(x)
+                if s_d < x.date:
+                    if e_d > x.date:
+                        ret.append(x)
+            return ret
         elif s_d != '' and e_d == '':
             s_d = datetime.strptime(s_d, "%m/%d/%Y").date()
             for x in result:
                 if x.date > s_d:
                     ret.append(x)
-        elif e_d != '' and s_d == '':
+            return ret
+        elif s_d == '' and e_d != '':
             e_d = datetime.strptime(e_d, "%m/%d/%Y").date()
             for x in result:
                 if x.date < e_d:
                     ret.append(x)
-        elif e_d == '' and s_d == '' and ret == []:
+            return ret
+        elif e_d == '' and s_d == '':
             return list(Project.objects.all())
         else:
-            return ret
+            return []
     except ObjectDoesNotExist:
         return []
 
