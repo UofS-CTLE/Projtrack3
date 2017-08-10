@@ -29,12 +29,12 @@ def check_dates(s_d, e_d):
         result = list(Project.objects.all())
         ret = []
         if s_d != '':
-            s_d = datetime.strptime(s_d, "%Y-%m-%d").date()
+            s_d = datetime.strptime(s_d, "%m/%d/%Y").date()
             for x in result:
                 if x.date > s_d:
                     ret.append(x)
         if e_d != '':
-            e_d = datetime.strptime(e_d, "%Y-%m-%d").date()
+            e_d = datetime.strptime(e_d, "%%m/%d/%Y").date()
             for x in result:
                 if x.date < e_d:
                     ret.append(x)
