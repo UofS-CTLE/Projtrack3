@@ -176,7 +176,7 @@ class TestReportGenerator(django.test.TestCase):
                          pro)
 
     def test_check_dates0(self):
-        self.assertEqual(check_dates('01/01/2010', ''),
+        self.assertEqual(check_dates('01/01/2010', '0/0/0'),
                          list(Project.objects.all()))
 
     def test_check_dates1(self):
@@ -184,7 +184,7 @@ class TestReportGenerator(django.test.TestCase):
                          [])
 
     def test_check_date2(self):
-        self.assertEqual(check_dates('01/01/2118', ''), [])
+        self.assertEqual(check_dates('01/01/2118', '0/0/0'), [])
 
     def test_check_date3(self):
         self.assertNotEqual(check_dates('08/01/2017', '08/31/2017'),

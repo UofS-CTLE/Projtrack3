@@ -30,7 +30,7 @@ def check_dates(s_d, e_d):
     try:
         result = list(Project.objects.all())
         ret = []
-        if s_d != '' and e_d != '':
+        if s_d != '0/0/0' and e_d != '0/0/0':
             s_d = datetime.strptime(s_d, "%m/%d/%Y").date()
             e_d = datetime.strptime(e_d, "%m/%d/%Y").date()
             for x in result:
@@ -38,20 +38,20 @@ def check_dates(s_d, e_d):
                     if e_d > x.date:
                         ret.append(x)
             return ret
-        elif s_d != '' and e_d == '':
+        elif s_d != '0/0/0' and e_d == '0/0/0':
             s_d = datetime.strptime(s_d, "%m/%d/%Y").date()
             for x in result:
                 d = x.date
                 if d > s_d:
                     ret.append(x)
             return ret
-        elif s_d == '' and e_d != '':
+        elif s_d == '0/0/0' and e_d != '0/0/0':
             e_d = datetime.strptime(e_d, "%m/%d/%Y").date()
             for x in result:
                 if x.date < e_d:
                     ret.append(x)
             return ret
-        elif e_d == '' and s_d == '':
+        elif e_d == '0/0/0' and s_d == '0/0/0':
             return list(Project.objects.all())
         else:
             return []
