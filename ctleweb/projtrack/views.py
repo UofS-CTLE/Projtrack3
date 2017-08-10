@@ -4,7 +4,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import redirect, get_object_or_404
 from django.shortcuts import render
 
-from .forms import AddProjectForm, AddClientForm, AddDeptForm, AddTypeForm, GenerateReportForm
+from .forms import AddProjectForm, AddClientForm, AddDeptForm, AddTypeForm, GenerateReportForm, ChangePasswordForm
 from .forms import LoginForm
 from .models import Client, Project
 from .report_generator import generate_report
@@ -263,3 +263,24 @@ def not_logged_in(request):
 def logout_view(request):
     logout(request)
     return redirect('projtrack:index')
+
+
+def change_password(request):
+    error = ''
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            first = request.POST['first']
+            second = request.POST['second']
+            if first == second:
+                u = User.objects.get(username_exact=request.user.username)
+                u.set_password(first)
+                u.save()
+            else:
+                error = 'Passwords do not match.'
+            form = ChangePasswordForm()
+        else:
+            form = ChangePasswordForm()
+        return render(request, 'projtrack/change_password.html',
+                      {'user': request.user, 'form': form, 'error_message': error})
+    else:
+        return redirect('projtrack:not_logged_in')
