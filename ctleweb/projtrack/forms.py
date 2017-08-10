@@ -64,5 +64,5 @@ class GenerateReportForm(forms.Form):
 
 
 class ChangePasswordForm(forms.Form):
-    first = forms.PasswordInput()
-    second = forms.PasswordInput()
+    password = forms.PasswordInput()
+    repeat_password = forms.PasswordInput()

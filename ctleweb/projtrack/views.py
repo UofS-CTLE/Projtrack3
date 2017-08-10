@@ -269,8 +269,8 @@ def change_password(request):
     error = ''
     if request.user.is_authenticated:
         if request.method == 'POST':
-            first = request.POST['first']
-            second = request.POST['second']
+            first = request.POST['password']
+            second = request.POST['repeat_password']
             if first == second:
                 u = User.objects.get(username_exact=request.user.username)
                 u.set_password(first)
