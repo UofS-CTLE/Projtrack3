@@ -163,7 +163,7 @@ def client_projects(request, id=None):
     if request.user.is_authenticated:
         client = Client.objects.get(id=id)
         try:
-            projects = list(Project.objects.get(client=client))
+            projects = list(Project.objects.filter(client=client))
         except TypeError:
             projects = [Project.objects.get(client=client)]
         return render(request, 'projtrack/client_projects.html',
