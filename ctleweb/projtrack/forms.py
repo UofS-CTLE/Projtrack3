@@ -62,7 +62,3 @@ class GenerateReportForm(forms.Form):
                                        required=False)
     sort_by_date = forms.BooleanField(required=False, initial=False)
 
-
-class ChangePasswordForm(forms.Form):
-    password = forms.PasswordInput()
-    repeat_password = forms.PasswordInput()

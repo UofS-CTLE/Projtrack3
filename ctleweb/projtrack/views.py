@@ -1,10 +1,11 @@
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import PasswordChangeForm
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import redirect, get_object_or_404
 from django.shortcuts import render
 
-from .forms import AddProjectForm, AddClientForm, AddDeptForm, AddTypeForm, GenerateReportForm, ChangePasswordForm
+from .forms import AddProjectForm, AddClientForm, AddDeptForm, AddTypeForm, GenerateReportForm
 from .forms import LoginForm
 from .models import Client, Project
 from .report_generator import generate_report
@@ -266,21 +267,15 @@ def logout_view(request):
 
 
 def change_password(request):
-    error = ''
     if request.user.is_authenticated:
         if request.method == 'POST':
-            first = request.POST['password']
-            second = request.POST['repeat_password']
-            if first == second:
-                u = User.objects.get(username_exact=request.user.username)
-                u.set_password(first)
-                u.save()
-            else:
-                error = 'Passwords do not match.'
-            form = ChangePasswordForm()
+            form = PasswordChangeForm(request.user, request.POST)
+            if form.is_valid():
+                user = form.save()
+                update_session_auth_hash(request, user)
         else:
-            form = ChangePasswordForm()
+            form = PasswordChangeForm(request.user)
         return render(request, 'projtrack/change_password.html',
-                      {'user': request.user, 'form': form, 'error_message': error})
+                      {'user': request.user, 'form': form})
     else:
         return redirect('projtrack:not_logged_in')
