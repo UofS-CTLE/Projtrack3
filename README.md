@@ -1,8 +1,6 @@
 # Projtrack 3
 ***Remember to run build.sh before opening a pull request.***
 
-This project's dependencies include Django and the Django REST Framework (starting in release 3.0.3-beta.6).
-
 [Projtrack 3 Wiki](https://github.com/cyclerdan/Projtrack3/wiki/)
 
 Before contributing, check out this [quick guide to Django.](https://docs.djangoproject.com/en/1.10/intro)
