@@ -1,6 +1,6 @@
 window.onload = function() {
     console.log("Footer loading.");
-    var version = "3.0.3-beta.6";
+    var version = "3.0.3-beta.8";
     var date = "6/20/2017";
     document.getElementById("version").innerHTML = version;
     document.getElementById("date").innerHTML = date;
