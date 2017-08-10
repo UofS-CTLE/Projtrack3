@@ -1,99 +1,111 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 {% extends "projtrack/base.html" %}
+<!--suppress ALL -->
 <html>
-	<head>
-        {% block content %}
-		<title>Projtrack</title>
-		{% load static %}
-		<link rel="shortcut icon" href="{% static "projtrack/favicon.ico" %}" />
-		<link rel="stylesheet" href="{% static "projtrack/styles/projtrack.css" %}" />
-		<link rel="stylesheet" href="{% static "projtrack/styles/dashboard.css" %}" />
-		<script src="{% static "projtrack/scripts/page.js" %}"></script>
-                <script>
+<head>
+    {% block content %}
+    <title>Projtrack</title>
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'projtrack/favicon.ico' %}"/>
+    <link rel="stylesheet" href="{% static 'projtrack/styles/projtrack.css' %}"/>
+    <link rel="stylesheet" href="{% static 'projtrack/styles/dashboard.css' %}"/>
+    <script src="{% static 'projtrack/scripts/page.js' %}"></script>
+    <script>
                 window.onload = function() { 
                     load_footer();
                     load_navbar();
                 }
-                </script>
 
-     <nav class="navbar navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-            <a class="navbar-brand" href="{% url 'projtrack:home' %}"><img alt="Brand" style="width:25px;height:25px;"
-                                                                  src="{% static 'projtrack/favicon.ico' %}"></a>
+
+    </script>
+
+    <nav class="navbar navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url 'projtrack:home' %}"><img alt="Brand"
+                                                                               style="width:25px;height:25px;"
+                                                                               src="{% static 'projtrack/favicon.ico' %}"></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-left">
+                    <li role="presentation"><a href="{% url 'projtrack:logout' %}" class="color-me"
+                                               style="font-size: 175%"><span class="glyphicon glyphicon-log-out"
+                                                                             aria-hidden="true"></span> Sign Out</a>
+                    </li>
+                    <li role="presentation" style="font-size: 250%; padding-top: 4px;">{{ user }}</li>
+                </ul>
+            </div>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-left">
-                <li role="presentation"><a href="{% url 'projtrack:logout' %}" class="color-me" style="font-size: 175%"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign Out</a></li>
-                <li role="presentation" style="font-size: 250%; padding-top: 4px;">{{ user }}</li>
-          </ul>
-        </div>
-      </div>
     </nav>
-        
-		<script>
+
+    <script>
 			window.onload = function() { 
 				load_footer();
 				load_navbar();
 			}
-		</script>
 
-	</head>
-	<body>
-		<div class="container-fluid">
-      		<div class="row">
-        		<div class="col-sm-3 col-md-2 sidebar">
-       				<ul class="nav nav-sidebar">
-                        <li><a href="{% url 'projtrack:home' %}" class="color-me-dos">Home<span class="sr-only">(current)</span></a></li>
-          			</ul>
-          			<ul class="nav nav-sidebar">
-                        <li><a href="{% url 'projtrack:my_projects' %}" class="color-me-dos">My Projects</a></li>
-                        <li class="active"><a href="{% url 'projtrack:all_projects' %}" class="color-me-dos">All Projects</a></li>
-                        <li><a href="{% url 'projtrack:add_project' %}" class="color-me-dos">Add Project</a></li>
-          			</ul>
-          			<ul class="nav nav-sidebar">
-                        <li><a href="{% url 'projtrack:add_client' %}" class="color-me-dos">Add Client</a></li>
-                        <li><a href="{% url 'projtrack:client_view' %}" class="color-me-dos">All Clients</a></li>
-          			</ul>
-          			<ul class="nav nav-sidebar">
-                        <li><a href="{% url 'projtrack:report_page' %}" class="color-me-dos">Reports</a></li>
-                        <li><a href="/projtrack3/admin/" class="color-me-dos">Admin Page</a></li>
-          			</ul>
-        		</div>
-        	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <h1 class="page-header">{{ title_text }}</h1>
-                <table class="table table-hover" style="font-size: 150%;">
-                    <tr>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Client</th>
-                        <th>Users</th>
-                        <th>Date</th>
-			            <th>Hours</th>
-                        <th>Completed</th>
-                    </tr>
-                    {% for o in list_view %}
-                    <tr>
-                        <td>{{ o.title }}</td>
-                        <td>{{ o.description }}</td>
-                        <td>{{ o.client }}</td>
-                        <td>{{ o.users }}</td>
-                        <td>{{ o.date }}</td>
-			            <td>{{ o.hours }}</td>
-                        <td>{{ o.completed }}</td>
-                    </tr>
-                    {% endfor %}
-                </table>
-            </div>
-      {% endblock %}
-      	</div>
-	</body>
+
+    </script>
+
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li><a href="{% url 'projtrack:home' %}" class="color-me-dos">Home<span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+            <ul class="nav nav-sidebar">
+                <li><a href="{% url 'projtrack:my_projects' %}" class="color-me-dos">My Projects</a></li>
+                <li class="active"><a href="{% url 'projtrack:all_projects' %}" class="color-me-dos">All Projects</a>
+                </li>
+                <li><a href="{% url 'projtrack:add_project' %}" class="color-me-dos">Add Project</a></li>
+            </ul>
+            <ul class="nav nav-sidebar">
+                <li><a href="{% url 'projtrack:add_client' %}" class="color-me-dos">Add Client</a></li>
+                <li><a href="{% url 'projtrack:client_view' %}" class="color-me-dos">All Clients</a></li>
+            </ul>
+            <ul class="nav nav-sidebar">
+                <li><a href="{% url 'projtrack:report_page' %}" class="color-me-dos">Reports</a></li>
+                <li><a href="/projtrack3/admin/" class="color-me-dos">Admin Page</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">{{ title_text }}</h1>
+            <table class="table table-hover" style="font-size: 150%;">
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Client</th>
+                    <th>Users</th>
+                    <th>Date</th>
+                    <th>Hours</th>
+                    <th>Completed</th>
+                </tr>
+                {% for o in list_view %}
+                <tr>
+                    <td>{{ o.title }}</td>
+                    <td>{{ o.description }}</td>
+                    <td>{{ o.client }}</td>
+                    <td>{{ o.users }}</td>
+                    <td>{{ o.date }}</td>
+                    <td>{{ o.hours }}</td>
+                    <td>{{ o.completed }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% endblock %}
+    </div>
+</div>
+</body>
 </html>
 

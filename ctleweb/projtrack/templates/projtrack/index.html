@@ -1,41 +1,38 @@
 {% extends "projtrack/base.html" %}
+<!--suppress HtmlUnknownTag -->
 <head>
-	<title>Projtrack</title>
-	<div id="pagetitle">{% load static %}</div>
-	<link rel="stylesheet" href="{% static 'projtrack/styles/login_page.css' %}" />
-	<link rel="shortcut icon" href="{% static 'projtrack/favicon.ico' %}" />
-	<!-- Custom styles for this template -->
-	<link href="signin.css" rel="stylesheet">
+    <title>Projtrack</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'projtrack/styles/login_page.css' %}"/>
+    <link rel="shortcut icon" href="{% static 'projtrack/favicon.ico' %}"/>
+    <!-- Custom styles for this template -->
+    <link href="signin.css" rel="stylesheet">
 </head>
 {% block content %}
 <script src="{% static 'projtrack/scripts/page.js' %}"></script>
 <div class="container">
-	<h2>Projtrack v3</h2>
-	<p>
-		<div id="error" style="color: red; font-size: 150%">{{ error_message }}</div>
-	<form action="{% url 'projtrack:index' %}" method="post">
-			{% csrf_token %}
-			{% for field in form %}
-			<p style="font-size: 150%">{{ field.label_tag }} {{ field }}</p>
-			{% endfor %}
-			<input class="btn btn-lg btn-primary" type="submit" value="Login"></a>
-	</form>
+    <h2>Projtrack v3</h2>
+    <p>
+    <div id="error" style="color: red; font-size: 150%">{{ error_message }}</div>
+    <form action="{% url 'projtrack:index' %}" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <p style="font-size: 150%">{{ field.label_tag }} {{ field }}</p>
+        {% endfor %}
+        <input class="btn btn-lg btn-primary" type="submit" value="Login"/>
+    </form>
 </div>
-	  </p>
-  </div>
-  <div>
-	  <div class="row">
-		  <div class="col-md-1"></div>
-		  <div class="col-md-10">
-			  <table id="footer" width="100%" style="margin:0;padding:0;">
-				  <th>
-					  <td>University of Scranton CTLE</td>
-					  <td id="version"></td>
-					  <td id="date"></td>
-				  </th>
-			  </table>
-		  </div>
-		  <div class="col-md-1"></div>
-	  </div>
-  </div>
-  {% endblock %}
+<div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <table id="footer" width="100%" style="margin:0;padding:0;">
+                <td>University of Scranton CTLE</td>
+                <td id="version"></td>
+                <td id="date"></td>
+            </table>
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>
+{% endblock %}

@@ -14,7 +14,6 @@ Download [Git](https://git-scm.com/download/win), [Python](https://www.python.or
 Once **pip** is installed, run
 ```
 > pip install django
-> pip install djangorestframework
 ```
 Using the git command line installed with **git**, execute
 ```
@@ -32,7 +31,6 @@ to start the development server running.
 Ensure that **git**, **python**, and **pip** are present on your system. If they are, run
 ```
 $ sudo pip install django
-$ sudo pip install djangorestframework
 $ git clone https://github.com/cyclerdan/Projtrack3.git
 ```
 to set up the project and

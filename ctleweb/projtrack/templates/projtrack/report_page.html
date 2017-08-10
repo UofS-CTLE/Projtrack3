@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress ALL -->
 <html>
 {% load projtrack_filters %}
 <head font-size: 150%;>
@@ -8,6 +9,7 @@
 	    border: 1px solid black;
 	    padding: 5px;
 	}
+
     </style>
 </head>
 <h1>{% block title %}Techcon Project Report{% endblock %}</h1>
@@ -21,11 +23,14 @@ Total Projects: {{ report.total_projects }}<br/>
 Total Hours: {{ report.total_hours }}<br/>
 Walk-ins: {{ report.walk_ins }} ({{ report.walk_in_percent }}%)<br/>
 <h3>Projects per User</h3><br/>
-    <table>
+<table>
     {% for key in report.users %}
-        <tr><td>{{ key }}</td><td>{{ report.users|get_item:key }}</td></tr>
+    <tr>
+        <td>{{ key }}</td>
+        <td>{{ report.users|get_item:key }}</td>
+    </tr>
     {% endfor %}
-    </table>
+</table>
 <br/>
 <h3>Projects per Department</h3><br/>
 <table>
@@ -35,7 +40,8 @@ Walk-ins: {{ report.walk_ins }} ({{ report.walk_in_percent }}%)<br/>
         <td>{{ report.depts|get_item:key }}</td>
     </tr>
     {% endfor %}
-</table><br/>
+</table>
+<br/>
 <h3>Projects per Type</h3><br/>
 <table>
     {% for key in report.types %}
@@ -44,7 +50,8 @@ Walk-ins: {{ report.walk_ins }} ({{ report.walk_in_percent }}%)<br/>
         <td>{{ report.types|get_item:key }}</td>
     </tr>
     {% endfor %}
-</table><br/>
+</table>
+<br/>
 <h3>Statistics</h3><br/>
 <table>
     <tr>
@@ -59,7 +66,8 @@ Walk-ins: {{ report.walk_ins }} ({{ report.walk_in_percent }}%)<br/>
         <td>Average Hours per Developer</td>
         <td>{{ report.stats.average_hour }}</td>
     </tr>
-</table><br/>
+</table>
+<br/>
 <h3>Projects</h3><br/>
 <table>
     <tr>
@@ -70,7 +78,7 @@ Walk-ins: {{ report.walk_ins }} ({{ report.walk_in_percent }}%)<br/>
         <td><strong>Date</strong></td>
         <td><strong>Description</strong></td>
     </tr>
-{% for x in report.project_list %}
+    {% for x in report.project_list %}
     <tr>
         <td>{{ x.title }}</td>
         <td>{{ x.client }}</td>
@@ -79,7 +87,7 @@ Walk-ins: {{ report.walk_ins }} ({{ report.walk_in_percent }}%)<br/>
         <td>{{ x.date }}</td>
         <td>{{ x.description }}</td>
     </tr>
-{% endfor %}
+    {% endfor %}
 </table>
 {% endblock %}
 </html>

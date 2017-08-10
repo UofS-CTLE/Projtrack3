@@ -2,6 +2,8 @@ import datetime
 
 import django.test
 from django.contrib.auth.models import User as App_User
+# noinspection PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences,
+# noinspection PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences
 from projtrack.models import Client, Project, Type, User, Department, Semester
 
 from .report_generator import check_semester, check_client, check_dates, check_department, \

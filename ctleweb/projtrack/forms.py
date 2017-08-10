@@ -45,11 +45,12 @@ class DateInput(forms.DateInput):
     input_type = 'date'
 
 
+# noinspection PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences
 class GenerateReportForm(forms.Form):
     start_date = forms.DateField(required=False, widget=SelectDateWidget(empty_label=("Year", "Month", "Day"),
                                                                          years=range(2010, 2025)))
-    end_date = forms.DateField(required=False,  widget=SelectDateWidget(empty_label=("Year", "Month", "Day"),
-                                                                        years=range(2010, 2025)))
+    end_date = forms.DateField(required=False, widget=SelectDateWidget(empty_label=("Year", "Month", "Day"),
+                                                                       years=range(2010, 2025)))
     semester = forms.ModelChoiceField(queryset=Semester.objects.all(),
                                       required=False)
     user = forms.ModelChoiceField(queryset=User.objects.all(),
@@ -61,4 +62,3 @@ class GenerateReportForm(forms.Form):
     proj_type = forms.ModelChoiceField(queryset=Type.objects.all(),
                                        required=False)
     sort_by_date = forms.BooleanField(required=False, initial=False)
-

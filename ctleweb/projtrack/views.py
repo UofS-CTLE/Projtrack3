@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
-from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import redirect, get_object_or_404
 from django.shortcuts import render
@@ -11,8 +11,14 @@ from .models import Client, Project
 from .report_generator import generate_report
 
 
+# noinspection PyUnusedLocal
 def issues(request):
     return redirect('https://github.com/cyclerdan/Projtrack3/issues')
+
+
+# noinspection PyUnusedLocal
+def wiki(request):
+    return redirect('https://github.com/cyclerdan/Projtrack3/wiki')
 
 
 def index(request):
@@ -84,6 +90,7 @@ def my_projects(request):
         try:
             projects = []
             u = User.objects.get(username=request.user.username)
+            # noinspection PyUnresolvedReferences
             query = Project.objects.all().order_by('-date')
             for x in query:
                 if x.users.username == u.username:
@@ -99,6 +106,7 @@ def my_projects(request):
 
 def all_projects(request):
     if request.user.is_authenticated:
+        # noinspection PyUnresolvedReferences
         projects = Project.objects.all().order_by('-date')
         return render(request, 'projtrack/all_projects.html',
                       {'user': request.user, 'title_text': "All Projects",
@@ -152,6 +160,7 @@ def add_client(request):
 
 def client_view(request):
     if request.user.is_authenticated:
+        # noinspection PyUnresolvedReferences
         clients = Client.objects.all().order_by('last_name')
         return render(request, 'projtrack/list_view.html',
                       {'title_text': "All Clients", 'user': request.user,
@@ -160,12 +169,16 @@ def client_view(request):
         return redirect('projtrack:not_logged_in')
 
 
+# noinspection PyShadowingBuiltins
 def client_projects(request, id=None):
     if request.user.is_authenticated:
+        # noinspection PyUnresolvedReferences
         client = Client.objects.get(id=id)
         try:
+            # noinspection PyUnresolvedReferences
             projects = list(Project.objects.filter(client=client))
         except TypeError:
+            # noinspection PyUnresolvedReferences
             projects = [Project.objects.get(client=client)]
         return render(request, 'projtrack/client_projects.html',
                       {'title_text': "Projects for " + str(client), 'user': request.user,
@@ -174,10 +187,12 @@ def client_projects(request, id=None):
         return redirect('projtrack:not_logged_in')
 
 
+# noinspection PyShadowingBuiltins
 def edit_project(request, id=None):
     error = ""
     if request.user.is_authenticated:
         if request.method == 'POST':
+            # noinspection PyUnresolvedReferences
             form = AddProjectForm(request.POST or None, instance=Project.objects.get(id=id))
             if form.is_valid():
                 t = form.save()
@@ -196,13 +211,16 @@ def edit_project(request, id=None):
         return redirect('projtrack:not_logged_in')
 
 
+# noinspection PyShadowingBuiltins
 def project_delete(request, id=None):
     if request.user.is_authenticated:
         try:
             p = get_object_or_404(Project, pk=id)
             projects = []
             u = User.objects.get(username=request.user.username)
+            # noinspection PyUnresolvedReferences
             Project.objects.filter(id=p.id).delete()
+            # noinspection PyUnresolvedReferences
             query = Project.objects.all().order_by('title')
             for x in query:
                 if x.users.username == u.username:

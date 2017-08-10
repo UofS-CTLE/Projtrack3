@@ -1,115 +1,123 @@
 <!DOCTYPE html>
 {% extends "projtrack/home.html" %}
+<!--suppress ALL -->
 <html>
-    <head>
-        {% block content %}
-        <title>Projtrack</title>
-        {% load static %}
-        <link rel="shortcut icon" href="{% static 'projtrack/favicon.ico' %}"/>
-        <link rel="stylesheet" href="{% static 'projtrack/styles/projtrack.css' %}"/>
-        <link rel="stylesheet" href="{% static 'projtrack/styles/dashboard.css' %}"/>
-        <script src="{% static 'projtrack/scripts/page.js' %}"></script>
-        <script>
+<head>
+    {% block content %}
+    <title>Projtrack</title>
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'projtrack/favicon.ico' %}"/>
+    <link rel="stylesheet" href="{% static 'projtrack/styles/projtrack.css' %}"/>
+    <link rel="stylesheet" href="{% static 'projtrack/styles/dashboard.css' %}"/>
+    <script src="{% static 'projtrack/scripts/page.js' %}"></script>
+    <script>
 window.onload = function() { 
     load_footer();
     load_navbar();
 }
-        </script>
 
-        <nav class="navbar navbar-fixed-top">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="{% url 'projtrack:home' %}"><img alt="Brand"
-                                                                                   style="width:25px;height:25px;"
-                                                                                   src="{% static 'projtrack/favicon.ico' %}"></a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-left">
-                        <li role="presentation"><a href="{% url 'projtrack3:logout' %}" class="color-me"
-                                                   style="font-size: 175%"><span
-                                class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign Out</a></li>
-                        <li role="presentation" style="font-size: 250%; padding-top: 4px;">{{ user }}</li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
 
-        <script>
-window.onload = function() { 
-    load_footer();
-    load_navbar();
-}
-        </script>
-    </head>
-    <body>
+    </script>
+
+    <nav class="navbar navbar-fixed-top">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-3 col-md-2 sidebar">
-                    <ul class="nav nav-sidebar">
-                        <li><a href="{% url 'projtrack:home' %}" class="color-me-dos">Home<span class="sr-only">(current)</span></a>
-                        </li>
-                    </ul>
-                    <ul class="nav nav-sidebar">
-                        <li><a href="{% url 'projtrack3:my_projects' %}" class="color-me-dos">My Projects</a></li>
-                        <li><a href="{% url 'projtrack3:all_projects' %}" class="color-me-dos">All Projects</a></li>
-                        <!--If to handle highlighted left navbar-->
-                        {% if title_text == "Add Project" %}
-                        <li class="active"><a href="{% url 'projtrack3:add_project' %}" class="color-me-dos">Add
-                            Project</a></li>
-                        {% else %}
-                        <li><a href="{% url 'projtrack3:add_project' %}" class="color-me-dos">Add Project</a></li>
-                        {% endif %}
-                    </ul>
-                    <ul class="nav nav-sidebar">
-                        <!--If to handle highlighted left navbar-->
-                        {% if title_text == "Add Client" %}
-                        <li class="active"><a href="{% url 'projtrack3:add_client' %}" class="color-me-dos">Add
-                            Client</a></li>
-                        {% else %}
-                        <li><a href="{% url 'projtrack3:add_client' %}" class="color-me-dos">Add Client</a></li>
-                        {% endif %}
-                        <li><a href="{% url 'projtrack3:client_view' %}" class="color-me-dos">All Clients</a></li>
-                    </ul>
-                    <ul class="nav nav-sidebar">
-                        <!--If to handle highlighted left navbar-->
-                        {% if title_text == "Generate a Report" %}
-                        <li class="active"><a href="{% url 'projtrack3:report_page' %}" class="color-me-dos">Reports</a>
-                        </li>
-                        {% else %}
-                        <li><a href="{% url 'projtrack3:report_page' %}" class="color-me-dos">Reports</a></li>
-                        {% endif %}
-                    <li><a href="/projtrack3/admin/" class="color-me-dos">Admin Page</a></li>
-                    </ul>
-                </div>
-                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    <h1 class="page-header">{{ title_text }}</h1>
-                    <p>{{ error_message }}</p>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url 'projtrack:home' %}"><img alt="Brand"
+                                                                               style="width:25px;height:25px;"
+                                                                               src="{% static 'projtrack/favicon.ico' %}"></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-left">
+                    <li role="presentation"><a href="{% url 'projtrack3:logout' %}" class="color-me"
+                                               style="font-size: 175%"><span
+                            class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign Out</a></li>
+                    <li role="presentation" style="font-size: 250%; padding-top: 4px;">{{ user }}</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-                    {% block form %}
-                    <form action="{% url 'projtrack:add_type' %}" method="post" style="font-size: 150%;">
-                        <div class="form-group">
-                            {% csrf_token %}
-                            {% for field in form %}
-                            {% if field.label_tag == "Department:" %}
-                            {{ field.label_tag }}
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item">{{ field }}</a>
-                            </div>
-                            {% else %}
-                            <p>{{field.label_tag}}<br>{{field}}</p>
-                            {% endif %}
-                            {% endfor %}
-                            <input type='submit' value='Submit' />
-                        </div>
-                    </form>
-                    {% endblock %}
+    <script>
+window.onload = function() { 
+    load_footer();
+    load_navbar();
+}
+
+
+    </script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li><a href="{% url 'projtrack:home' %}" class="color-me-dos">Home<span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+            <ul class="nav nav-sidebar">
+                <li><a href="{% url 'projtrack3:my_projects' %}" class="color-me-dos">My Projects</a></li>
+                <li><a href="{% url 'projtrack3:all_projects' %}" class="color-me-dos">All Projects</a></li>
+                <!--If to handle highlighted left navbar-->
+                {% if title_text == "Add Project" %}
+                <li class="active"><a href="{% url 'projtrack3:add_project' %}" class="color-me-dos">Add
+                    Project</a></li>
+                {% else %}
+                <li><a href="{% url 'projtrack3:add_project' %}" class="color-me-dos">Add Project</a></li>
+                {% endif %}
+            </ul>
+            <ul class="nav nav-sidebar">
+                <!--If to handle highlighted left navbar-->
+                {% if title_text == "Add Client" %}
+                <li class="active"><a href="{% url 'projtrack3:add_client' %}" class="color-me-dos">Add
+                    Client</a></li>
+                {% else %}
+                <li><a href="{% url 'projtrack3:add_client' %}" class="color-me-dos">Add Client</a></li>
+                {% endif %}
+                <li><a href="{% url 'projtrack3:client_view' %}" class="color-me-dos">All Clients</a></li>
+            </ul>
+            <ul class="nav nav-sidebar">
+                <!--If to handle highlighted left navbar-->
+                {% if title_text == "Generate a Report" %}
+                <li class="active"><a href="{% url 'projtrack3:report_page' %}" class="color-me-dos">Reports</a>
+                </li>
+                {% else %}
+                <li><a href="{% url 'projtrack3:report_page' %}" class="color-me-dos">Reports</a></li>
+                {% endif %}
+                <li><a href="/projtrack3/admin/" class="color-me-dos">Admin Page</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">{{ title_text }}</h1>
+            <p>{{ error_message }}</p>
+
+            {% block form %}
+            <form action="{% url 'projtrack:add_type' %}" method="post" style="font-size: 150%;">
+                <div class="form-group">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    {% if field.label_tag == "Department:" %}
+                    {{ field.label_tag }}
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item">{{ field }}</a>
+                    </div>
+                    {% else %}
+                    <p>{{field.label_tag}}<br>{{field}}</p>
+                    {% endif %}
+                    {% endfor %}
+                    <input type='submit' value='Submit'/>
                 </div>
-                {% endblock %}
-    </body>
+            </form>
+            {% endblock %}
+        </div>
+        {% endblock %}
+    </div>
+</div>
+</body>
 </html>

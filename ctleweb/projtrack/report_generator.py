@@ -8,13 +8,14 @@ from .models import Project, User, Client, Department, Type
 def bubble_sort(l):
     for i in range(len(l)):
         for j in range(len(l) - i - 1):
-            if l[j] > l[j+1]:
+            if l[j] > l[j + 1]:
                 tmp = l[j]
-                l[j] = l[j+1]
-                l[j+1] = tmp
+                l[j] = l[j + 1]
+                l[j + 1] = tmp
     return l
 
 
+# noinspection PyUnresolvedReferences,PyUnresolvedReferences
 def retrieve_most_recent_techcon(client):
     try:
         proj = list(Project.objects.filter(client=client))
@@ -24,6 +25,7 @@ def retrieve_most_recent_techcon(client):
         return [Project.objects.filter(client=client)]
 
 
+# noinspection PyUnresolvedReferences,PyUnresolvedReferences
 def check_dates(s_d, e_d):
     try:
         result = list(Project.objects.all())
@@ -57,6 +59,7 @@ def check_dates(s_d, e_d):
         return []
 
 
+# noinspection PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences
 def check_semester(sem):
     try:
         if sem != '':
@@ -73,6 +76,7 @@ def check_semester(sem):
         return []
 
 
+# noinspection PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences
 def check_user(use):
     try:
         if use != '':
@@ -89,6 +93,7 @@ def check_user(use):
         return []
 
 
+# noinspection PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences
 def check_client(cli):
     try:
         if cli != '':
@@ -105,6 +110,8 @@ def check_client(cli):
         return []
 
 
+# noinspection PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences,
+# noinspection PyUnresolvedReferences,PyUnresolvedReferences
 def check_department(depart):
     try:
         if depart != '':
@@ -123,6 +130,7 @@ def check_department(depart):
         return []
 
 
+# noinspection PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences
 def check_type(proj):
     try:
         if proj != '':
@@ -139,6 +147,8 @@ def check_type(proj):
         return []
 
 
+# noinspection PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences,
+# noinspection PyUnresolvedReferences
 def generate_stats(report):
     hours = 0
     walk_ins = 0
@@ -177,8 +187,8 @@ def generate_stats(report):
     try:
         stats = {
             'active_devs': len(users),
-            'average_proj': projects//len(users),
-            'average_hour': hours/len(users)
+            'average_proj': projects // len(users),
+            'average_hour': hours / len(users)
         }
     except ZeroDivisionError:
         stats = {
@@ -201,6 +211,7 @@ def generate_stats(report):
     return report
 
 
+# noinspection PyUnresolvedReferences
 def generate_report(req):
     proj_list = set(list(Project.objects.all()))
     rep = [
@@ -210,7 +221,7 @@ def generate_report(req):
         (set(check_department(req['department']))),
         (set(check_type(req['proj_type']))),
         (set(check_client(req['client'])))
-        ]
+    ]
     for x in rep:
         proj_list = proj_list & x
     if req['sort_by_date']:
