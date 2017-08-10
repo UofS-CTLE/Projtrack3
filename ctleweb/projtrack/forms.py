@@ -1,6 +1,7 @@
+from django.contrib.admin.widgets import AdminDateWidget
 from django import forms
 from django.contrib.auth.models import User
-from django.forms import ModelForm
+from django.forms import ModelForm, SelectDateWidget
 
 from .models import Type, Client, Department, Project, Semester
 
@@ -46,8 +47,10 @@ class DateInput(forms.DateInput):
 
 
 class GenerateReportForm(forms.Form):
-    start_date = forms.DateField(required=False)
-    end_date = forms.DateField(required=False)
+    start_date = forms.DateField(required=False, widget=SelectDateWidget(empty_label=("Year", "Month", "Day"),
+                                                                         years=range(2010, 2025)))
+    end_date = forms.DateField(required=False,  widget=SelectDateWidget(empty_label=("Year", "Month", "Day"),
+                                                                        years=range(2010, 2025)))
     semester = forms.ModelChoiceField(queryset=Semester.objects.all(),
                                       required=False)
     user = forms.ModelChoiceField(queryset=User.objects.all(),
