@@ -46,8 +46,8 @@ class DateInput(forms.DateInput):
 
 
 class GenerateReportForm(forms.Form):
-    start_date = forms.DateField(required=False)
-    end_date = forms.DateField(required=False)
+    # start_date = forms.DateField(required=False)
+    # end_date = forms.DateField(required=False)
     semester = forms.ModelChoiceField(queryset=Semester.objects.all(),
                                       required=False)
     user = forms.ModelChoiceField(queryset=User.objects.all(),

@@ -204,7 +204,7 @@ def generate_stats(report):
 def generate_report(req):
     proj_list = set(list(Project.objects.all()))
     rep = [
-        (set(check_dates(req['start_date'], req['end_date']))),
+        # (set(check_dates(req['start_date'], req['end_date']))),
         (set(check_semester(req['semester']))),
         (set(check_user(req['user']))),
         (set(check_department(req['department']))),
