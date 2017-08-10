@@ -69,13 +69,6 @@ window.onload = function() {
                     </ul>
                     <ul class="nav nav-sidebar">
                         <!--If to handle highlighted left navbar-->
-                        {% if title_text == "Add Department" %}
-                        <li class="active"><a href="{% url 'projtrack3:add_department' %}" class="color-me-dos">Add
-                            Department</a></li>
-                        {% else %}
-                        <li><a href="{% url 'projtrack3:add_department' %}" class="color-me-dos">Add Department</a></li>
-                        {% endif %}
-                        <!--If to handle highlighted left navbar-->
                         {% if title_text == "Add Client" %}
                         <li class="active"><a href="{% url 'projtrack3:add_client' %}" class="color-me-dos">Add
                             Client</a></li>
