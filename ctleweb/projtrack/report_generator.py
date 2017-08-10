@@ -39,7 +39,8 @@ def check_dates(s_d, e_d):
         elif s_d != '' and e_d == '':
             s_d = datetime.strptime(s_d, "%m/%d/%Y").date()
             for x in result:
-                if x.date > s_d:
+                d = x.date
+                if d > s_d:
                     ret.append(x)
             return ret
         elif s_d == '' and e_d != '':
