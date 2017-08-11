@@ -10,7 +10,6 @@ function script_help {
     echo This script runs all cleaning, compiling/optimizing, database building, and testing.
     echo usage:
     echo -e '\t./build.sh [command]'
-    echo -e '\tcompile: creates python bytecode files for all source'
     echo -e '\tclean: cleans out all non-source files'
     echo -e '\tmigrate: creates the database'
     echo -e '\trun: runs the development server'
@@ -41,11 +40,6 @@ function clean {
     files2=$(find . -iregex ".*\.\(pyc\)")
     rm -rf $files2
     rm -rf $files
-}
-
-function compile {
-    source_files=$(find . -name "*.py" ! -name "manage.py")
-    python -m py_compile ${source_files}
 }
 
 function migrate {
