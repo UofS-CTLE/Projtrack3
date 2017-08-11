@@ -19,13 +19,8 @@ function script_help {
     echo -e '\tall-deploy: cleans, compiles, migrates, and deploys to production'
     echo -e '\tall: performs all cleaning, compiling, and testing functions'
     echo -e '\trestart: restarts the production Apache daemon'
-    echo -e '\tpopulate: populates the database'
-    echo -e '\tup: activates the virtual environment'
-    echo -e '\tdown: deactivates the virtual environment'
-    echo -e '\tinstall: installs the project in a virtual environment'
     echo -e '\tbackup: saves an SQL dump of the database to the current home directory'
     echo -e '\trestore [filename]: recreates the database from an sql file.'
-    echo -e '\tserver-env: activates the ctleweb server virtual environment'
 }
 
 function all {
@@ -56,12 +51,6 @@ function compile {
 function migrate {
     python manage.py makemigrations projtrack
     python manage.py migrate
-}
-
-function deploy {
-    git add *
-    git commit
-    git push
 }
 
 function run {
@@ -103,24 +92,16 @@ case "$1" in
         ;;
 
     test)
-	run_tests
-	;;
+        run_tests
+        ;;
 
     run)
         run
         ;;
 
-    deploy)
-        deploy
-        ;;
-
     all-run)
         all
         run
-        ;;
-
-    all-deploy)
-        all && clean && deploy
         ;;
 
     all)
@@ -130,29 +111,6 @@ case "$1" in
     restart)
         sudo service httpd restart
         ;;
-
-    populate)
-        python Populate_Projtrack3.py
-        ;;
-
-    server-env)
-        source /usr/local/venvs/projtrack3env/bin/activate
-        ;;
-	
-    up)
-    	source projtrack3/bin/activate
-    	;;
-	
-    down)
-    	deactivate
-	;;
-	
-    install)
-    	virtualenv projtrack3
-	    source projtrack3/bin/activate
-    	pip install django
-	    pip install djangorestframework
-	;;
 
     *)
         script_help
