@@ -23,7 +23,6 @@ function script_help {
 }
 
 function all {
-    compile
     migrate
     run_tests
     python manage.py createsuperuser

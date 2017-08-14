@@ -132,3 +132,5 @@ else:
             'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
         }
     }
+
+SEMESTER = 17

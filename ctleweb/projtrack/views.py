@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
@@ -7,7 +8,7 @@ from django.shortcuts import render
 
 from .forms import AddProjectForm, AddClientForm, AddDeptForm, AddTypeForm, GenerateReportForm
 from .forms import LoginForm
-from .models import Client, Project
+from .models import Client, Project, Semester
 from .report_generator import generate_report
 
 
@@ -91,7 +92,7 @@ def my_projects(request):
             projects = []
             u = User.objects.get(username=request.user.username)
             # noinspection PyUnresolvedReferences
-            query = Project.objects.all().order_by('-date')
+            query = Project.objects.filter(semester=Semester.objects.get(pk=settings.SEMESTER)).order_by('-date')
             for x in query:
                 if x.users.username == u.username:
                     projects.append(x)
@@ -107,7 +108,7 @@ def my_projects(request):
 def all_projects(request):
     if request.user.is_authenticated:
         # noinspection PyUnresolvedReferences
-        projects = Project.objects.all().order_by('-date')
+        projects = Project.objects.filter(semester=Semester.objects.get(pk=settings.SEMESTER)).order_by('-date')
         return render(request, 'projtrack/all_projects.html',
                       {'user': request.user, 'title_text': "All Projects",
                        'list_view': projects})

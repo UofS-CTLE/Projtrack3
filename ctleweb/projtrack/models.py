@@ -5,6 +5,7 @@ from django.db import models
 
 
 # Create your models here.
+from django.conf import settings
 
 
 class Department(models.Model):
@@ -63,7 +64,7 @@ class Project(models.Model):
     walk_in = models.BooleanField(default=False)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     users = models.ForeignKey(User, on_delete=models.CASCADE)
-    semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
+    semester = models.ForeignKey(Semester, on_delete=models.CASCADE, default=settings.SEMESTER)
     hours = models.PositiveIntegerField(default=0)
     completed = models.BooleanField(default=False)
 
