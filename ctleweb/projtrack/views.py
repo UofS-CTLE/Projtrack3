@@ -108,7 +108,10 @@ def my_projects(request):
 def all_projects(request):
     if request.user.is_authenticated:
         # noinspection PyUnresolvedReferences
-        projects = Project.objects.filter(semester=Semester.objects.get(pk=settings.SEMESTER)).order_by('-date')
+        try:
+            projects = Project.objects.filter(semester=Semester.objects.get(pk=settings.SEMESTER)).order_by('-date')
+        except ObjectDoesNotExist:
+            projects = ""
         return render(request, 'projtrack/all_projects.html',
                       {'user': request.user, 'title_text': "All Projects",
                        'list_view': projects})
