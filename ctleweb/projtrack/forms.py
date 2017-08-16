@@ -51,17 +51,13 @@ class DateInput(forms.DateInput):
 
 # noinspection PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences
 class GenerateReportForm(forms.Form):
-    def __init__(self, *args, **kwargs):
-        super(GenerateReportForm, self).__init__(*args, **kwargs)
-        self.fields['users'].queryset = User.objects.filter(is_active=True)
-
     start_date = forms.DateField(required=False, widget=SelectDateWidget(empty_label=("Year", "Month", "Day"),
                                                                          years=range(2010, 2025)))
     end_date = forms.DateField(required=False, widget=SelectDateWidget(empty_label=("Year", "Month", "Day"),
                                                                        years=range(2010, 2025)))
     semester = forms.ModelChoiceField(queryset=Semester.objects.all(),
                                       required=False)
-    user = forms.ModelChoiceField(queryset=User.objects.all(),
+    user = forms.ModelChoiceField(queryset=User.objects.filter(is_active=True),
                                   required=False)
     client = forms.ModelChoiceField(queryset=Client.objects.all(),
                                     required=False)
