@@ -6,16 +6,6 @@ from .models import Project, User, Client, Department, Type
 
 
 # noinspection PyUnresolvedReferences,PyUnresolvedReferences
-def retrieve_most_recent_techcon(client):
-    try:
-        proj = list(Project.objects.filter(client=client))
-        proj = bubble_sort(proj)
-        return [proj.pop()]
-    except TypeError:
-        return [Project.objects.filter(client=client)]
-
-
-# noinspection PyUnresolvedReferences,PyUnresolvedReferences
 def check_dates(s_d, e_d):
     try:
         result = list(Project.objects.all())
@@ -52,16 +42,10 @@ def check_dates(s_d, e_d):
 # noinspection PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences
 def check_semester(sem):
     try:
-        if sem != '':
-            try:
-                return list(Project.objects.filter(semester=sem))
-            except TypeError:
-                return [Project.objects.filter(semester=sem)]
-        else:
-            try:
-                return list(Project.objects.all())
-            except TypeError:
-                return [Project.objects.all()]
+        try:
+            return list(Project.objects.filter(semester=sem))
+        except TypeError:
+            return [Project.objects.filter(semester=sem)]
     except ObjectDoesNotExist:
         return []
 
@@ -204,14 +188,13 @@ def generate_stats(report):
 # noinspection PyUnresolvedReferences
 def generate_report(req):
     proj_list = set(list(Project.objects.all()))
-    rep = [
-        (set(check_dates(req['start_date'], req['end_date']))),
-        (set(check_semester(req['semester']))),
-        (set(check_user(req['user']))),
-        (set(check_department(req['department']))),
-        (set(check_type(req['proj_type']))),
-        (set(check_client(req['client'])))
-    ]
+    rep = list()
+    rep.append((set(check_dates(req['start_date'], req['end_date']))))
+    if req['semester'] != '': rep.append((set(check_semester(req['semester']))))
+    rep.append((set(check_user(req['user']))))
+    rep.append((set(check_department(req['department']))))
+    rep.append((set(check_type(req['proj_type']))))
+    rep.append((set(check_client(req['client']))))
     for x in rep:
         proj_list = proj_list & x
     report = generate_stats(proj_list)
