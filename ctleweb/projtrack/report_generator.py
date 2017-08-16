@@ -5,16 +5,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from .models import Project, User, Client, Department, Type
 
 
-def bubble_sort(l):
-    for i in range(len(l)):
-        for j in range(len(l) - i - 1):
-            if l[j] > l[j + 1]:
-                tmp = l[j]
-                l[j] = l[j + 1]
-                l[j + 1] = tmp
-    return l
-
-
 # noinspection PyUnresolvedReferences,PyUnresolvedReferences
 def retrieve_most_recent_techcon(client):
     try:
@@ -170,7 +160,6 @@ def generate_stats(report):
     for x in list(Department.objects.all()):
         proj = 0
         for y in list(Project.objects.all()):
-            current = y.id
             if y.client.department.name == x.name:
                 proj += 1
         depts[x.name] = proj
@@ -225,8 +214,6 @@ def generate_report(req):
     ]
     for x in rep:
         proj_list = proj_list & x
-    if req['sort_by_date']:
-        proj_list = bubble_sort(list(proj_list))
     report = generate_stats(proj_list)
     report['project_list'] = proj_list
     return report
