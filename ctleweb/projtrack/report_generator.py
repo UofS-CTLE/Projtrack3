@@ -170,6 +170,7 @@ def generate_stats(report):
     for x in list(Department.objects.all()):
         proj = 0
         for y in list(Project.objects.all()):
+            current = y
             if y.client.department.name == x.name:
                 proj += 1
         depts[x.name] = proj
