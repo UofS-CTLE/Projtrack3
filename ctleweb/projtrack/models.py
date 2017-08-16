@@ -7,7 +7,7 @@ from django.db import models
 
 
 def get_name(self):
-    return '{} {}'.format(self.first_name, self.last_name)
+    return str(self.first_name) + "" + str(self.last_name)
 
 User.add_to_class('__str__', get_name)
 
