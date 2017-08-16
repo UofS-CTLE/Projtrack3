@@ -53,16 +53,10 @@ def check_semester(sem):
 # noinspection PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences
 def check_user(use):
     try:
-        if use != '':
-            try:
-                return list(Project.objects.filter(users=use))
-            except TypeError:
-                return [Project.objects.filter(users=use)]
-        else:
-            try:
-                return list(Project.objects.all())
-            except TypeError:
-                return [Project.objects.all()]
+        try:
+            return list(Project.objects.filter(users=use))
+        except TypeError:
+            return [Project.objects.filter(users=use)]
     except ObjectDoesNotExist:
         return []
 
@@ -70,16 +64,10 @@ def check_user(use):
 # noinspection PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences
 def check_client(cli):
     try:
-        if cli != '':
-            try:
-                return list(Project.objects.filter(client=cli))
-            except TypeError:
-                return [Project.objects.filter(client=cli)]
-        else:
-            try:
-                return list(Project.objects.all())
-            except TypeError:
-                return [Project.objects.all()]
+        try:
+            return list(Project.objects.filter(client=cli))
+        except TypeError:
+            return [Project.objects.filter(client=cli)]
     except ObjectDoesNotExist:
         return []
 
@@ -88,18 +76,12 @@ def check_client(cli):
 # noinspection PyUnresolvedReferences,PyUnresolvedReferences
 def check_department(depart):
     try:
-        if depart != '':
-            try:
-                cli = Client.objects.filter(department=depart)
-                return list(Project.objects.filter(client=cli))
-            except TypeError:
-                cli = Client.objects.filter(department=depart)
-                return [Project.objects.filter(client=cli)]
-        else:
-            try:
-                return list(Project.objects.all())
-            except TypeError:
-                return [Project.objects.all()]
+        try:
+            cli = Client.objects.filter(department=depart)
+            return list(Project.objects.filter(client=cli))
+        except TypeError:
+            cli = Client.objects.filter(department=depart)
+            return [Project.objects.filter(client=cli)]
     except ObjectDoesNotExist:
         return []
 
@@ -107,16 +89,10 @@ def check_department(depart):
 # noinspection PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences
 def check_type(proj):
     try:
-        if proj != '':
-            try:
-                return list(Project.objects.filter(type=proj))
-            except TypeError:
-                return [Project.objects.filter(type=proj)]
-        else:
-            try:
-                return list(Project.objects.all())
-            except TypeError:
-                return [Project.objects.all()]
+        try:
+            return list(Project.objects.filter(type=proj))
+        except TypeError:
+            return [Project.objects.filter(type=proj)]
     except ObjectDoesNotExist:
         return []
 
@@ -190,11 +166,16 @@ def generate_report(req):
     proj_list = set(list(Project.objects.all()))
     rep = list()
     rep.append((set(check_dates(req['start_date'], req['end_date']))))
-    if req['semester'] != '': rep.append((set(check_semester(req['semester']))))
-    rep.append((set(check_user(req['user']))))
-    rep.append((set(check_department(req['department']))))
-    rep.append((set(check_type(req['proj_type']))))
-    rep.append((set(check_client(req['client']))))
+    if req['semester'] != '':
+        rep.append((set(check_semester(req['semester']))))
+    if req['user'] != '':
+        rep.append((set(check_user(req['user']))))
+    if req['department'] != '':
+        rep.append((set(check_department(req['department']))))
+    if req['department'] != '':
+        rep.append((set(check_type(req['proj_type']))))
+    if req['client'] != '':
+        rep.append((set(check_client(req['client']))))
     for x in rep:
         proj_list = proj_list & x
     report = generate_stats(proj_list)
