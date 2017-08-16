@@ -6,6 +6,12 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
+def get_name(self):
+    return '{} {}'.format(self.first_name, self.last_name)
+
+User.add_to_class('__str__', get_name)
+
+
 class Department(models.Model):
     name = models.CharField(max_length=100)
 
