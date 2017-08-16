@@ -11,6 +11,10 @@ class LoginForm(forms.Form):
 
 
 class AddProjectForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(AddProjectForm, self).__init__(*args, **kwargs)
+        self.fields['users'].queryset = User.objects.filter(is_active=True)
+
     class Meta:
         model = Project
         widgets = {
