@@ -4,6 +4,8 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from .models import Project, User, Client, Department, Type
 
+# TODO Completely re-write this file, ESPECIALLY the generate_stats function
+# TODO Refer to GitHub issues.
 
 # noinspection PyUnresolvedReferences,PyUnresolvedReferences
 def check_dates(s_d, e_d):
