@@ -73,8 +73,7 @@ def report_page(request):
                     'proj_type': request.POST['proj_type']
                 }
                 report = generate_report(req)
-                return render(request, 'projtrack/report_page.html',
-                              {'user': request.user, 'report': report})
+                return render(request, 'projtrack/report_page.html')
         else:
             form = GenerateReportForm()
             return render(request,
