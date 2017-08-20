@@ -73,12 +73,20 @@ class Report(object):
     def create_report(self):
         self.report_string = '<!DOCTYPE html><html><head><title>Report ' + str(self.date) + '</title>'
         self.report_string += '<style> table, th, td { border: 1px solid black; padding: 5px; }</style></head>'
+        self.report_string += '<body><h1>Project Report</h1>Date: ' + str(self.date)
         self.report_string += 'Semester: '
         if self.semester == '':
             self.report_string += 'All'
         else:
             self.report_string += str(self.semester)
-        self.report_string += '<br/>'
+        self.report_string += '<br/>Total Projects: ' + str(self.total_projects)
+        self.report_string += '<br/>Total Hours: ' + str(self.total_hours)
+        self.report_string += '<br/>Walk-ins: ' + str(self.walk_ins) + ' (' + str(self.percent_walk_in) + '%)'
+        self.report_string += '<br/>Active Developers : ' + str(len(self.active_user_list))
+        for x in self.user_objects_list:
+            self.report_string += '{} {}; {} total projects.'.format(x.user_onj)
+            self.report_string += '<table>'
+            self.report_string += '</table><br>'
         self.report_string += "</body></html>"
 
     def write_report(self):
