@@ -70,11 +70,16 @@ def report_page(request):
                     'user': request.POST['user'],
                     'client': request.POST['client'],
                     'department': request.POST['department'],
-                    'proj_type': request.POST['proj_type']
+                    'proj_type': request.POST['proj_type'],
+                    'projects_per_user': request.POST.get('projects_per_user', False),
+                    'projects_per_dept': request.POST.get('projects_per_dept', False),
+                    'projects_per_type': request.POST.get('projects_per_type', False),
+                    'stats_and_metrics': request.POST.get('stats_and_metrics', False)
                 }
                 report = generate_report(req)
                 return render(request, 'projtrack/report_page.html',
-                              {'user': request.user, 'report': report})
+                              {'user': request.user, 'report': report,
+                               'semester': req['semester']})
         else:
             form = GenerateReportForm()
             return render(request,
