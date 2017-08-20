@@ -65,7 +65,3 @@ class GenerateReportForm(forms.Form):
                                         required=False)
     proj_type = forms.ModelChoiceField(queryset=Type.objects.all(),
                                        required=False)
-    projects_per_user = forms.BooleanField(required=False, initial=False)
-    projects_per_department = forms.BooleanField(required=False, initial=False)
-    projects_per_type = forms.BooleanField(required=False, initial=False)
-    stats_and_metrics = forms.BooleanField(required=False, initial=False)
