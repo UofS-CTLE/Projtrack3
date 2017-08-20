@@ -9,7 +9,7 @@ from django.shortcuts import render
 from .forms import AddProjectForm, AddClientForm, AddDeptForm, AddTypeForm, GenerateReportForm
 from .forms import LoginForm
 from .models import Client, Project, Semester
-from .report_generator import generate_report
+from .report_generator import Report
 
 
 # noinspection PyUnusedLocal
@@ -76,10 +76,8 @@ def report_page(request):
                     'projects_per_type': request.POST.get('projects_per_type', False),
                     'stats_and_metrics': request.POST.get('stats_and_metrics', False)
                 }
-                report = generate_report(req)
-                return render(request, 'projtrack/report_page.html',
-                              {'user': request.user, 'report': report,
-                               'semester': req['semester']})
+                Report(req)
+                return render(request, 'projtrack/report_page.html')
         else:
             form = GenerateReportForm()
             return render(request,
