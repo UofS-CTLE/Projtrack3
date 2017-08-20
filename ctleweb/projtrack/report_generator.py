@@ -5,13 +5,16 @@ import os
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 
-from .models import User, Project, Client
+from .models import User, Project, Client, Semester
 
 
 class UserStats(object):
     def __init__(self, user):
-        self.user_object = user
-        self.name = user.username
+        try:
+            self.user_object = User.objects.get(username=user)
+        except ObjectDoesNotExist:
+            self.user_object = User.objects.get(pk=user)
+        self.name = self.user_object.username
         self.projects_list = list(Project.objects.filter(users=self.user_object))
         self.projects_count = 0
         self.projects_hours = 0
@@ -25,7 +28,7 @@ class UserStats(object):
 class Report(object):
     def __init__(self, request):
         self.date = datetime.today().strftime("%m/%d/%Y")
-        self.semester = request['semester']
+        self.semester = Semester.objects.get(pk=int(request['semester']))
         self.total_projects = 0
         self.total_hours = 0
         self.walk_ins = 0
@@ -73,8 +76,10 @@ class Report(object):
     def create_report(self):
         self.report_string = '<!DOCTYPE html><html><head><title>Report ' + str(self.date) + '</title>'
         self.report_string += '<style> table, th, td { border: 1px solid black; padding: 5px; }</style></head>'
-        self.report_string += '<body><h1>Project Report</h1>Date: ' + str(self.date)
-        self.report_string += 'Semester: '
+        self.report_string += '<body><h1>Project Report</h1>'
+        self.report_string += '''<a href="{% url 'projtrack3:report_page' %}">
+                                 Return to the report generation page.</a><br/><br/>Date: ''' + str(self.date)
+        self.report_string += '<br/>Semester: '
         if self.semester == '':
             self.report_string += 'All'
         else:
@@ -82,10 +87,17 @@ class Report(object):
         self.report_string += '<br/>Total Projects: ' + str(self.total_projects)
         self.report_string += '<br/>Total Hours: ' + str(self.total_hours)
         self.report_string += '<br/>Walk-ins: ' + str(self.walk_ins) + ' (' + str(self.percent_walk_in) + '%)'
-        self.report_string += '<br/>Active Developers : ' + str(len(self.active_user_list))
+        self.report_string += '<br/>Active Developers : ' + str(len(self.active_user_list)) + "<br/><br/>"
         for x in self.user_objects_list:
-            self.report_string += '{} {}; {} total projects.'.format(x.user_onj)
-            self.report_string += '<table>'
+            self.report_string += '<strong>{} {}; {} total projects.</strong>'.format(x.user_object.first_name,
+                                                                                      x.user_object.last_name,
+                                                                                      x.projects_count)
+            self.report_string += '''<table><tr><td>Title</td><td>Client</td><td>Developer</td><td>Hours</td><td>Date</td>
+                                  <td>Description</td></tr>'''
+            for y in x.projects_list:
+                self.report_string += '''<tr><td>{}</td><td>{}</td><td>{} {}</td><td>{}</td><td>{}</td>
+                                         <td>{}</td></tr>'''.format(y.title, y.client, y.users.first_name,
+                                                                    y.users.last_name, y.hours, y.date, y.description)
             self.report_string += '</table><br>'
         self.report_string += "</body></html>"
 
