@@ -28,7 +28,10 @@ class UserStats(object):
 class Report(object):
     def __init__(self, request):
         self.date = datetime.today().strftime("%m/%d/%Y")
-        self.semester = Semester.objects.get(pk=int(request['semester']))
+        try:
+            self.semester = Semester.objects.get(pk=int(request['semester']))
+        except ValueError:
+            self.semester = ''
         self.total_projects = 0
         self.total_hours = 0
         self.walk_ins = 0
