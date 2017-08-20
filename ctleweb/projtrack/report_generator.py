@@ -18,11 +18,14 @@ class UserStats(object):
         self.projects_list = list(Project.objects.filter(users=self.user_object))
         self.projects_count = 0
         self.projects_hours = 0
+        self.walk_in = 0
 
     def update_stats(self):
         self.projects_count = len(self.projects_list)
         for x in self.projects_list:
             self.projects_hours += x.hours
+            if x.walk_in:
+                self.walk_in += 1
 
 
 class Report(object):
@@ -48,6 +51,10 @@ class Report(object):
         self.filter_projects()
         for x in self.user_objects_list:
             x.update_stats()
+            self.total_projects += x.projects_count
+            self.total_hours += x.projects_hours
+            self.walk_ins += x.walk_in
+        self.percent_walk_in = (float(self.walk_ins) / float(self.total_projects)) * 100
         self.report_string = ''
         self.create_report()
         self.write_report()
@@ -73,6 +80,8 @@ class Report(object):
                 results.append(set(check_department(self.department)))
             if self.project_type != '':
                 results.append(set(check_type(self.project_type)))
+            if self.semester != '':
+                results.append(set(check_semester(self.semester)))
             for z in results:
                 x.projects_list = list(set(x.projects_list) & z)
 
@@ -92,16 +101,17 @@ class Report(object):
         self.report_string += '<br/>Walk-ins: ' + str(self.walk_ins) + ' (' + str(self.percent_walk_in) + '%)'
         self.report_string += '<br/>Active Developers : ' + str(len(self.active_user_list)) + "<br/><br/>"
         for x in self.user_objects_list:
-            self.report_string += '<strong>{} {}; {} total projects.</strong>'.format(x.user_object.first_name,
-                                                                                      x.user_object.last_name,
-                                                                                      x.projects_count)
-            self.report_string += '''<table><tr><td>Title</td><td>Client</td><td>Developer</td><td>Hours</td><td>Date</td>
+            if x.projects_count != 0:
+                self.report_string += '<strong>{} {}; {} total projects.</strong>'.format(x.user_object.first_name,
+                                                                                          x.user_object.last_name,
+                                                                                          x.projects_count)
+                self.report_string += '''<table><tr><td>Title</td><td>Client</td><td>Developer</td><td>Hours</td><td>Date</td>
                                   <td>Description</td></tr>'''
-            for y in x.projects_list:
-                self.report_string += '''<tr><td>{}</td><td>{}</td><td>{} {}</td><td>{}</td><td>{}</td>
+                for y in x.projects_list:
+                    self.report_string += '''<tr><td>{}</td><td>{}</td><td>{} {}</td><td>{}</td><td>{}</td>
                                          <td>{}</td></tr>'''.format(y.title, y.client, y.users.first_name,
                                                                     y.users.last_name, y.hours, y.date, y.description)
-            self.report_string += '</table><br>'
+                self.report_string += '</table><br>'
         self.report_string += "</body></html>"
 
     def write_report(self):
