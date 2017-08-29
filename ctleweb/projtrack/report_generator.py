@@ -87,7 +87,8 @@ class Report(object):
 
     def create_report(self):
         self.report_string = '<!DOCTYPE html><html><head><title>Report ' + str(self.date) + '</title>'
-        self.report_string += '<style> table, th, td { border: 1px solid black; padding: 5px; }</style></head>'
+        self.report_string += '<style> table, th, td { border: 1px solid black; padding: 5px; font-size: 10pt; }' \
+                              '</style></head>'
         self.report_string += '<body><h1>Project Report</h1>'
         self.report_string += '''<a href="{% url 'projtrack3:report_page' %}">
                                  Return to the report generation page.</a><br/><br/>Date: ''' + str(self.date)
