@@ -106,11 +106,11 @@ class Report(object):
                                                                                           x.user_object.last_name,
                                                                                           x.projects_count)
                 self.report_string += '''<table><tr><td>Title</td><td>Client</td><td>Developer</td><td>Hours</td><td>Date</td>
-                                  <td>Description</td></tr>'''
+                                  <td>Description</td><td>Completed Status</td></tr>'''
                 for y in x.projects_list:
                     self.report_string += '''<tr><td>{}</td><td>{}</td><td>{} {}</td><td>{}</td><td>{}</td>
-                                         <td>{}</td></tr>'''.format(y.title, y.client, y.users.first_name,
-                                                                    y.users.last_name, y.hours, y.date, y.description)
+                                         <td>{}</td><td>{}</td></tr>'''.format(y.title, y.client, y.users.first_name,
+                                                                    y.users.last_name, y.hours, y.date, y.description, y.completed)
                 self.report_string += '</table><br>'
         self.report_string += "</body></html>"
 
