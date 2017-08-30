@@ -123,24 +123,20 @@ def add_project(request):
         if request.method == 'POST':
             form0 = AddProjectForm(request.POST, prefix='project')
             form1 = AddClientForm(request.POST, prefix='client')
-            if 'project' in request.POST:
-                if form0.is_valid():
-                    # Project is added to the database here.
-                    t = form0.save()
-                    t.save()
-                    form0 = AddProjectForm(prefix='project')
-                    error = "Form submitted successfully."
-                else:
-                    error = "Form is invalid."
-            if 'client' in request.POST:
-                if form1.is_valid():
-                    # If we need to create a client on the fly, we should be able to do it here?
-                    t = form1.save()
-                    t.save()
-                    form1 = AddClientForm(prefix='client')
-                    error = "Form submitted successfully."
-                else:
-                    error = "Form is invalid."
+            if form0.is_valid():
+                # Project is added to the database here.
+                t = form0.save()
+                t.save()
+                form0 = AddProjectForm(prefix='project')
+                error = "Form submitted successfully."
+            elif form1.is_valid():
+                # If we need to create a client on the fly, we should be able to do it here?
+                f = form1.save()
+                f.save()
+                form1 = AddClientForm(prefix='client')
+                error = "Form submitted successfully."
+            else:
+                error = "Form is invalid."
         else:
             form0 = AddProjectForm(prefix='project')
             form1 = AddClientForm(prefix='client')
@@ -157,24 +153,20 @@ def add_client_2(request):
         if request.method == 'POST':
             form0 = AddProjectForm(request.POST, prefix='project')
             form1 = AddClientForm(request.POST, prefix='client')
-            if 'project' in request.POST:
-                if form0.is_valid():
-                    # Project is added to the database here.
-                    t = form0.save()
-                    t.save()
-                    form0 = AddProjectForm(prefix='project')
-                    error = "Form submitted successfully."
-                else:
-                    error = "Form is invalid."
-            if 'client' in request.POST:
-                if form1.is_valid():
-                    # If we need to create a client on the fly, we should be able to do it here?
-                    t = form1.save()
-                    t.save()
-                    form1 = AddClientForm(prefix='client')
-                    error = "Form submitted successfully."
-                else:
-                    error = "Form is invalid."
+            if form0.is_valid():
+                # Project is added to the database here.
+                t = form0.save()
+                t.save()
+                form0 = AddProjectForm(prefix='project')
+                error = "Form submitted successfully."
+            elif form1.is_valid():
+                # If we need to create a client on the fly, we should be able to do it here?
+                f = form1.save()
+                f.save()
+                form1 = AddClientForm(prefix='client')
+                error = "Form submitted successfully."
+            else:
+                error = "Form is invalid."
         else:
             form0 = AddProjectForm(prefix='project')
             form1 = AddClientForm(prefix='client')
