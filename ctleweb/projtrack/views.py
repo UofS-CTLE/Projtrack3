@@ -121,58 +121,24 @@ def add_project(request):
     error = ""
     if request.user.is_authenticated:
         if request.method == 'POST':
-            form0 = AddProjectForm(request.POST, prefix='project')
-            form1 = AddClientForm(request.POST, prefix='client')
-            if form0.is_valid():
-                # Project is added to the database here.
-                t = form0.save()
+            project_form = AddProjectForm(request.POST, prefix='project')
+            if project_form.is_valid():
+                t = project_form.save()
+                if request.POST.get('client') == '':
+                    t.client = Client(first_name=request.POST['client_first_name'],
+                                      last_name=request.POST['client_last_name'],
+                                      email=request.POST['client_email'],
+                                      department=request.POST['client_department'])
                 t.save()
-                form0 = AddProjectForm(prefix='project')
-                error = "Form submitted successfully."
-            elif form1.is_valid():
-                # If we need to create a client on the fly, we should be able to do it here?
-                f = form1.save()
-                f.save()
-                form1 = AddClientForm(prefix='client')
+                project_form = AddProjectForm(prefix='project')
                 error = "Form submitted successfully."
             else:
                 error = "Form is invalid."
         else:
-            form0 = AddProjectForm(prefix='project')
-            form1 = AddClientForm(prefix='client')
+            project_form = AddProjectForm(prefix='project')
         return render(request, 'projtrack/add_project.html',
-                      {'user': request.user, 'title_text': "Add Project", 'form0': form0,
-                        'form1': form1, 'error_message': error})
-    else:
-        return redirect('projtrack:not_logged_in')
-
-
-def add_client_2(request):
-    error = ""
-    if request.user.is_authenticated:
-        if request.method == 'POST':
-            form0 = AddProjectForm(request.POST, prefix='project')
-            form1 = AddClientForm(request.POST, prefix='client')
-            if form0.is_valid():
-                # Project is added to the database here.
-                t = form0.save()
-                t.save()
-                form0 = AddProjectForm(prefix='project')
-                error = "Form submitted successfully."
-            elif form1.is_valid():
-                # If we need to create a client on the fly, we should be able to do it here?
-                f = form1.save()
-                f.save()
-                form1 = AddClientForm(prefix='client')
-                error = "Form submitted successfully."
-            else:
-                error = "Form is invalid."
-        else:
-            form0 = AddProjectForm(prefix='project')
-            form1 = AddClientForm(prefix='client')
-        return render(request, 'projtrack/add_project.html',
-                      {'user': request.user, 'title_text': "Add Project", 'form0': form0,
-                       'form1': form1, 'error_message': error})
+                      {'user': request.user, 'title_text': "Add Project", 'form': project_form,
+                       'error_message': error})
     else:
         return redirect('projtrack:not_logged_in')
         

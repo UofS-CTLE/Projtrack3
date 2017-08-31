@@ -11,7 +11,6 @@ urlpatterns = [
     url(r'^change_password/$', views.change_password, name='change_password'),
     url(r'^add_project/$', views.add_project, name='add_project'),
     url(r'^add_client/$', views.add_client, name='add_client'),
-    url(r'^add_client_2/$', views.add_client_2, name='add_client_2'),
     url(r'^client_view/$', views.client_view, name='client_view'),
     url(r'^client_projects/(?P<id>\d+)/$', views.client_projects, name='client_projects'),
     url(r'^add_department/$', views.add_department, name='add_department'),

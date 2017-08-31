@@ -66,7 +66,7 @@ class Project(models.Model):
     date = models.DateField(editable=False, default=str(datetime.date.today()))
     type = models.ForeignKey(Type, on_delete=models.CASCADE)
     walk_in = models.BooleanField(default=False)
-    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, blank=True, null=True)
     users = models.ForeignKey(User, on_delete=models.CASCADE)
     semester = models.ForeignKey(Semester, on_delete=models.CASCADE, default=settings.SEMESTER)
     hours = models.PositiveIntegerField(default=0)

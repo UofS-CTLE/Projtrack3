@@ -83,7 +83,7 @@
             <form action="{% url 'projtrack:add_project' %}" method="post" style="font-size: 150%;">
                 <div class="form-group">
                     {% csrf_token %}
-                    {% for field in form0 %}
+                    {% for field in form %}
                     {% if field.label_tag == "Department:" %}
                     {{ field.label_tag }}
                     <div class="dropdown-menu">
@@ -94,24 +94,6 @@
                     {% endif %}
                     {% endfor %}
                     <input type='submit' id='project' value='Submit'/>
-                </div>
-            </form>
-            <hr>
-            <form action="{% url 'projtrack:add_client_2' %}" method="post" style="font-size: 150%;">
-                <div class="form-group">
-                    {% csrf_token %}
-                    <h3>Add a Client</h3>
-                    {% for field in form1 %}
-                    {% if field.label_tag == "Department:" %}
-                    {{ field.label_tag }}
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item">{{ field }}</a>
-                    </div>
-                    {% else %}
-                    <p>{{field.label_tag}}<br>{{field}}</p>
-                    {% endif %}
-                    {% endfor %}
-                    <input type='submit' id='client' value='Submit'/>
                 </div>
             </form>
             {% endblock %}
