@@ -10,7 +10,6 @@ from .forms import AddProjectForm, AddClientForm, AddDeptForm, AddTypeForm, Gene
 from .forms import LoginForm
 from .models import Client, Project, Semester, Department
 from .report_generator import Report
-from .exceptions import AuthenticationPanic
 
 
 # noinspection PyUnusedLocal
