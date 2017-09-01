@@ -53,7 +53,7 @@ function backup {
     sqlite3 db.sqlite3 .dump >> backup.sql
     date=$(date +%Y_%m_%d)
     mv backup.sql ~/projtrack_data_$date.sql
-    echo Database backed up to $HOME\projtrack_data_$date.sql
+    echo Database backed up to $HOME/projtrack_data_$date.sql
 }
 
 function restore {
