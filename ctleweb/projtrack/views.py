@@ -10,6 +10,7 @@ from .forms import AddProjectForm, AddClientForm, AddDeptForm, AddTypeForm, Gene
 from .forms import LoginForm
 from .models import Client, Project, Semester, Department
 from .report_generator import Report
+from .exceptions import AuthenticationPanic
 
 
 # noinspection PyUnusedLocal
@@ -124,12 +125,15 @@ def add_project(request):
             project_form = AddProjectForm(request.POST, prefix='project')
             if project_form.is_valid():
                 t = project_form.save()
-                if request.POST.get('client') is None:
+                print(request.POST)
+                if request.POST.get('project-client') == '':
                     dept = Department.objects.get(pk=request.POST['project-client_department'])
                     t.client = Client.objects.create(first_name=request.POST['project-client_first_name'],
                                                      last_name=request.POST['project-client_last_name'],
                                                      email=request.POST['project-client_email'],
                                                      department=dept)
+                if request.user.is_authenticated:
+                    t.users = User.objects.get(username=request.user.username)
                 t.save()
                 project_form = AddProjectForm(prefix='project')
                 error = "Form submitted successfully."

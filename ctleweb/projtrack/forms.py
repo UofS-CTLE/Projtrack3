@@ -21,7 +21,6 @@ class AddProjectForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(AddProjectForm, self).__init__(*args, **kwargs)
-        self.fields['users'].queryset = User.objects.filter(is_active=True)
         self.fields['client'].required = False
 
     class Meta:
@@ -30,7 +29,7 @@ class AddProjectForm(ModelForm):
             'description': forms.Textarea(attrs={'cols': 50, 'rows': 5}),
         }
         field = '__all__'
-        exclude = ('date', 'semester')
+        exclude = ('date', 'semester', 'users')
 
 
 class AddClientForm(ModelForm):

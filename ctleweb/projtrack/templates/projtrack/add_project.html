@@ -83,9 +83,9 @@
                     {% csrf_token %}
                     {% for field in form %}
                         {% if field.html_name == 'project-client_first_name' %}
-                            <p>{{field.label_tag}}<br>{{field}}</p>
                             <hr>
                             <h3>New Client</h3>
+                            <p>{{field.label_tag}}<br>{{field}}</p>
                         {% else %}
                             <p>{{field.label_tag}}<br>{{field}}</p>
                         {% endif %}
