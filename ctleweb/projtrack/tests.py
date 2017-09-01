@@ -99,9 +99,9 @@ class ProjectTestCase(django.test.TestCase):
 class TestNavigation(django.test.TestCase):
     def setUp(self):
         App_User.objects.create_user(username="test", email="test@email.com",
-                                     password="techcon589")
+                                     password="password123")
         self.client = django.test.Client()
-        self.client.login(username="test", password="techcon589")
+        self.client.login(username="test", password="password123")
 
     def test_logged_in(self):
         response = self.client.post("/home/", follow=True)
