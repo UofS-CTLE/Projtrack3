@@ -8,7 +8,7 @@ from django.shortcuts import render
 
 from .forms import AddProjectForm, AddClientForm, AddDeptForm, AddTypeForm, GenerateReportForm
 from .forms import LoginForm
-from .models import Client, Project, Semester
+from .models import Client, Project, Semester, Department
 from .report_generator import Report
 
 
@@ -124,11 +124,13 @@ def add_project(request):
             project_form = AddProjectForm(request.POST, prefix='project')
             if project_form.is_valid():
                 t = project_form.save()
-                if request.POST.get('client') == '':
-                    t.client = Client(first_name=request.POST['client_first_name'],
-                                      last_name=request.POST['client_last_name'],
-                                      email=request.POST['client_email'],
-                                      department=request.POST['client_department'])
+                if request.POST.get('client') is None:
+                    dept = Department.objects.get(pk=request.POST['project-client_department'])
+                    t.client = Client.objects.create(first_name=request.POST['project-client_first_name'],
+                                                     last_name=request.POST['project-client_last_name'],
+                                                     email=request.POST['project-client_email'],
+                                                     department=dept)
+
                 t.save()
                 project_form = AddProjectForm(prefix='project')
                 error = "Form submitted successfully."
