@@ -8,7 +8,7 @@ from django.shortcuts import render
 
 from .forms import AddProjectForm, AddClientForm, AddDeptForm, AddTypeForm, GenerateReportForm
 from .forms import LoginForm
-from .models import Client, Project, Semester
+from .models import Client, Project, Semester, Department
 from .report_generator import Report
 
 
@@ -121,19 +121,24 @@ def add_project(request):
     error = ""
     if request.user.is_authenticated:
         if request.method == 'POST':
-            form = AddProjectForm(request.POST)
-            if form.is_valid():
-                # Project is added to the database here.
-                t = form.save()
+            project_form = AddProjectForm(request.POST, prefix='project')
+            if project_form.is_valid():
+                t = project_form.save()
+                if request.POST.get('client') is None:
+                    dept = Department.objects.get(pk=request.POST['project-client_department'])
+                    t.client = Client.objects.create(first_name=request.POST['project-client_first_name'],
+                                                     last_name=request.POST['project-client_last_name'],
+                                                     email=request.POST['project-client_email'],
+                                                     department=dept)
                 t.save()
-                form = AddProjectForm()
+                project_form = AddProjectForm(prefix='project')
                 error = "Form submitted successfully."
             else:
                 error = "Form is invalid."
         else:
-            form = AddProjectForm()
+            project_form = AddProjectForm(prefix='project')
         return render(request, 'projtrack/add_project.html',
-                      {'user': request.user, 'title_text': "Add Project", 'form': form,
+                      {'user': request.user, 'title_text': "Add Project", 'form': project_form,
                        'error_message': error})
     else:
         return redirect('projtrack:not_logged_in')

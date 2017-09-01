@@ -6,15 +6,7 @@ from django.contrib.auth.models import User as App_User
 # noinspection PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences
 from projtrack.models import Client, Project, Type, User, Department, Semester
 
-from .report_generator import check_semester, check_client, check_dates, check_department, check_type
-
-
-class ScheduleTestCase(django.test.TestCase):
-    def setUp(self):
-        pass
-
-    def test_schedule_one(self):
-        pass
+from .report_generator import check_semester, check_client, check_department, check_type
 
 
 class DepartmentTestCase(django.test.TestCase):
@@ -107,9 +99,9 @@ class ProjectTestCase(django.test.TestCase):
 class TestNavigation(django.test.TestCase):
     def setUp(self):
         App_User.objects.create_user(username="test", email="test@email.com",
-                                     password="techcon589")
+                                     password="password123")
         self.client = django.test.Client()
-        self.client.login(username="test", password="techcon589")
+        self.client.login(username="test", password="password123")
 
     def test_logged_in(self):
         response = self.client.post("/home/", follow=True)
@@ -154,21 +146,6 @@ class TestReportGenerator(django.test.TestCase):
                                users=User.objects.create(username="harry"),
                                semester=Semester.objects.create(name="Later"),
                                completed=False)
-
-    def test_check_dates0(self):
-        self.assertEqual(check_dates('01/01/2010', '0/0/0'),
-                         list(Project.objects.all()))
-
-    def test_check_dates1(self):
-        self.assertEqual(check_dates('01/01/2118', '12/31/2118'),
-                         [])
-
-    def test_check_date2(self):
-        self.assertEqual(check_dates('01/01/2118', '0/0/0'), [])
-
-    def test_check_date3(self):
-        self.assertNotEqual(check_dates('08/01/2017', '08/31/2017'),
-                            [])
 
     def test_check_semester(self):
         sem = Semester.objects.get(name="Test")
