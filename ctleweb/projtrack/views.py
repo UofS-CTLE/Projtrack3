@@ -130,7 +130,6 @@ def add_project(request):
                                                      last_name=request.POST['project-client_last_name'],
                                                      email=request.POST['project-client_email'],
                                                      department=dept)
-
                 t.save()
                 project_form = AddProjectForm(prefix='project')
                 error = "Form submitted successfully."
@@ -143,7 +142,7 @@ def add_project(request):
                        'error_message': error})
     else:
         return redirect('projtrack:not_logged_in')
-        
+
 
 def add_client(request):
     error = ""
