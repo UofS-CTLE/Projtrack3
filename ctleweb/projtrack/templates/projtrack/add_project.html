@@ -9,7 +9,6 @@
     <link rel="shortcut icon" href="{% static 'projtrack/favicon.ico' %}"/>
     <link rel="stylesheet" href="{% static 'projtrack/styles/projtrack.css' %}"/>
     <link rel="stylesheet" href="{% static 'projtrack/styles/dashboard.css' %}"/>
-
     <nav class="navbar navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -78,22 +77,20 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h1 class="page-header">{{ title_text }}</h1>
             <p>{{ error_message }}</p>
-
             {% block form %}
             <form action="{% url 'projtrack:add_project' %}" method="post" style="font-size: 150%;">
                 <div class="form-group">
                     {% csrf_token %}
                     {% for field in form %}
-                    {% if field.label_tag == "Department:" %}
-                    {{ field.label_tag }}
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item">{{ field }}</a>
-                    </div>
-                    {% else %}
-                    <p>{{field.label_tag}}<br>{{field}}</p>
-                    {% endif %}
+                        {% if field.html_name == 'project-client_first_name' %}
+                            <hr>
+                            <h3>New Client</h3>
+                            <p>{{field.label_tag}}<br>{{field}}</p>
+                        {% else %}
+                            <p>{{field.label_tag}}<br>{{field}}</p>
+                        {% endif %}
                     {% endfor %}
-                    <input type='submit' value='Submit'/>
+                    <input type='submit' id='project' value='Submit'/>
                 </div>
             </form>
             {% endblock %}
