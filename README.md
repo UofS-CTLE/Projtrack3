@@ -48,7 +48,5 @@ When contributing to the project:
 
 **Only working code should ever be committed to master.**
 
-Please, try to avoid hot patches.
-
 # Testing with an admin account
 Since the binary files and database files are not being shared, the administrative/user accounts will not be shared on the Github repository. In order to access admin functions on the development server, you'll need to run `python manage.py createsuperuser` to set up the environment.
