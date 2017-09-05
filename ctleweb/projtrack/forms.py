@@ -29,7 +29,7 @@ class AddProjectForm(ModelForm):
             'description': forms.Textarea(attrs={'cols': 50, 'rows': 5}),
         }
         field = '__all__'
-        exclude = ('date', 'semester')
+        exclude = ('date', 'semester', 'users')
 
 
 class AddClientForm(ModelForm):
