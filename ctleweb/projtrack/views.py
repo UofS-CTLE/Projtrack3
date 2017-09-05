@@ -131,6 +131,8 @@ def add_project(request):
                                                      last_name=request.POST['project-client_last_name'],
                                                      email=request.POST['project-client_email'],
                                                      department=dept)
+                if request.user.is_authenticated:
+                    t.users = User.objects.get(username=request.user.username)
                 t.save()
                 project_form = AddProjectForm(prefix='project')
                 error = "Form submitted successfully."
