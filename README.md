@@ -35,7 +35,7 @@ $ git clone https://github.com/cyclerdan/Projtrack3.git
 ```
 to set up the project and
 ```
-$ cd Projtrack/ctleweb
+$ cd Projtrack3/ctleweb
 $ python manage.py runserver 8080
 ```
 to run the server.
