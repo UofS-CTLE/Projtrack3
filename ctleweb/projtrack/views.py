@@ -123,7 +123,7 @@ def add_project(request):
         if request.method == 'POST':
             project_form = AddProjectForm(request.POST, prefix='project')
             if project_form.is_valid():
-                t = project_form.save()
+                t = project_form.save(commit=False)
                 print(request.POST)
                 if request.POST.get('project-client') == '':
                     dept = Department.objects.get(pk=request.POST['project-client_department'])
