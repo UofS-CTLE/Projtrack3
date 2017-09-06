@@ -79,7 +79,11 @@
                     <td>{{ o.users }}</td>
                     <td>{{ o.date }}</td>
                     <td>{{ o.hours }}</td>
-                    <td>{{ o.completed }}</td>
+                    {% if o.completed %}
+                    <td> &#x2714; </td>
+                    {% else %}
+                    <td></td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </table>

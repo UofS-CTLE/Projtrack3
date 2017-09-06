@@ -110,8 +110,12 @@ class Report(object):
                                   <td>Description</td><td>Completed Status</td></tr>'''
                 for y in x.projects_list:
                     self.report_string += '''<tr><td>{}</td><td>{}</td><td>{} {}</td><td>{}</td><td>{}</td>
-                                         <td>{}</td><td>{}</td></tr>'''.format(y.title, y.client, y.users.first_name,
-                                                                    y.users.last_name, y.hours, y.date, y.description, y.completed)
+                                         <td>{}</td><td>{done}</td></tr>'''.format(y.title, y.client,
+                                                                                   y.users.first_name,
+                                                                                   y.users.last_name,
+                                                                                   y.hours, y.date, y.description,
+                                                                                   done="&#x2714;"
+                                                                                   if y.completed else '')
                 self.report_string += '</table><br>'
         self.report_string += "</body></html>"
 

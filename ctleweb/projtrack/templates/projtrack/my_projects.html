@@ -78,7 +78,11 @@
                     <td>{{ o.client }}</td>
                     <td>{{ o.hours }}</td>
                     <td>{{ o.date }}</td>
-                    <td>{{ o.completed }}</td>
+                    {% if o.completed %}
+                    <td> &#x2714; </td>
+                    {% else %}
+                    <td></td>
+                    {% endif %}
                     <td><a href="{% url 'projtrack:edit_project' id=o.id %}">Edit</a></td>
                     <td><a href="{% url 'projtrack:project_delete' id=o.id %}">Delete</a></td>
                 </tr>
