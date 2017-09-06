@@ -8,7 +8,7 @@ from django.shortcuts import render
 
 from .forms import AddProjectForm, AddClientForm, AddDeptForm, AddTypeForm, GenerateReportForm
 from .forms import LoginForm
-from .models import Client, Project, Semester, Department
+from .models import Client, Project, CurrentSemester, Department
 from .report_generator import Report
 
 
@@ -90,7 +90,7 @@ def my_projects(request):
             projects = []
             u = User.objects.get(username=request.user.username)
             # noinspection PyUnresolvedReferences
-            query = Project.objects.filter(semester=Semester.objects.get(pk=settings.SEMESTER)).order_by('-date')
+            query = Project.objects.filter(semester=CurrentSemester.objects.all()[0].semester).order_by('-date')
             for x in query:
                 if x.users.username == u.username:
                     projects.append(x)
@@ -107,7 +107,7 @@ def all_projects(request):
     if request.user.is_authenticated:
         # noinspection PyUnresolvedReferences
         try:
-            projects = Project.objects.filter(semester=Semester.objects.get(pk=settings.SEMESTER)).order_by('-date')
+            projects = Project.objects.filter(semester=CurrentSemester.objects.all()[0].semester).order_by('-date')
         except ObjectDoesNotExist:
             projects = ""
         return render(request, 'projtrack/all_projects.html',
@@ -124,7 +124,7 @@ def add_project(request):
             project_form = AddProjectForm(request.POST, prefix='project')
             if project_form.is_valid():
                 t = project_form.save(commit=False)
-                print(request.POST)
+                t.semester = CurrentSemester.objects.all()[0].semester
                 if request.POST.get('project-client') == '':
                     dept = Department.objects.get(pk=request.POST['project-client_department'])
                     t.client = Client.objects.create(first_name=request.POST['project-client_first_name'],

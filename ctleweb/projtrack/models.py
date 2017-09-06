@@ -61,6 +61,16 @@ class Semester(models.Model):
         return self.name
 
 
+class CurrentSemester(models.Model):
+    semester = models.ForeignKey(Semester)
+
+    class Meta:
+        db_table = u'CurrentSemester'
+
+    def __str__(self):
+        return str(self.semester)
+
+
 class Project(models.Model):
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=500)
@@ -69,7 +79,7 @@ class Project(models.Model):
     walk_in = models.BooleanField(default=False)
     client = models.ForeignKey(Client, on_delete=models.CASCADE, blank=True, null=True)
     users = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    semester = models.ForeignKey(Semester, on_delete=models.CASCADE, default=settings.SEMESTER)
+    semester = models.ForeignKey(Semester, on_delete=models.CASCADE, blank=True, null=True)
     hours = models.PositiveIntegerField(default=0)
     completed = models.BooleanField(default=False)
 
