@@ -70,7 +70,8 @@ def report_page(request):
                     'user': request.POST['user'],
                     'client': request.POST['client'],
                     'department': request.POST['department'],
-                    'proj_type': request.POST['proj_type']
+                    'proj_type': request.POST['proj_type'],
+                    'stats': True if request.POST.get('show_stats') is not None else False
                 }
                 Report(req)
                 return render(request, 'projtrack/report_page.html')

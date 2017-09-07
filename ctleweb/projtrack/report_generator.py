@@ -5,7 +5,7 @@ import os
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 
-from .models import User, Project, Client, Semester
+from .models import User, Project, Client, Semester, Department, Type
 
 
 class UserStats(object):
@@ -47,6 +47,7 @@ class Report(object):
         self.client = request['client']
         self.department = request['department']
         self.project_type = request['proj_type']
+        self.stats = request['stats']
         self.user_list()
         self.filter_projects()
         for x in self.user_objects_list:
@@ -101,6 +102,27 @@ class Report(object):
         self.report_string += '<br/>Total Hours: ' + str(self.total_hours)
         self.report_string += '<br/>Walk-ins: ' + str(self.walk_ins) + ' (' + str(self.percent_walk_in) + '%)'
         self.report_string += '<br/>Active Developers : ' + str(len(self.active_user_list)) + "<br/><br/>"
+
+        if self.stats:
+            project_list = []
+            for x in self.user_objects_list:
+                for y in x.projects_list:
+                    project_list.append(y)
+            report = generate_stats(project_list)
+            assert isinstance(report, dict)
+            for x, y in report.items():
+                self.report_string += str(x)
+                self.report_string += '<table>'
+                if str(x) == 'Users':
+                    self.report_string += '<tr><td>Name</td><td>Hours</td><td>Projects</td></tr>'
+                    for z, a in y.items():
+                        self.report_string += '<tr><td>{}</td><td>{}</td><td>{}</td></tr>'.format(str(z), a['hours'],
+                                                                                                  a['projects'])
+                else:
+                    for z, a in y.items():
+                        self.report_string += '<tr><td>{}</td><td>{}</td></tr>'.format(str(z), str(a))
+                self.report_string += '</table><br/>'
+
         for x in self.user_objects_list:
             if x.projects_count != 0:
                 self.report_string += '<strong>{} {}; {} total projects.</strong>'.format(x.user_object.first_name,
@@ -208,3 +230,42 @@ def check_type(proj):
             return [Project.objects.filter(type=proj)]
     except ObjectDoesNotExist:
         return []
+
+
+def generate_stats(report):
+    hours = 0
+    walk_ins = 0
+    users = dict()
+    for x in report:
+        hours += x.hours
+        if x.walk_in:
+            walk_ins += 1
+    for x in list(User.objects.filter(is_active=True)):
+        proj = 0
+        hour = 0
+        for y in list(Project.objects.all()):
+            if y.users.email == x.email:
+                proj += 1
+                hour += y.hours
+        users[x.email] = {'projects': proj, 'hours': hour}
+    depts = dict()
+    for x in list(Department.objects.all()):
+        proj = 0
+        for y in list(Project.objects.all()):
+            if y.client.department.name == x.name:
+                proj += 1
+        depts[x.name] = proj
+    types = dict()
+    for x in list(Type.objects.all()):
+        proj = 0
+        for y in list(Project.objects.all()):
+            if y.type == x:
+                proj += 1
+        types[x.name] = proj
+    report_dict = {
+        'Users': users,
+        'Projects per Department': depts,
+        'Projects per Type': types
+    }
+    return report_dict
+
