@@ -268,4 +268,3 @@ def generate_stats(report):
         'Projects per Type': types
     }
     return report_dict
-
