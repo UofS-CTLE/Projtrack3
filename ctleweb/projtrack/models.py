@@ -36,7 +36,7 @@ class Client(models.Model):
         ordering = ['last_name']
 
     def __str__(self):
-        return str(self.first_name) + " " + str(self.last_name)
+        return str(self.last_name) + ", " + str(self.first_name)
 
 
 class Type(models.Model):
