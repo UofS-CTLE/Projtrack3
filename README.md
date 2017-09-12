@@ -1,5 +1,5 @@
 # Projtrack 3
-***Remember to run ***`./build.sh test`*** before opening a pull request.***
+Remember to run `./build.sh test` before opening a pull request.
 
 [Projtrack 3 Wiki](https://github.com/cyclerdan/Projtrack3/wiki/)
 
