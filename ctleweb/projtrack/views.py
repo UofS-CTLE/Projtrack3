@@ -296,15 +296,20 @@ def logout_view(request):
 
 
 def change_password(request):
+    error = ''
     if request.user.is_authenticated:
         if request.method == 'POST':
             form = PasswordChangeForm(request.user, request.POST)
             if form.is_valid():
                 user = form.save()
                 update_session_auth_hash(request, user)
+                error = 'Password changed successfully.'
+            else:
+                error = 'Something went wrong.'
         else:
             form = PasswordChangeForm(request.user)
         return render(request, 'projtrack/change_password.html',
-                      {'user': request.user, 'form': form})
+                      {'user': request.user, 'form': form,
+                       'error_message': error})
     else:
         return redirect('projtrack:not_logged_in')
