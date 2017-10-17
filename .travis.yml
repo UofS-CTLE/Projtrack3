@@ -17,4 +17,4 @@
     before_script: # => 6
     script: # => 7
 
-      - python manage.py test
+      - python ctleweb/manage.py test
