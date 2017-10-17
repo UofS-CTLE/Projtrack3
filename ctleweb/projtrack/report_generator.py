@@ -236,6 +236,7 @@ def generate_stats(report):
     hours = 0
     walk_ins = 0
     users = dict()
+    projects = list(Project.objects.all())
     for x in report:
         hours += x.hours
         if x.walk_in:
@@ -243,7 +244,7 @@ def generate_stats(report):
     for x in list(User.objects.filter(is_active=True)):
         proj = 0
         hour = 0
-        for y in list(Project.objects.all()):
+        for y in projects:
             if y.users.email == x.email:
                 proj += 1
                 hour += y.hours
@@ -251,14 +252,14 @@ def generate_stats(report):
     depts = dict()
     for x in list(Department.objects.all()):
         proj = 0
-        for y in list(Project.objects.all()):
+        for y in projects:
             if y.client.department.name == x.name:
                 proj += 1
         depts[x.name] = proj
     types = dict()
     for x in list(Type.objects.all()):
         proj = 0
-        for y in list(Project.objects.all()):
+        for y in projects:
             if y.type == x:
                 proj += 1
         types[x.name] = proj
