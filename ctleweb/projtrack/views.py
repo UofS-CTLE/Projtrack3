@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
@@ -36,7 +35,8 @@ def index(request):
             else:
                 return render(request,
                               'projtrack/index.html',
-                              {'user': request.user, 'error_message': "Invalid username or password.",
+                              {'user': request.user,
+                               'error_message': "Invalid username or password.",
                                'form': form})
     else:
         form = LoginForm()
@@ -79,7 +79,8 @@ def report_page(request):
             form = GenerateReportForm()
             return render(request,
                           'projtrack/report_generator.html',
-                          {'user': request.user, 'title_text': 'Generate a Report',
+                          {'user': request.user,
+                           'title_text': 'Generate a Report',
                            'form': form})
     else:
         return redirect('projtrack:not_logged_in')
@@ -98,7 +99,8 @@ def my_projects(request):
         except ObjectDoesNotExist:
             projects = ""
         return render(request, 'projtrack/my_projects.html',
-                      {'user': request.user, 'title_text': 'My Projects',
+                      {'user': request.user,
+                       'title_text': 'My Projects',
                        'projects': projects})
     else:
         return redirect('projtrack:not_logged_in')
@@ -112,7 +114,8 @@ def all_projects(request):
         except ObjectDoesNotExist:
             projects = ""
         return render(request, 'projtrack/all_projects.html',
-                      {'user': request.user, 'title_text': "All Projects",
+                      {'user': request.user,
+                       'title_text': "All Projects",
                        'list_view': projects})
     else:
         return redirect('projtrack:not_logged_in')
@@ -142,7 +145,9 @@ def add_project(request):
         else:
             project_form = AddProjectForm(prefix='project')
         return render(request, 'projtrack/add_project.html',
-                      {'user': request.user, 'title_text': "Add Project", 'form': project_form,
+                      {'user': request.user,
+                       'title_text': "Add Project",
+                       'form': project_form,
                        'error_message': error})
     else:
         return redirect('projtrack:not_logged_in')
@@ -163,7 +168,9 @@ def add_client(request):
         else:
             form = AddClientForm()
         return render(request, 'projtrack/add_client.html',
-                      {'user': request.user, 'title_text': "Add Client", 'form': form,
+                      {'user': request.user,
+                       'title_text': "Add Client",
+                       'form': form,
                        'error_message': error})
     else:
         return redirect('projtrack:not_logged_in')
@@ -174,7 +181,8 @@ def client_view(request):
         # noinspection PyUnresolvedReferences
         clients = Client.objects.all().order_by('last_name')
         return render(request, 'projtrack/list_view.html',
-                      {'title_text': "All Clients", 'user': request.user,
+                      {'title_text': "All Clients",
+                       'user': request.user,
                        'list_view': clients})
     else:
         return redirect('projtrack:not_logged_in')
@@ -192,7 +200,8 @@ def client_projects(request, id=None):
             # noinspection PyUnresolvedReferences
             projects = [Project.objects.get(client=client)]
         return render(request, 'projtrack/client_projects.html',
-                      {'title_text': "Projects for " + str(client), 'user': request.user,
+                      {'title_text': "Projects for " + str(client),
+                       'user': request.user,
                        'list_view': projects})
     else:
         return redirect('projtrack:not_logged_in')
@@ -216,7 +225,10 @@ def edit_project(request, id=None):
             project = get_object_or_404(Project, pk=id)
             form = AddProjectForm(instance=project)
         return render(request, 'projtrack/project_edit.html',
-                      {'user': request.user, 'title_text': "Edit Project", 'form': form, 'error_message': error,
+                      {'user': request.user,
+                       'title_text': "Edit Project",
+                       'form': form,
+                       'error_message': error,
                        'id': id})
     else:
         return redirect('projtrack:not_logged_in')
@@ -239,7 +251,9 @@ def project_delete(request, id=None):
         except ObjectDoesNotExist:
             projects = ""
         return render(request, 'projtrack/my_projects.html',
-                      {'user': request.user, 'title_text': 'My Projects', 'projects': projects})
+                      {'user': request.user,
+                       'title_text': 'My Projects',
+                       'projects': projects})
     else:
         return redirect('projtrack:not_logged_in')
 
@@ -259,7 +273,9 @@ def add_department(request):
         else:
             form = AddDeptForm()
         return render(request, 'projtrack/add_department.html',
-                      {'user': request.user, 'title_text': "Add Department", 'form': form,
+                      {'user': request.user,
+                       'title_text': "Add Department",
+                       'form': form,
                        'error_message': error})
     else:
         return redirect('projtrack:not_logged_in')
@@ -280,7 +296,9 @@ def add_type(request):
         else:
             form = AddTypeForm()
         return render(request, 'projtrack/add_type.html',
-                      {'user': request.user, 'title_text': "Add Type", 'form': form,
+                      {'user': request.user,
+                       'title_text': "Add Type",
+                       'form': form,
                        'error_message': error})
     else:
         return redirect('projtrack:not_logged_in')
@@ -309,7 +327,8 @@ def change_password(request):
         else:
             form = PasswordChangeForm(request.user)
         return render(request, 'projtrack/change_password.html',
-                      {'user': request.user, 'form': form,
+                      {'user': request.user,
+                       'form': form,
                        'error_message': error})
     else:
         return redirect('projtrack:not_logged_in')
