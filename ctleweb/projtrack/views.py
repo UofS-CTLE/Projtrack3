@@ -130,7 +130,12 @@ def add_project(request):
                 t = project_form.save(commit=False)
                 t.semester = CurrentSemester.objects.all()[0].semester
                 if request.POST.get('project-client') == '':
-                    dept = Department.objects.get(pk=request.POST['project-client_department'])
+                    try:
+                        dept = Department.objects.get(pk=request.POST['project-client_department'])
+                    except ValueError:
+                        return render(request, 'projtrack/add_project.html',
+                                      {'user': request.user, 'title_text': "Add Project", 'form': project_form,
+                                       'error_message': "Missing Client requirement."})
                     t.client = Client.objects.create(first_name=request.POST['project-client_first_name'],
                                                      last_name=request.POST['project-client_last_name'],
                                                      email=request.POST['project-client_email'],
