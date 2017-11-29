@@ -57,7 +57,7 @@ function backup {
 }
 
 function restore {
-    cat $1 | sqlite3 db.sqlite3
+    cat $HOME/$1 | sqlite3 db.sqlite3
 }
 
 case "$1" in
