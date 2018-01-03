@@ -77,7 +77,7 @@ class Project(models.Model):
     type = models.ForeignKey(Type, on_delete=models.CASCADE)
     walk_in = models.BooleanField(default=False)
     client = models.ForeignKey(Client, on_delete=models.CASCADE, blank=True, null=True)
-    users = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    users = models.ManyToManyField(User)
     semester = models.ForeignKey(Semester, on_delete=models.CASCADE, blank=True, null=True)
     hours = models.PositiveIntegerField(default=0)
     completed = models.BooleanField(default=False)

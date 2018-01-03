@@ -94,7 +94,7 @@ def my_projects(request):
             # noinspection PyUnresolvedReferences
             query = Project.objects.filter(semester=CurrentSemester.objects.all()[0].semester).order_by('-date')
             for x in query:
-                if x.users.username == u.username:
+                if u in x.users.all():
                     projects.append(x)
         except ObjectDoesNotExist:
             projects = ""
@@ -140,8 +140,9 @@ def add_project(request):
                                                      last_name=request.POST['project-client_last_name'],
                                                      email=request.POST['project-client_email'],
                                                      department=dept)
+                t.save()
                 if request.user.is_authenticated:
-                    t.users = User.objects.get(username=request.user.username)
+                    t.users.add(User.objects.get(username=request.user.username))
                 t.save()
                 project_form = AddProjectForm(prefix='project')
                 error = "Form submitted successfully."
@@ -251,7 +252,7 @@ def project_delete(request, id=None):
             # noinspection PyUnresolvedReferences
             query = Project.objects.all().order_by('title')
             for x in query:
-                if x.users.username == u.username:
+                if u in x.users.all:
                     projects.append(x)
         except ObjectDoesNotExist:
             projects = ""
