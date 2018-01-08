@@ -132,7 +132,7 @@ class Report(object):
                 for y in x.projects_list:
                     name = ""
                     for u in y.users.all():
-                        name = u.first_name + " " + u.last_name + ", "
+                        name += u.first_name + " " + u.last_name + ", "
                     self.report_string += '''<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td>
                                          <td>{}</td><td>{done}</td></tr>'''.format(y.title, y.client,
                                                                                    name,
