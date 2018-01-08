@@ -73,7 +73,7 @@ class CurrentSemester(models.Model):
 class Project(models.Model):
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=500)
-    date = models.DateField(editable=False, default=str(datetime.date.today()))
+    date = models.DateField(editable=False)
     type = models.ForeignKey(Type, on_delete=models.CASCADE)
     walk_in = models.BooleanField(default=False)
     client = models.ForeignKey(Client, on_delete=models.CASCADE, blank=True, null=True)

@@ -5,6 +5,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import redirect, get_object_or_404
 from django.shortcuts import render
 
+import datetime
+
 from .forms import AddProjectForm, AddClientForm, AddDeptForm, AddTypeForm, GenerateReportForm
 from .forms import LoginForm
 from .models import Client, Project, CurrentSemester, Department
@@ -128,6 +130,7 @@ def add_project(request):
             project_form = AddProjectForm(request.POST, prefix='project')
             if project_form.is_valid():
                 t = project_form.save(commit=False)
+                t.date = str(datetime.date.today())
                 t.semester = CurrentSemester.objects.all()[0].semester
                 if request.POST.get('project-client') == '':
                     try:
