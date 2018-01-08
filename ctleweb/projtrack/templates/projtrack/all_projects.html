@@ -76,7 +76,11 @@
                     <td>{{ o.title }}</td>
                     <td>{{ o.description }}</td>
                     <td>{{ o.client }}</td>
-                    <td>{{ o.users }}</td>
+                    <td>
+                        {% for u in o.users.all %}
+                            {{ u }}<br>
+                        {% endfor %}
+                    </td>
                     <td>{{ o.date }}</td>
                     <td>{{ o.hours }}</td>
                     {% if o.completed %}

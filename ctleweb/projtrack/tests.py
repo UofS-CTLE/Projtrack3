@@ -65,19 +65,20 @@ class ProjectTestCase(django.test.TestCase):
         Client.objects.create(first_name="Ralph", last_name="Smith",
                               email="rsmith@email.com",
                               department=Department.objects.get(name="Science"))
-        Project.objects.create(title="Test Project",
+        p = Project.objects.create(title="Test Project",
                                description="A project to test the application.",
                                type=Type.objects.get(name="Test"),
                                walk_in=False,
                                date=str(datetime.date.today()),
                                semester=Semester.objects.create(name="Spring 2913"),
                                client=Client.objects.get(first_name="Ralph"),
-                               users=User.objects.get(username="techconbob"),
                                completed=False)
+        p.save()
+        p.users.add(u)
 
     def test_user(self):
         p = Project.objects.get(title="Test Project")
-        self.assertEqual(p.users.username, "techconbob")
+        self.assertTrue(User.objects.get(username="techconbob") in p.users.all())
 
     def test_department(self):
         p = Project.objects.get(title="Test Project")
@@ -110,7 +111,7 @@ class TestNavigation(django.test.TestCase):
 
 class TestReportGenerator(django.test.TestCase):
     def setUp(self):
-        Project.objects.create(title="Test",
+        p1 = Project.objects.create(title="Test",
                                description="Test",
                                date=datetime.date.today(),
                                type=Type.objects.create(name="Project"),
@@ -119,10 +120,11 @@ class TestReportGenerator(django.test.TestCase):
                                                             last_name="Roberts",
                                                             department=Department.objects.create(name="Testing"),
                                                             email='roberts@email.com'),
-                               users=User.objects.create(username="admin"),
                                semester=Semester.objects.create(name="Test"),
                                completed=False)
-        Project.objects.create(title="Stuff",
+        p1.save()
+        p1.users.add(User.objects.create(username="admin"))
+        p2 = Project.objects.create(title="Stuff",
                                description="Why",
                                date=datetime.date.today(),
                                type=Type.objects.create(name="Test"),
@@ -131,10 +133,11 @@ class TestReportGenerator(django.test.TestCase):
                                                             last_name="Jerries",
                                                             department=Department.objects.create(name="Science"),
                                                             email='jerries@email.com'),
-                               users=User.objects.create(username="techconbob"),
                                semester=Semester.objects.create(name="Test2"),
                                completed=False)
-        Project.objects.create(title="Help",
+        p2.save()
+        p2.users.add(User.objects.create(username="techconbob"))
+        p3 = Project.objects.create(title="Help",
                                description="Testing",
                                date=datetime.date.today(),
                                type=Type.objects.create(name="Help"),
@@ -143,9 +146,10 @@ class TestReportGenerator(django.test.TestCase):
                                                             last_name="Lawrence",
                                                             department=Department.objects.create(name="CTLE"),
                                                             email='jerries@email.com'),
-                               users=User.objects.create(username="harry"),
                                semester=Semester.objects.create(name="Later"),
                                completed=False)
+        p3.save()
+        p3.users.add(User.objects.create(username="harry"))
 
     def test_check_semester(self):
         sem = Semester.objects.get(name="Test")
