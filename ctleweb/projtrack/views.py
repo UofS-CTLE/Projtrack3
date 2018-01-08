@@ -141,9 +141,10 @@ def add_project(request):
                                                      email=request.POST['project-client_email'],
                                                      department=dept)
                 t.save()
-                if request.user.is_authenticated:
-                    t.users.add(User.objects.get(username=request.user.username))
+                for i in request.POST.getlist("users"):
+                    t.users.add(User.objects.get(pk=i))
                 t.save()
+                project_form.save_m2m()
                 project_form = AddProjectForm(prefix='project')
                 error = "Form submitted successfully."
             else:

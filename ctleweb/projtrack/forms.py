@@ -20,6 +20,8 @@ class AddProjectForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(AddProjectForm, self).__init__(*args, **kwargs)
         self.fields['client'].required = False
+        self.fields['users'].widget = forms.widgets.CheckboxSelectMultiple()
+        self.fields['users'].queryset = User.objects.filter(is_active=True)
 
     class Meta:
         model = Project
