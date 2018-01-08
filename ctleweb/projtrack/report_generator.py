@@ -130,10 +130,12 @@ class Report(object):
                 self.report_string += '''<table><tr><td>Title</td><td>Client</td><td>Developer</td><td>Hours</td><td>Date</td>
                                   <td>Description</td><td>Completed Status</td></tr>'''
                 for y in x.projects_list:
-                    self.report_string += '''<tr><td>{}</td><td>{}</td><td>{} {}</td><td>{}</td><td>{}</td>
+                    name = ""
+                    for u in y.users.all():
+                        name = u.first_name + " " + u.last_name + ", "
+                    self.report_string += '''<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td>
                                          <td>{}</td><td>{done}</td></tr>'''.format(y.title, y.client,
-                                                                                   y.users.first_name,
-                                                                                   y.users.last_name,
+                                                                                   name,
                                                                                    y.hours, y.date, y.description,
                                                                                    done="&#x2714;"
                                                                                    if y.completed else '')
