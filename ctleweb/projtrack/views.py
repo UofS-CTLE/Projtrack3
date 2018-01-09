@@ -5,12 +5,16 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import redirect, get_object_or_404
 from django.shortcuts import render
 
+from rest_framework import viewsets, permissions
+
 import datetime
 
 from .forms import AddProjectForm, AddClientForm, AddDeptForm, AddTypeForm, GenerateReportForm
 from .forms import LoginForm
-from .models import Client, Project, CurrentSemester, Department
+from .models import Client, Project, CurrentSemester, Department, Type, Semester
 from .report_generator import Report
+from .serializers import ProjectSerializer, TypeSerializer, DepartmentSerializer, ClientSerializer, SemesterSerializer,\
+                         UserSerializer
 
 
 # noinspection PyUnusedLocal
@@ -342,3 +346,39 @@ def change_password(request):
                        'error_message': error})
     else:
         return redirect('projtrack:not_logged_in')
+
+
+class UserSerializerView(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class ProjectSerializerView(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+
+
+class ClientSerializerView(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializer
+
+
+class DepartmentSerializerView(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = Department.objects.all()
+    serializer_class = DepartmentSerializer
+
+
+class TypeSerializerView(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = Type.objects.all()
+    serializer_class = TypeSerializer
+
+
+class SemesterSerializerView(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = Semester.objects.all()
+    serializer_class = SemesterSerializer

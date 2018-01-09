@@ -8,5 +8,5 @@ setup(
     license='GPL',
     author='University of Scranton CTLE',
     author_email='uofsctle@gmail.com',
-    description='', requires=['django']
+    description='', requires=['django', 'djangorestframework']
 )
