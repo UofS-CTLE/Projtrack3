@@ -9,6 +9,8 @@ from rest_framework import viewsets, permissions
 
 import datetime
 
+from rest_framework.response import Response
+
 from .forms import AddProjectForm, AddClientForm, AddDeptForm, AddTypeForm, GenerateReportForm
 from .forms import LoginForm
 from .models import Client, Project, CurrentSemester, Department, Type, Semester
@@ -349,36 +351,66 @@ def change_password(request):
 
 
 class UserSerializerView(viewsets.ModelViewSet):
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+    def list(self, request):
+        queryset = User.objects.all()
+        serializer = UserSerializer(self.get_queryset(), many=True)
+        return Response(serializer.data)
+
 
 class ProjectSerializerView(viewsets.ModelViewSet):
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
 
+    def list(self, request):
+        queryset = Project.objects.all()
+        serializer = ProjectSerializer(self.get_queryset(), many=True)
+        return Response(serializer.data)
+
 
 class ClientSerializerView(viewsets.ModelViewSet):
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
 
+    def list(self, request):
+        queryset = Client.objects.all()
+        serializer = ClientSerializer(self.get_queryset(), many=True)
+        return Response(serializer.data)
+
 
 class DepartmentSerializerView(viewsets.ModelViewSet):
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = Department.objects.all()
     serializer_class = DepartmentSerializer
 
+    def list(self, request):
+        queryset = Department.objects.all()
+        serializer = DepartmentSerializer(self.get_queryset(), many=True)
+        return Response(serializer.data)
+
 
 class TypeSerializerView(viewsets.ModelViewSet):
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = Type.objects.all()
     serializer_class = TypeSerializer
 
+    def list(self, request):
+        queryset = Type.objects.all()
+        serializer = TypeSerializer(self.get_queryset(), many=True)
+        return Response(serializer.data)
+
 
 class SemesterSerializerView(viewsets.ModelViewSet):
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = Semester.objects.all()
     serializer_class = SemesterSerializer
+
+    def list(self, request):
+        queryset = Semester.objects.all()
+        serializer = SemesterSerializer(self.get_queryset(), many=True)
+        return Response(serializer.data)

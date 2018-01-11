@@ -37,6 +37,5 @@ urlpatterns = [
     url(r'^project_edit/(?P<id>\d+)/$', views.edit_project, name='edit_project'),
     url(r'^project_delete/(?P<id>\d+)/$', views.project_delete, name='project_delete'),
     url(r'^api/', include(router.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^get_auth_token/$', rest_framework_views.obtain_auth_token, name='get_auth_token')
+    url(r'^get_auth_token/$', rest_framework_views.obtain_auth_token, name='get_auth_token'),
 ]
