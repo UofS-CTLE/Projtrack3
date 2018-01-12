@@ -39,9 +39,13 @@ class UserSerializer(serializers.ModelSerializer):
 class ProjectSerializer(serializers.ModelSerializer):
     semester = SemesterSerializer(many=False, read_only=False)
     client = ClientSerializer(many=False, read_only=False)
-    users = UserSerializer(read_only=True, many=True)
+    users = UserSerializer(many=True, read_only=False)
+    type = TypeSerializer(many=False, read_only=False)
 
     class Meta:
         model = Project
         fields = ('id', 'title', 'description', 'date', 'type', 'walk_in',
                   'client', 'users', 'semester', 'hours', 'completed')
+        extra_kwargs = {'users': {'required': False}, 'description': {'required': False},
+                        'title': {'required': False}, 'semester': {'required': False},
+                        'client': {'required': False}, 'type': {'required': False}}
