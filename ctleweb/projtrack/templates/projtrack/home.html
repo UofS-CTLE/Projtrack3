@@ -21,14 +21,14 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="{%url 'projtrack:home' %}"><img alt="Brand"
-                                                                              style="width:25px;height:25px;"
-                                                                              src="{% static 'projtrack/favicon.ico' %}"></a>
+                                                                              id="little-logo"
+                                                                              src="{% static 'projtrack/projtrack.png' %}"></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-left">
+                <ul class="nav navbar-nav navbar-right">
                     <li role="presentation"><a href="{% url 'projtrack3:logout' %}" class="color-me"
                                                style="font-size: 175%"><span
-                            class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign Out</a></li>
+                            class="glyphicon glyphicon-log-out" aria-hidden="true"></span>  Sign Out</a></li>
                     <li role="presentation" style="font-size: 250%; padding-top: 4px;">{{ user }}</li>
                 </ul>
             </div>
@@ -60,12 +60,19 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h1 class="page-header">Home</h1>
             <div class="jumbotron">
-                <h2>Welcome to Projtrack</h2>
-                <p>Problem? Feature request? Log a ticket <a href="{% url 'projtrack:issues' %}">here</a>.</p>
-                <p>The Projtrack3 manuals are located <a href="{% url 'projtrack:wiki' %}">here</a>.
-                </p>
-		<p><a href="http://ctleweb.scranton.edu/projtrack/users/login">Legacy Projtrack</a></p>
-                <p><a href="{% url 'projtrack:change_password' %}">Change password.</a></p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2>Welcome to Projtrack</h2>
+                        <p>Problem? Feature request? Log a ticket <a href="{% url 'projtrack:issues' %}">here</a>.</p>
+                        <p>The Projtrack3 manuals are located <a href="{% url 'projtrack:wiki' %}">here</a>.
+                        </p>
+		        <p><a href="http://ctleweb.scranton.edu/projtrack/users/login">Legacy Projtrack</a></p>
+                        <p><a href="{% url 'projtrack:change_password' %}">Change password.</a></p>
+                    </div>
+                    <div class="col-md-6">
+                        <img id="big-logo" class="img-responsive"  src="{% static 'projtrack/projtrack.png' %}" alt="big logo">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
