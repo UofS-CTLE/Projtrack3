@@ -13,6 +13,9 @@ class DepartmentSerializer(serializers.ModelSerializer):
 class ClientSerializer(serializers.ModelSerializer):
     department = DepartmentSerializer(many=False, read_only=False)
 
+    def create(self, validated_data):
+        Client.objects.create(**validated_data)
+
     class Meta:
         model = Client
         fields = ('id', 'first_name', 'last_name', 'email', 'department')
@@ -41,6 +44,9 @@ class ProjectSerializer(serializers.ModelSerializer):
     client = ClientSerializer(many=False, read_only=False)
     users = UserSerializer(many=True, read_only=False)
     type = TypeSerializer(many=False, read_only=False)
+
+    def create(self, validated_data):
+        Project.objects.create(**validated_data)
 
     class Meta:
         model = Project
