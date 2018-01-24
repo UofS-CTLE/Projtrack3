@@ -1,7 +1,8 @@
+import datetime
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from .models import Project, Client, Department, Type
+from .models import Project, Client, Department, Type, Semester
 
 
 class DepartmentSerializer(serializers.ModelSerializer):
@@ -46,7 +47,18 @@ class ProjectSerializer(serializers.ModelSerializer):
     type = TypeSerializer(many=False, read_only=False)
 
     def create(self, validated_data):
-        Project.objects.create(**validated_data)
+        Project.objects.create(
+            title=validated_data.get("title", None),
+            description=validated_data.get("description", None),
+            date=str(datetime.date.today()),
+            type=Type.objects.get(name=validated_data.get("type.name", None)),
+            walk_in=validated_data.get("walk_in", None),
+            client=Client.objects.get(email=validated_data.get("client.email", None)),
+            users=User.objects.get(username=self.request.user.username),
+            semester=Semester.objects.get(name=validated_data.get("semester.name", None)),
+            hours=validated_data.get("hours", None),
+            completed=validated_data.get("completed", None)
+        )
 
     class Meta:
         model = Project

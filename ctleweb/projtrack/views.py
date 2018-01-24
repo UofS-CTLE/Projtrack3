@@ -1,3 +1,4 @@
+import django
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
@@ -356,32 +357,27 @@ class UserSerializerView(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
 
-class AllProjectsSerializerView(viewsets.ModelViewSet):
+class ProjectsSerializerView(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
     queryset = Project.objects.filter(semester=CurrentSemester.objects.all()[0].semester)
     serializer_class = ProjectSerializer
-
-
-class MyProjectsSerializerView(viewsets.ModelViewSet):
-    permission_classes = (permissions.IsAuthenticated,)
-    queryset = Project.objects.filter(semester=CurrentSemester.objects.all()[0].semester)
-    serializer_class = ProjectSerializer
-
-    def list(self, request):
-        u = User.objects.get(username=request.user.username)
-        query = Project.objects.filter(semester=CurrentSemester.objects.all()[0].semester).order_by('-date')
-        queryset = query.filter(users=u)
-        serializer = ProjectSerializer(queryset, many=True)
-        return Response(serializer.data)
 
     def create(self, request, *args, **kwargs):
-        project = request.DATA
-        serializer = self.get_serializer(data=project, many=True)
+        project = request.data
+        serializer = ProjectSerializer(data=project)
         if serializer.is_valid():
             serializer.save()
             headers = self.get_success_headers(serializer.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def get_queryset(self):
+        queryset = Project.objects.filter(semester=CurrentSemester.objects.all()[0].semester).order_by('-date')
+        mine = self.request.query_params.get('my_projects', None)
+        if mine is not None:
+            u = User.objects.get(username=self.request.user.username)
+            queryset = queryset.filter(users=u)
+        return queryset
 
 
 class ClientSerializerView(viewsets.ModelViewSet):
