@@ -1,5 +1,7 @@
 import datetime
+
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 
 from .models import Project, Client, Department, Type, Semester
@@ -51,11 +53,11 @@ class ProjectSerializer(serializers.ModelSerializer):
             title=validated_data.get("title", None),
             description=validated_data.get("description", None),
             date=str(datetime.date.today()),
-            type=Type.objects.get(name=validated_data.get("type.name", None)),
+            type=get_object_or_404(Type, validated_data.get("type.name", None)),
             walk_in=validated_data.get("walk_in", None),
-            client=Client.objects.get(email=validated_data.get("client.email", None)),
-            users=User.objects.get(username=self.request.user.username),
-            semester=Semester.objects.get(name=validated_data.get("semester.name", None)),
+            client=get_object_or_404(Client, validated_data.get("client.email", None)),
+            users=get_object_or_404(User, self.request.user.username),
+            semester=get_object_or_404(Semester, validated_data.get("semester.name", None)),
             hours=validated_data.get("hours", None),
             completed=validated_data.get("completed", None)
         )
