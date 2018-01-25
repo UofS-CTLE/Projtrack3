@@ -28,6 +28,12 @@
 	border-radius: 20%;
 }
 
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+
 @media screen and ( max-width : 767px ) {
 
 	#little-logo {
