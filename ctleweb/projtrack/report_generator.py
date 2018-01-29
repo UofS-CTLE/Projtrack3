@@ -54,7 +54,10 @@ class Report(object):
             self.total_projects += x.projects_count
             self.total_hours += x.projects_hours
             self.walk_ins += x.walk_in
-        self.percent_walk_in = (float(self.walk_ins) / float(self.total_projects)) * 100
+        if self.total_projects != 0:
+            self.percent_walk_in = (float(self.walk_ins) / float(self.total_projects)) * 100
+        else:
+            self.percent_walk_in = 0
         self.report_string = ''
         self.create_report()
         self.write_report()
