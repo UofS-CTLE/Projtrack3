@@ -246,7 +246,7 @@ def generate_stats(report):
         proj = 0
         hour = 0
         for y in projects:
-            if y.users.email == x.email:
+            if x in y.users.all():
                 proj += 1
                 hour += y.hours
         users[x.email] = {'projects': proj, 'hours': hour}
