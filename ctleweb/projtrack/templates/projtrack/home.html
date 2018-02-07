@@ -10,26 +10,32 @@
     <link rel="stylesheet" href="{% static 'projtrack/styles/projtrack.css' %}"/>
     <link rel="stylesheet" href="{% static 'projtrack/styles/dashboard.css' %}"/>
 
-    <nav class="navbar navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                        aria-expanded="false" aria-controls="navbar">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse"
+                        aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="{%url 'projtrack:home' %}"><img alt="Brand"
-                                                                              style="width:25px;height:25px;"
-                                                                              src="{% static 'projtrack/favicon.ico' %}"></a>
+                                                                              id="little-logo"
+                                                                              src="{% static 'projtrack/projtrack.png' %}"></a>
             </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-left">
-                    <li role="presentation"><a href="{% url 'projtrack3:logout' %}" class="color-me"
-                                               style="font-size: 175%"><span
-                            class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Sign Out</a></li>
-                    <li role="presentation" style="font-size: 250%; padding-top: 4px;">{{ user }}</li>
+            <div class="collapse navbar-collapse" id="hidden-navbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="emphasis"><a href="{% url 'projtrack3:logout' %}"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>  Sign Out</a></li>
+                    <li class="emphasis">{{ user }}</li>
+                    <li class="active"><a href="{% url 'projtrack:home' %}">Home<span class="sr-only">(current)</span></a></li>
+                    <li><a href="{% url 'projtrack3:my_projects' %}">My Projects</a></li>
+                    <li><a href="{% url 'projtrack3:all_projects' %}">All Projects</a></li>
+                    <li><a href="{% url 'projtrack3:add_project' %}">Add Project</a></li>
+                    <li><a href="{% url 'projtrack3:add_client' %}">Add Client</a></li>
+                    <li><a href="{% url 'projtrack3:client_view' %}">All Clients</a></li>
+                    <li><a href="{% url 'projtrack3:report_page' %}">Reports</a></li>
+                    <li><a href="/projtrack3/admin/">Admin Page</a></li>
                 </ul>
             </div>
         </div>
@@ -60,12 +66,19 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h1 class="page-header">Home</h1>
             <div class="jumbotron">
-                <h2>Welcome to Projtrack</h2>
-                <p>Problem? Feature request? Log a ticket <a href="{% url 'projtrack:issues' %}">here</a>.</p>
-                <p>The Projtrack3 manuals are located <a href="{% url 'projtrack:wiki' %}">here</a>.
-                </p>
-		<p><a href="http://ctleweb.scranton.edu/projtrack/users/login">Legacy Projtrack</a></p>
-                <p><a href="{% url 'projtrack:change_password' %}">Change password.</a></p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2>Welcome to Projtrack</h2>
+                        <p>Problem? Feature request? Log a ticket <a href="{% url 'projtrack:issues' %}">here</a>.</p>
+                        <p>The Projtrack3 manuals are located <a href="{% url 'projtrack:wiki' %}">here</a>.
+                        </p>
+		        <p><a href="http://ctleweb.scranton.edu/projtrack/users/login">Legacy Projtrack</a></p>
+                        <p><a href="{% url 'projtrack:change_password' %}">Change password.</a></p>
+                    </div>
+                    <div class="col-md-6">
+                        <img id="big-logo" class="img-responsive"  src="{% static 'projtrack/projtrack.png' %}" alt="big logo">
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -6,7 +6,38 @@
 	opacity: 100%;
 }
 
+#little-logo {
+	position: relative;
+	height: inherit;
+	width: auto;
+	top: -12px;
+	border: solid 3px #a6a6a6;
+	-webkit-border-radius: 20%;
+	-moz-border-radius: 20%;
+	border-radius: 20%;
+}
+
+#big-logo {
+	position: relative;
+	display: block;
+	margin: auto;
+	margin-top: 5%;
+	border: solid 3px #a6a6a6;
+	-webkit-border-radius: 20%;
+	-moz-border-radius: 20%;
+	border-radius: 20%;
+}
+
 ul {
     list-style-type: none;
     padding-left: 0;
+}
+
+
+@media screen and ( max-width : 767px ) {
+
+	#little-logo {
+		top: -15px;
+	}
+
 }
