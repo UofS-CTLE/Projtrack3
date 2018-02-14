@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 
-from .models import Project, Client, Department, Type, Semester
+from .models import Project, Client, Department, Type, Semester, CurrentSemester
 
 
 class DepartmentSerializer(serializers.PrimaryKeyRelatedField):
@@ -58,6 +58,7 @@ class ClientSerializerProject(serializers.PrimaryKeyRelatedField):
 
 class ClientSerializer(serializers.ModelSerializer):
     department = DepartmentSerializer(many=False, read_only=False)
+    queryset = Client.objects.all()
 
     def create(self, validated_data):
         Client.objects.create(**validated_data)
@@ -116,12 +117,15 @@ class SemesterSerializer(serializers.PrimaryKeyRelatedField):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    queryset = User.objects.all()
+
     class Meta:
         model = User
         fields = '__all__'
 
 
 class ProjectSerializer(serializers.ModelSerializer):
+    queryset = Project.objects.filter(semester=CurrentSemester.objects.all()[0].semester)
     semester = SemesterSerializer(many=False, read_only=False)
     client = ClientSerializerProject(many=False, read_only=False)
     users = UserSerializer(many=True, read_only=False)

@@ -31,7 +31,7 @@ def wiki(request):
 
 
 def index(request):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         return redirect('projtrack:home')
     if request.method == 'POST':
         form = LoginForm(request.POST)

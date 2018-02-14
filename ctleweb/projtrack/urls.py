@@ -7,13 +7,23 @@ from . import views
 
 app_name = 'projtrack3'
 
+project_viewset = views.ProjectsSerializerView.as_view(actions={'get': 'list'})
+
+client_viewset = views.ClientSerializerView.as_view(actions={'get': 'list'})
+
+department_viewset = views.DepartmentSerializerView.as_view(actions={'get': 'list'})
+
+type_viewset = views.TypeSerializerView.as_view(actions={'get': 'list'})
+
+semester_viewset = views.SemesterSerializerView.as_view(actions={'get': 'list'})
+
 router = routers.DefaultRouter()
-router.register(r'users', views.UserSerializerView)
-router.register(r'projects', views.ProjectsSerializerView)
-router.register(r'clients', views.ClientSerializerView)
-router.register(r'departments', views.DepartmentSerializerView)
-router.register(r'types', views.TypeSerializerView)
-router.register(r'semesters', views.SemesterSerializerView)
+router.register(r'users', views.UserSerializerView, base_name='User')
+router.register(r'projects', project_viewset, base_name='Project')
+router.register(r'clients', client_viewset, base_name='Client')
+router.register(r'departments', department_viewset, base_name='Department')
+router.register(r'types', type_viewset, base_name='Type')
+router.register(r'semesters', semester_viewset, base_name='Semester')
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
