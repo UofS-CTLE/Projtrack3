@@ -7,15 +7,15 @@ from . import views
 
 app_name = 'projtrack3'
 
-project_viewset = views.ProjectsSerializerView.as_view(actions={'get': 'list'})
+project_viewset = views.ProjectsSerializerView
 
-client_viewset = views.ClientSerializerView.as_view(actions={'get': 'list'})
+client_viewset = views.ClientSerializerView
 
-department_viewset = views.DepartmentSerializerView.as_view(actions={'get': 'list'})
+department_viewset = views.DepartmentSerializerView
 
-type_viewset = views.TypeSerializerView.as_view(actions={'get': 'list'})
+type_viewset = views.TypeSerializerView
 
-semester_viewset = views.SemesterSerializerView.as_view(actions={'get': 'list'})
+semester_viewset = views.SemesterSerializerView
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserSerializerView, base_name='User')
