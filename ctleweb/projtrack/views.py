@@ -1,4 +1,3 @@
-import django
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
@@ -31,7 +30,7 @@ def wiki(request):
 
 
 def index(request):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         return redirect('projtrack:home')
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -362,11 +361,13 @@ class ProjectsSerializerView(viewsets.ModelViewSet):
     queryset = Project.objects.filter(semester=CurrentSemester.objects.all()[0].semester)
     serializer_class = ProjectSerializer
 
-    def create(self, request, *args, **kwargs):
+    def perform_create(self, request, *args, **kwargs):
         project = request.data
-        serializer = ProjectSerializer(data=project)
+        serializer = ProjectSerializer(data=project, context=self.request)
         if serializer.is_valid():
-            serializer.save()
+            proj = serializer.save()
+            print(request.context['request'].user.username)
+            proj.users.add(User.objects.get(username=request.context['request'].user.username))
             headers = self.get_success_headers(serializer.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

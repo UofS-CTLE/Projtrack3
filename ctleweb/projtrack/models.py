@@ -62,7 +62,7 @@ class Semester(models.Model):
 
 
 class CurrentSemester(models.Model):
-    semester = models.ForeignKey(Semester)
+    semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
 
     class Meta:
         db_table = u'CurrentSemester'
