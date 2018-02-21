@@ -100,3 +100,5 @@ ctleweb/__pycache__/
 /.idea/
 ctleweb/ctleweb/settings.py
 /ctleweb/projtrack/templates/projtrack/report_page.html
+ctleweb/static/
+ctleweb/projtrack3/

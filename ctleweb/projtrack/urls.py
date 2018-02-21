@@ -1,8 +1,19 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
+from rest_framework import routers
+
+from rest_framework.authtoken import views as rest_framework_views
 
 from . import views
 
 app_name = 'projtrack3'
+
+router = routers.DefaultRouter()
+router.register(r'users', views.UserSerializerView)
+router.register(r'projects', views.ProjectsSerializerView)
+router.register(r'clients', views.ClientSerializerView)
+router.register(r'departments', views.DepartmentSerializerView)
+router.register(r'types', views.TypeSerializerView)
+router.register(r'semesters', views.SemesterSerializerView)
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -25,4 +36,6 @@ urlpatterns = [
     url(r'^project_edit/$', views.edit_project, name='edit_project'),
     url(r'^project_edit/(?P<id>\d+)/$', views.edit_project, name='edit_project'),
     url(r'^project_delete/(?P<id>\d+)/$', views.project_delete, name='project_delete'),
+    url(r'^api/', include(router.urls)),
+    url(r'^get_auth_token/$', rest_framework_views.obtain_auth_token, name='get_auth_token'),
 ]

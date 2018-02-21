@@ -54,7 +54,10 @@ class Report(object):
             self.total_projects += x.projects_count
             self.total_hours += x.projects_hours
             self.walk_ins += x.walk_in
-        self.percent_walk_in = (float(self.walk_ins) / float(self.total_projects)) * 100
+        if self.total_projects != 0:
+            self.percent_walk_in = (float(self.walk_ins) / float(self.total_projects)) * 100
+        else:
+            self.percent_walk_in = 0
         self.report_string = ''
         self.create_report()
         self.write_report()
@@ -242,14 +245,20 @@ def generate_stats(report):
         hours += x.hours
         if x.walk_in:
             walk_ins += 1
+    ##############################################################################
+    # PERFORMANCE BOTTLENECK
+    # This block is the problem. We're essentially in a triply-nested loop.
+    # We'll need to see if we can flatten this out a bit.
+    # This block is taking approximately 30 seconds to generate a stats report.
     for x in list(User.objects.filter(is_active=True)):
         proj = 0
         hour = 0
         for y in projects:
-            if y.users.email == x.email:
+            if x in y.users.all():
                 proj += 1
                 hour += y.hours
         users[x.email] = {'projects': proj, 'hours': hour}
+    ##############################################################################
     depts = dict()
     for x in list(Department.objects.all()):
         proj = 0
