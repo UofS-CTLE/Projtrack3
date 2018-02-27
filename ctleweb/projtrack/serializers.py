@@ -1,20 +1,22 @@
 import datetime
 
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 
-from .models import Project, Client, Department, Type, Semester
+from .models import Project, Client, Department, Type, Semester, CurrentSemester
 
 
-class DepartmentSerializer(serializers.ModelSerializer):
+class DepartmentSerializer(serializers.PrimaryKeyRelatedField):
+    queryset = Department.objects.all()
+
     class Meta:
         model = Department
         fields = ('id', 'name')
 
 
-class ClientSerializer(serializers.ModelSerializer):
+class ClientSerializer(serializers.PrimaryKeyRelatedField):
     department = DepartmentSerializer(many=False, read_only=False)
+    queryset = Client.objects.all()
 
     def create(self, validated_data):
         Client.objects.create(**validated_data)
@@ -24,40 +26,46 @@ class ClientSerializer(serializers.ModelSerializer):
         fields = ('id', 'first_name', 'last_name', 'email', 'department')
 
 
-class TypeSerializer(serializers.ModelSerializer):
+class TypeSerializer(serializers.PrimaryKeyRelatedField):
+    queryset = Type.objects.all()
+
     class Meta:
         model = Type
         fields = ('id', 'name')
 
 
-class SemesterSerializer(serializers.ModelSerializer):
+class SemesterSerializer(serializers.PrimaryKeyRelatedField):
+    queryset = Semester.objects.all()
+
     class Meta:
         model = Type
         fields = ('id', 'name')
 
 
 class UserSerializer(serializers.ModelSerializer):
+    queryset = User.objects.all()
+
     class Meta:
         model = User
         fields = '__all__'
 
 
 class ProjectSerializer(serializers.ModelSerializer):
+    queryset = Project.objects.filter(semester=CurrentSemester.objects.all()[0].semester)
     semester = SemesterSerializer(many=False, read_only=False)
     client = ClientSerializer(many=False, read_only=False)
     users = UserSerializer(many=True, read_only=False)
     type = TypeSerializer(many=False, read_only=False)
 
     def create(self, validated_data):
-        Project.objects.create(
+        return Project.objects.create(
             title=validated_data.get("title", None),
             description=validated_data.get("description", None),
             date=str(datetime.date.today()),
-            type=get_object_or_404(Type, validated_data.get("type.name", None)),
+            type=validated_data.get("type"),
             walk_in=validated_data.get("walk_in", None),
-            client=get_object_or_404(Client, validated_data.get("client.email", None)),
-            users=get_object_or_404(User, self.request.user.username),
-            semester=get_object_or_404(Semester, validated_data.get("semester.name", None)),
+            client=validated_data.get("client"),
+            semester=validated_data.get("semester"),
             hours=validated_data.get("hours", None),
             completed=validated_data.get("completed", None)
         )

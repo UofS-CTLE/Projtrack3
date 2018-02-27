@@ -9,10 +9,12 @@ from .models import User, Project, Client, Semester, Department, Type
 
 class UserStats(object):
     def __init__(self, user):
-        try:
-            self.user_object = User.objects.get(username=user)
-        except ObjectDoesNotExist:
-            self.user_object = User.objects.get(pk=user)
+        # try:
+        #     self.user_object = User.objects.get(username=user)
+        # except ObjectDoesNotExist:
+        #     self.user_object = User.objects.get(pk=user)
+        # except TypeError:
+        self.user_object = user
         self.name = self.user_object.username
         self.projects_list = list(Project.objects.filter(users=self.user_object))
         self.projects_count = 0
@@ -241,16 +243,12 @@ def generate_stats(report):
     walk_ins = 0
     users = dict()
     projects = list(Project.objects.all())
+    active = list(User.objects.filter(is_active=True))
     for x in report:
         hours += x.hours
         if x.walk_in:
             walk_ins += 1
-    ##############################################################################
-    # PERFORMANCE BOTTLENECK
-    # This block is the problem. We're essentially in a triply-nested loop.
-    # We'll need to see if we can flatten this out a bit.
-    # This block is taking approximately 30 seconds to generate a stats report.
-    for x in list(User.objects.filter(is_active=True)):
+    for x in active:
         proj = 0
         hour = 0
         for y in projects:
@@ -258,7 +256,6 @@ def generate_stats(report):
                 proj += 1
                 hour += y.hours
         users[x.email] = {'projects': proj, 'hours': hour}
-    ##############################################################################
     depts = dict()
     for x in list(Department.objects.all()):
         proj = 0
