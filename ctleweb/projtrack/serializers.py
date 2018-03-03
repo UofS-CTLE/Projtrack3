@@ -19,7 +19,7 @@ class ClientSerializer(serializers.ModelSerializer):
     queryset = Client.objects.all()
 
     def create(self, validated_data):
-        Client.objects.create(**validated_data)
+        return Client.objects.create(**validated_data)
 
     class Meta:
         model = Client
@@ -38,8 +38,16 @@ class SemesterSerializer(serializers.ModelSerializer):
     queryset = Semester.objects.all()
 
     class Meta:
-        model = Type
+        model = Semester
         fields = ('id', 'name')
+
+
+class CurrentSemesterSerializer(serializers.ModelSerializer):
+    queryset = CurrentSemester.objects.all()
+
+    class Meta:
+        model = CurrentSemester
+        fields = ('id', 'semester')
 
 
 class UserSerializer(serializers.ModelSerializer):
