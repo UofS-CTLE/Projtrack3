@@ -40,10 +40,24 @@ body {
   font-size: 175%;
 }
 
-@media ( max-width : 757px ) {
+.navbar-nav li {
+  color: white;
+}
+
+#remain-always-visible {
+  display: block;
+  color: white;
+}
+
+#remain-always-visible a {
+  color: white;
+}
+
+@media ( max-width : 767px ) {
 
   .navbar-nav li {
     display: block;
+    color: white;
   }
 
 }
@@ -51,14 +65,6 @@ body {
 /* ===== SIDEBAR ===== */
 
 /* Hide for mobile, show later */
-
-@media ( max-width : 757px ) {
-
-  .sidebar {
-    display: none;
-  }
-
-}
 
 .sidebar {
     position: fixed;
@@ -72,6 +78,14 @@ body {
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
     background-color: #f5f5f5;
     border-right: 1px solid #eee;
+}
+
+@media ( max-width : 757px ) {
+
+  .sidebar {
+    display: none;
+  }
+
 }
 
 @media ( max-width : 767px ) {
@@ -106,7 +120,6 @@ body {
   color: #fff;
   background-color: #342D59;
 }
-
 
 /* ===== MAIN CONTENT ===== */
 

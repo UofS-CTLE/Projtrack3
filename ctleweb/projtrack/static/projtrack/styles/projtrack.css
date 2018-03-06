@@ -6,12 +6,16 @@
 	opacity: 100%;
 }
 
+.navbar-brand {
+	padding-top: 10px;
+}
+
 #little-logo {
 	position: relative;
 	height: inherit;
 	width: auto;
-	top: -12px;
-	border: solid 3px #a6a6a6;
+	top: -10px;
+	border: solid 2px #a6a6a6;
 	-webkit-border-radius: 20%;
 	-moz-border-radius: 20%;
 	border-radius: 20%;
@@ -37,7 +41,7 @@ ul {
 @media screen and ( max-width : 767px ) {
 
 	#little-logo {
-		top: -15px;
+		top: -10px;
 	}
 
 }
