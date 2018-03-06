@@ -6,7 +6,7 @@ from rest_framework import serializers
 from .models import Project, Client, Department, Type, Semester, CurrentSemester
 
 
-class DepartmentSerializer(serializers.PrimaryKeyRelatedField):
+class DepartmentSerializer(serializers.ModelSerializer):
     queryset = Department.objects.all()
 
     class Meta:
@@ -14,19 +14,19 @@ class DepartmentSerializer(serializers.PrimaryKeyRelatedField):
         fields = ('id', 'name')
 
 
-class ClientSerializer(serializers.PrimaryKeyRelatedField):
-    department = DepartmentSerializer(many=False, read_only=False)
+class ClientSerializer(serializers.ModelSerializer):
+    department = serializers.PrimaryKeyRelatedField(queryset=Department.objects.all())
     queryset = Client.objects.all()
 
     def create(self, validated_data):
-        Client.objects.create(**validated_data)
+        return Client.objects.create(**validated_data)
 
     class Meta:
         model = Client
         fields = ('id', 'first_name', 'last_name', 'email', 'department')
 
 
-class TypeSerializer(serializers.PrimaryKeyRelatedField):
+class TypeSerializer(serializers.ModelSerializer):
     queryset = Type.objects.all()
 
     class Meta:
@@ -34,12 +34,20 @@ class TypeSerializer(serializers.PrimaryKeyRelatedField):
         fields = ('id', 'name')
 
 
-class SemesterSerializer(serializers.PrimaryKeyRelatedField):
+class SemesterSerializer(serializers.ModelSerializer):
     queryset = Semester.objects.all()
 
     class Meta:
-        model = Type
+        model = Semester
         fields = ('id', 'name')
+
+
+class CurrentSemesterSerializer(serializers.ModelSerializer):
+    queryset = CurrentSemester.objects.all()
+
+    class Meta:
+        model = CurrentSemester
+        fields = ('id', 'semester')
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -52,10 +60,10 @@ class UserSerializer(serializers.ModelSerializer):
 
 class ProjectSerializer(serializers.ModelSerializer):
     queryset = Project.objects.filter(semester=CurrentSemester.objects.all()[0].semester)
-    semester = SemesterSerializer(many=False, read_only=False)
-    client = ClientSerializer(many=False, read_only=False)
+    semester = serializers.PrimaryKeyRelatedField(queryset=Semester.objects.all())
+    client = serializers.PrimaryKeyRelatedField(queryset=Client.objects.all())
     users = UserSerializer(many=True, read_only=False)
-    type = TypeSerializer(many=False, read_only=False)
+    type = serializers.PrimaryKeyRelatedField(queryset=Type.objects.all())
 
     def create(self, validated_data):
         return Project.objects.create(

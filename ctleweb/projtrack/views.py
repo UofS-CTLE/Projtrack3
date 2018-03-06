@@ -1,22 +1,20 @@
+import datetime
+
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import redirect, get_object_or_404
 from django.shortcuts import render
-
 from rest_framework import viewsets, permissions, status
-
-import datetime
-
 from rest_framework.response import Response
 
 from .forms import AddProjectForm, AddClientForm, AddDeptForm, AddTypeForm, GenerateReportForm
 from .forms import LoginForm
 from .models import Client, Project, CurrentSemester, Department, Type, Semester
 from .report_generator import Report
-from .serializers import ProjectSerializer, TypeSerializer, DepartmentSerializer, ClientSerializer, SemesterSerializer,\
-                         UserSerializer
+from .serializers import ProjectSerializer, TypeSerializer, DepartmentSerializer, ClientSerializer, SemesterSerializer, \
+    UserSerializer, CurrentSemesterSerializer
 
 
 # noinspection PyUnusedLocal
@@ -366,7 +364,6 @@ class ProjectsSerializerView(viewsets.ModelViewSet):
         serializer = ProjectSerializer(data=project, context=self.request)
         if serializer.is_valid():
             proj = serializer.save()
-            print(request.context['request'].user.username)
             proj.users.add(User.objects.get(username=request.context['request'].user.username))
             headers = self.get_success_headers(serializer.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
@@ -403,3 +400,9 @@ class SemesterSerializerView(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
     queryset = Semester.objects.all()
     serializer_class = SemesterSerializer
+
+
+class CurrentSemesterSerializerView(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticated,)
+    queryset = CurrentSemester.objects.all()
+    serializer_class = CurrentSemesterSerializer

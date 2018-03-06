@@ -1,6 +1,5 @@
 from django.conf.urls import url, include
 from rest_framework import routers
-
 from rest_framework.authtoken import views as rest_framework_views
 
 from . import views
@@ -24,6 +23,7 @@ router.register(r'clients', client_viewset, base_name='Client')
 router.register(r'departments', department_viewset, base_name='Department')
 router.register(r'types', type_viewset, base_name='Type')
 router.register(r'semesters', semester_viewset, base_name='Semester')
+router.register(r'current_semester', views.CurrentSemesterSerializerView, base_name="Current_Semester")
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
