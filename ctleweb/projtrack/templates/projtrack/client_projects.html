@@ -73,7 +73,11 @@
                 {% for o in list_view %}
                 <tr>
                     <td>{{ o.title }}</td>
-                    <td>{{ o.users }}</td>
+                    <td>
+                      {% for u in o.users.all %}
+                      {{ u }}<br/>
+                      {% endfor %}
+                    </td>
                     <td>{{ o.date }}</td>
                     <td>{{ o.type }}</td>
                     <td>{{ o.completed }}</td>
