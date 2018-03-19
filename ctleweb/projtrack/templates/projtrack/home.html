@@ -25,9 +25,9 @@
                                                                               src="{% static 'projtrack/projtrack.png' %}"></a>
             </div>
             <div class="collapse navbar-collapse" id="hidden-navbar">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="emphasis"><a href="{% url 'projtrack3:logout' %}"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>  Sign Out</a></li>
-                    <li class="emphasis">{{ user }}</li>
+                <ul class="nav navbar-nav">
+                    <li class="emphasis" id="remain-always-visible"><a href="{% url 'projtrack3:logout' %}"><span class="glyphicon glyphicon-log-out" aria-hidden="true" style="color: white;"></span>  Sign Out</a></li>
+                    <li class="emphasis" id="remain-always-visible">{{ user }}</li>
                     <li class="active"><a href="{% url 'projtrack:home' %}">Home<span class="sr-only">(current)</span></a></li>
                     <li><a href="{% url 'projtrack3:my_projects' %}">My Projects</a></li>
                     <li><a href="{% url 'projtrack3:all_projects' %}">All Projects</a></li>

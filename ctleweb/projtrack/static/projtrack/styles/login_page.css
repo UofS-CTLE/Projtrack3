@@ -9,8 +9,10 @@
 	bottom: 0;
 	opacity: 100%;
 }
+
 #login {
 }
+
 label {
 	font-size: 20pt;
 	color:#FFFFFF;
@@ -29,8 +31,9 @@ input {
 	font-style: normal;
 	font-variant: normal;
 	font-weight: 500;
-	
+
 }
+
 html {
 	background-color:  #660066;
 }
@@ -44,6 +47,7 @@ form {
 	font-variant: normal;
 	font-weight: 500;
 }
+
 h1 {
 	text-align: center;
 	color:#FFFFFF;
@@ -52,4 +56,3 @@ h1 {
 	font-variant: normal;
 	font-weight: 500;
 }
-

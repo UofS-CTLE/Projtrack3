@@ -9,10 +9,12 @@ from .models import User, Project, Client, Semester, Department, Type
 
 class UserStats(object):
     def __init__(self, user):
-        try:
-            self.user_object = User.objects.get(username=user)
-        except ObjectDoesNotExist:
-            self.user_object = User.objects.get(pk=user)
+        # try:
+        #     self.user_object = User.objects.get(username=user)
+        # except ObjectDoesNotExist:
+        #     self.user_object = User.objects.get(pk=user)
+        # except TypeError:
+        self.user_object = user
         self.name = self.user_object.username
         self.projects_list = list(Project.objects.filter(users=self.user_object))
         self.projects_count = 0
