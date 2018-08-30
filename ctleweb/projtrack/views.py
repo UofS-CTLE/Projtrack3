@@ -57,6 +57,7 @@ def home(request):
 
 
 def report_page(request):
+    semester = CurrentSemester.objects.get()
     if request.user.is_authenticated:
         if request.method == "POST":
             form = GenerateReportForm(request.POST)
@@ -87,7 +88,8 @@ def report_page(request):
                           'projtrack/report_generator.html',
                           {'user': request.user,
                            'title_text': 'Generate a Report',
-                           'form': form})
+                           'form': form,
+                           'semester': semester})
     else:
         return redirect('projtrack:not_logged_in')
 
@@ -129,6 +131,7 @@ def all_projects(request):
 
 def add_project(request):
     error = ""
+    semester = CurrentSemester.objects.get()
     if request.user.is_authenticated:
         if request.method == 'POST':
             project_form = AddProjectForm(request.POST, prefix='project')
@@ -162,7 +165,8 @@ def add_project(request):
                       {'user': request.user,
                        'title_text': "Add Project",
                        'form': project_form,
-                       'error_message': error})
+                       'error_message': error,
+                       'semester': semester})
     else:
         return redirect('projtrack:not_logged_in')
 
