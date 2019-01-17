@@ -104,3 +104,4 @@ ctleweb/ctleweb/settings.py
 /ctleweb/projtrack/templates/projtrack/report_page.html
 ctleweb/static/
 ctleweb/projtrack3/
+ctleweb/d2lstat/templates/d2lstat/report.html
