@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>D2L Statistics Report Generator</title>
+</head>
+<body>
+<h1>D2L Statistics Report Generator v1.0</h1>
+<form action="{% url 'd2lstat:index' %}" enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input name="submit" title="Submit" type="submit">
+</form>
+</body>
+</html>
