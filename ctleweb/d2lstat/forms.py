@@ -2,7 +2,7 @@ from django import forms
 
 
 class UploadFileForm(forms.Form):
-    usage = forms.FileField()
+    instructor_usage = forms.FileField()
     full = forms.FileField()
     part = forms.FileField()
     semester = forms.CharField(max_length=50)

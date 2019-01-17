@@ -15,9 +15,12 @@ Sean Batzel <sean.batzel@scranton.edu>
 
 This program is the property of the UofS-CTLE.
 """
+from __future__ import division
+
 import os
 
 from django.conf import settings
+
 
 # GLOBAL SETTINGS - DO NOT CHANGE UNLESS ABSOLUTELY NECESSARY.
 DELIMITER = '|'  # Determines what character the program wil break data rows on.
