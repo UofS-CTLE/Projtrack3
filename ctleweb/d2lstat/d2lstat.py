@@ -15,8 +15,9 @@ Sean Batzel <sean.batzel@scranton.edu>
 
 This program is the property of the UofS-CTLE.
 """
+import os
 
-# Used for generating a PDF based on HTML. Make sure this is installed before running (`pip install weasyprint`)
+from django.conf import settings
 
 # GLOBAL SETTINGS - DO NOT CHANGE UNLESS ABSOLUTELY NECESSARY.
 DELIMITER = '|'  # Determines what character the program wil break data rows on.
@@ -188,7 +189,7 @@ def generate_document(stats, semester):
     :param stats: The dictionary returned by the generate_stats function.
     :param semester: The semester value passed in as a command-line argument.
     """
-    with open('raw_html.html', 'r') as f:
+    with open(os.path.join(settings.BASE_DIR, 'd2lstat/templates/d2lstat/raw_html.html'), 'r') as f:
         string = f.read()
     string = string.format(semester,
                            stats['faculty_with_usage'],
@@ -201,12 +202,14 @@ def generate_document(stats, semester):
                            stats['staff'],
                            stats['courses_with_usage'],
                            stats['total_courses'],
-                           round((stats['courses_with_usage'] / stats['total_courses']) * 100, 1),
+                           round((stats['courses_with_usage'] / int(stats['total_courses'])) * 100, 1),
                            stats['specifics']['assignments'],
                            stats['specifics']['grade'],
                            stats['specifics']['graded'],
                            stats['specifics']['discussion'])
-    return string
+    with open(os.path.join(settings.BASE_DIR, 'd2lstat/templates/d2lstat/report.html'), 'w') as f:
+        f.write(string)
+        f.close()
 
 
 def process_file(usage, full_time, part_time, semester, total_courses):
@@ -220,4 +223,4 @@ def process_file(usage, full_time, part_time, semester, total_courses):
     """
     res = parse_files(usage, full_time, part_time, semester, total_courses)
     res = calculate_stats(res)
-    return generate_document(res, semester)
+    generate_document(res, semester)
