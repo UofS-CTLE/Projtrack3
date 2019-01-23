@@ -17,10 +17,10 @@ This program is the property of the UofS-CTLE.
 """
 from __future__ import division
 
+import csv
 import os
 
 from django.conf import settings
-
 
 # GLOBAL SETTINGS - DO NOT CHANGE UNLESS ABSOLUTELY NECESSARY.
 DELIMITER = '|'  # Determines what character the program wil break data rows on.
@@ -110,6 +110,30 @@ def parse_files(usage, full_time, part_time, semester, total_courses):
     :param total_courses: (Provided externally) The number of courses running for the given semester.
     :return: A data structure containing all of the data required for the rest of the program.
     """
+    with open(usage, mode='rU') as infile:
+        reader = csv.reader(infile, dialect='excel', delimiter=',', quotechar='"')
+        rows = list()
+        for row in reader:
+            rows.append(row)
+        with open(usage, mode='w') as outfile:
+            writer = csv.writer(outfile, delimiter=DELIMITER)
+            writer.writerows(rows)
+    with open(full_time, mode='rU') as infile:
+        reader = csv.reader(infile, dialect='excel', delimiter=',', quotechar='"')
+        rows = list()
+        for row in reader:
+            rows.append(row)
+        with open(full_time, mode='w') as outfile:
+            writer = csv.writer(outfile, delimiter=DELIMITER)
+            writer.writerows(rows)
+    with open(part_time, mode='rU') as infile:
+        reader = csv.reader(infile, dialect='excel', delimiter=',', quotechar='"')
+        rows = list()
+        for row in reader:
+            rows.append(row)
+        with open(part_time, mode='w') as outfile:
+            writer = csv.writer(outfile, delimiter=DELIMITER)
+            writer.writerows(rows)
     one = filter_for_semester(open(usage, 'r').readlines(), semester)
     two = get_rows_with_usage(one)
     usage_file = remove_duplicate_crn(two)
