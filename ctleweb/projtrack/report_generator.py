@@ -260,8 +260,12 @@ def generate_stats(report):
     for x in list(Department.objects.all()):
         proj = 0
         for y in projects:
-            if y.client.department.name == x.name:
-                proj += 1
+            try:
+                if not y.client is None:
+                    if y.client.department.name == x.name:
+                        proj += 1
+            except(Exception):
+                print(Exception.with_traceback())
         depts[x.name] = proj
     types = dict()
     for x in list(Type.objects.all()):
