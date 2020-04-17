@@ -256,7 +256,7 @@ def process_file(usage, full_time, part_time, semester, total_courses):
 def calculateVirtualClassroomStats(usage, fullTime, partTime, VCDataFile):
     resultList = []
     # read in the data from the lti (learning tools integration) file
-    virtualClassroomDataFile = open(VCDataFile)
+    virtualClassroomDataFile = open(VCDataFile, 'rU')
     virtualClassroomDataReader = csv.reader(virtualClassroomDataFile)
     virtualClassroomData = []
     seenVirtualClassRoomOrgUnitIds = []
@@ -266,7 +266,7 @@ def calculateVirtualClassroomStats(usage, fullTime, partTime, VCDataFile):
             virtualClassroomData.append(row)
             seenVirtualClassRoomOrgUnitIds.append(row[1])
     # read in the instructor usage data file that was obtained from desire 2 learn data hub
-    instructorUsageDataFile = open(usage)
+    instructorUsageDataFile = open(usage, 'rU')
     instructorUsageDataReader = csv.reader(instructorUsageDataFile)
     instructorUsageData = []
     seenRIds = []
@@ -290,7 +290,7 @@ def calculateVirtualClassroomStats(usage, fullTime, partTime, VCDataFile):
         numberOfFacultyMembersUsingVirtualClassroom))
     seenFullAndPartTimeRIds = []  # this is needed to keep track of the Rids that belong to either full or part time faculty members in order to determine which rids are left over, the left over rids are the rids of staff members teaching part time
     # Full time faculty members that have created at least one virtual classroom meeting
-    fullTimeFacultyDataFile = open(fullTime)
+    fullTimeFacultyDataFile = open(fullTime, 'rU')
     fullTimeFacultyDataReader = csv.reader(fullTimeFacultyDataFile)
     fullTimeFacultyUsingVirtualClassroomRids = []
     for row in fullTimeFacultyDataReader:
@@ -298,7 +298,7 @@ def calculateVirtualClassroomStats(usage, fullTime, partTime, VCDataFile):
             fullTimeFacultyUsingVirtualClassroomRids.append(row[0])
             seenFullAndPartTimeRIds.append(row[0])
     # Part time faculty members that have created at least one virtual classroom meeting
-    partTimeFacultyDataFile = open(partTime)
+    partTimeFacultyDataFile = open(partTime, 'rU')
     partTimeFacultyDataReader = csv.reader(partTimeFacultyDataFile)
     partTimeFacultyUsingVirtualClassroomRids = []
     for row in partTimeFacultyDataReader:
