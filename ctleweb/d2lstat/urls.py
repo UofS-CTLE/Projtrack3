@@ -6,5 +6,6 @@ app_name = 'projtrack3'
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    url(r'^index/$', views.index, name='index')
+    url(r'^index/$', views.index, name='index'),
+    url(r'^virtualClassroomStats/$', views.virtualClassroomStats, name='virtualClassroomStats')
 ]

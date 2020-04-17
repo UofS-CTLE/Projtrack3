@@ -251,3 +251,103 @@ def process_file(usage, full_time, part_time, semester, total_courses):
     res = parse_files(usage, full_time, part_time, semester, total_courses)
     res = calculate_stats(res)
     generate_document(res, semester)
+
+
+def calculateVirtualClassroomStats(usage, fullTime, partTime, VCDataFile):
+    resultList = []
+    # read in the data from the lti (learning tools integration) file
+    virtualClassroomDataFile = open(VCDataFile)
+    virtualClassroomDataReader = csv.reader(virtualClassroomDataFile)
+    virtualClassroomData = []
+    seenVirtualClassRoomOrgUnitIds = []
+    for row in virtualClassroomDataReader:
+        if ('youseeu' in row[5] and row[
+            1] not in seenVirtualClassRoomOrgUnitIds):  # get the org unit ids of the courses in which there was created at least one virtual classroom meeting
+            virtualClassroomData.append(row)
+            seenVirtualClassRoomOrgUnitIds.append(row[1])
+    # read in the instructor usage data file that was obtained from desire 2 learn data hub
+    instructorUsageDataFile = open(usage)
+    instructorUsageDataReader = csv.reader(instructorUsageDataFile)
+    instructorUsageData = []
+    seenRIds = []
+    numberOfFacultyMembersUsingVirtualClassroom = 0
+    fullDataOnInstructors = []
+    # print('Instructors That Have Created at Least 1 Virtual Classroom Meeting:')
+    resultList.append('Instructors That Have Created at Least 1 Virtual Classroom Meeting:')
+    for row in instructorUsageDataReader:
+        if (row[
+            10] in seenVirtualClassRoomOrgUnitIds):  # filter the rows to just be the rows for faculty members that have created at least one virtual classroom meeting
+            if (row[3] not in seenRIds):  # make sure that each instructor is onlt accounted for once
+                seenRIds.append(row[3])
+                fullDataOnInstructors.append([row[3], row[1], row[2]])
+                # print(row[3] + ': ' + row[1] + ', ' + row[2])
+                resultList.append(row[3] + ': ' + row[1] + ', ' + row[2])
+    numberOfFacultyMembersUsingVirtualClassroom = len(seenRIds)
+
+    # print('Number of Instructors That Have Created at Least 1 Virtual Classroom Meeting: ' + str(
+    #     numberOfFacultyMembersUsingVirtualClassroom))
+    resultList.append('Number of Instructors That Have Created at Least 1 Virtual Classroom Meeting: ' + str(
+        numberOfFacultyMembersUsingVirtualClassroom))
+    seenFullAndPartTimeRIds = []  # this is needed to keep track of the Rids that belong to either full or part time faculty members in order to determine which rids are left over, the left over rids are the rids of staff members teaching part time
+    # Full time faculty members that have created at least one virtual classroom meeting
+    fullTimeFacultyDataFile = open(fullTime)
+    fullTimeFacultyDataReader = csv.reader(fullTimeFacultyDataFile)
+    fullTimeFacultyUsingVirtualClassroomRids = []
+    for row in fullTimeFacultyDataReader:
+        if (row[0] in seenRIds):
+            fullTimeFacultyUsingVirtualClassroomRids.append(row[0])
+            seenFullAndPartTimeRIds.append(row[0])
+    # Part time faculty members that have created at least one virtual classroom meeting
+    partTimeFacultyDataFile = open(partTime)
+    partTimeFacultyDataReader = csv.reader(partTimeFacultyDataFile)
+    partTimeFacultyUsingVirtualClassroomRids = []
+    for row in partTimeFacultyDataReader:
+        if (row[0] in seenRIds):
+            partTimeFacultyUsingVirtualClassroomRids.append(row[0])
+            seenFullAndPartTimeRIds.append(row[0])
+    staffTeachingPartTimeRids = []
+    for rid in seenRIds:
+        if (rid in seenFullAndPartTimeRIds):
+            staffTeachingPartTimeRids.append(rid)
+    # sort full instructor data based upon the rids in each category
+    fullTimeFacultyUsingVC = []
+    partTimeFacultyUsingVC = []
+    staffUsingVC = []
+    # sort out full time faculty
+    for rid in fullTimeFacultyUsingVirtualClassroomRids:
+        for row in fullDataOnInstructors:
+            if (row[0] == rid):
+                fullTimeFacultyUsingVC.append(row)
+    # sort out part time faculty
+    for rid in partTimeFacultyUsingVirtualClassroomRids:
+        for row in fullDataOnInstructors:
+            if (row[0] == rid):
+                partTimeFacultyUsingVC.append(row)
+    # sort out staff
+    for row in fullDataOnInstructors:
+        if (row[0] not in seenFullAndPartTimeRIds):
+            staffUsingVC.append(row)
+    resultList.append("Full Time Faculty Using Virtual Classroom:")
+    # print("Full Time Faculty Using Virtual Classroom:")
+    for row in fullTimeFacultyUsingVC:
+        # print(row[0] + ': ' + row[2] + ', ' + row[1])
+        resultList.append(row[0] + ': ' + row[2] + ', ' + row[1])
+
+    # print("The Number of Full Time Faculty Using Virtual Classroom: " + str(len(fullTimeFacultyUsingVC)))
+    resultList.append("The Number of Full Time Faculty Using Virtual Classroom: " + str(len(fullTimeFacultyUsingVC)))
+    # print("Part Time Faculty Using Virtual Classroom:")
+    resultList.append("Part Time Faculty Using Virtual Classroom:")
+    for row in partTimeFacultyUsingVC:
+        # print(row[0] + ': ' + row[2] + ', ' + row[1])
+        resultList.append(row[0] + ': ' + row[2] + ', ' + row[1])
+    # print("The Number of Part Time Faculty Using Virtual Classroom: " + str(len(partTimeFacultyUsingVC)))
+    resultList.append("The Number of Part Time Faculty Using Virtual Classroom: " + str(len(partTimeFacultyUsingVC)))
+    # print("Staff Teaching Part Time Using Virtual Classroom:")
+    resultList.append("Staff Teaching Part Time Using Virtual Classroom:")
+    for row in staffUsingVC:
+        # print(row[0] + ': ' + row[2] + ', ' + row[1])
+        resultList.append(row[0] + ': ' + row[2] + ', ' + row[1])
+    print("The Number of Staff Teaching Part Time Using Virtual Classroom: " + str(len(staffUsingVC)))
+    resultList.append("The Number of Staff Teaching Part Time Using Virtual Classroom: " + str(len(staffUsingVC)))
+    return resultList
+

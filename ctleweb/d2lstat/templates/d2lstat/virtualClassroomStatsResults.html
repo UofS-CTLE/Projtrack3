@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Virtual Classroom Stats Results</title>
+</head>
+<body>
+<a href={% url 'd2lstat:virtualClassroomStats' %}>Click Here To Go Back to the Virtual Classroom Statistics Form</a>
+<p>
+    {% for stat in statsList %}
+        {{ stat }}
+        <br>
+    {% endfor %}
+</p>
+</body>
+</html>
