@@ -351,3 +351,91 @@ def calculateVirtualClassroomStats(usage, fullTime, partTime, VCDataFile):
     resultList.append("The Number of Staff Teaching Part Time Using Virtual Classroom: " + str(len(staffUsingVC)))
     return resultList
 
+def facultyNotUsingD2LCalculation(usage, fullTime, partTime):
+    resultList = []
+    usageFile = open(usage, 'rU')
+    fullTimeFile = open(fullTime, 'rU')
+    partTimeFile = open(partTime, 'rU')
+    usageFileReader = csv.reader(usageFile)
+    fullTimeFileReader = csv.reader(fullTimeFile)
+    partTimeFileReader = csv.reader(partTimeFile)
+    usageDataRaw = []
+    usageData = []
+    fullTimeDataRaw = []
+    partTimeDataRaw = []
+    fullTimeNotUsing = []
+    partTimeNotUsing = []
+    staffTeachingPartTimeNotUsing = []
+    fullTimeRIds = []
+    partTimeRIds = []
+    ridsOfInstructorsUsing = []
+    seenRidsOfInstructorsUsing = []
+    ridsOfInstructorsUsingDuplicatesRemoved = []
+    # read in the usage data
+    for row in usageFileReader:
+        usageDataRaw.append(row)
+    # Get the rids of the instructors using D2L
+    for row in usageDataRaw:
+        # print(row[13] + ',' +row[15] + ',' +row[16] + ',' +row[18])
+        try:
+            if(int(row[13])>0 or int(row[15])>2 or int(row[16])>0 or int(row[18])>0):
+                ridsOfInstructorsUsing.append(row[3])
+        except Exception:
+            print(Exception)
+    seenRIds = []
+    # Filter the rids of instuctors using for duplicates
+    for row in ridsOfInstructorsUsing:
+        if(row not in seenRidsOfInstructorsUsing):
+            ridsOfInstructorsUsingDuplicatesRemoved.append(row)
+            seenRidsOfInstructorsUsing.append(row)
+    #get the Rids of instructors not using
+    for row in usageDataRaw:
+        if(row[3] not in ridsOfInstructorsUsingDuplicatesRemoved):
+            usageData.append(row)
+    for row in fullTimeFileReader:
+        fullTimeDataRaw.append(row)
+    for row in partTimeFileReader:
+        partTimeDataRaw.append(row)
+    for row in fullTimeDataRaw:
+        fullTimeRIds.append(row[0])
+    for row in partTimeDataRaw:
+        partTimeRIds.append(row[0])
+    for row in usageData:
+        if(row[3] in fullTimeRIds and row[3] not in seenRIds):
+            fullTimeDepartment = ''
+            for fullTimeRow in fullTimeDataRaw:
+                if(row[3]==fullTimeRow[0]):
+                    fullTimeDepartment = fullTimeRow[5]
+            fullTimeNotUsing.append([row[3], row[1], row[2], fullTimeDepartment])
+            seenRIds.append(row[3])
+        elif(row[3] in partTimeRIds and row[3] not in seenRIds):
+            if(row[3] in partTimeRIds):
+                partTimeDepartment = ''
+                for partTimeRow in partTimeDataRaw:
+                    if(row[3]==partTimeRow[0]):
+                        partTimeDepartment = partTimeRow[5]
+                partTimeNotUsing.append([row[3], row[1], row[2], partTimeDepartment])
+                seenRIds.append(row[3])
+        else:
+            if(row[3] not in seenRIds):
+                staffTeachingPartTimeNotUsing.append([row[3], row[1], row[2]])
+                seenRIds.append(row[3])
+    resultList.append('The Total Number of Faculty Not Using Desire 2 Learn: ' + str(len(fullTimeNotUsing)+len(partTimeNotUsing) + len(staffTeachingPartTimeNotUsing)))
+    resultList.append('The Number of Full Time Faculty Not Using D2L: ' + str(len(fullTimeNotUsing)))
+    resultList.append('Full Time Faculty Not Using Desire 2 Learn:')
+    for row in fullTimeNotUsing:
+        resultList.append(row[0] + ', ' + row[1] + ', ' + row[2] + ', ' + row[3])
+    resultList.append('')
+    resultList.append('')
+    resultList.append('The Number of Part Time Faculty Not Using D2L: ' + str(len(partTimeNotUsing)))
+    resultList.append('Part Time Faculty Not Using Desire 2 Learn:')
+    for row in partTimeNotUsing:
+        resultList.append(row[0] + ', ' + row[1] + ', ' + row[2] + ', ' + row[3])
+    resultList.append('')
+    resultList.append('')
+    resultList.append(
+        'The Number of Staff Teaching Part Time Faculty Not Using D2L: ' + str(len(staffTeachingPartTimeNotUsing)))
+    resultList.append('Staff Teaching Part Time Not Using Desire 2 Learn:')
+    for row in staffTeachingPartTimeNotUsing:
+        resultList.append(row[0] + ', ' + row[1] + ', ' + row[2])
+    return resultList

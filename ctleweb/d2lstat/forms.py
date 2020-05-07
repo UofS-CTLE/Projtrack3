@@ -14,3 +14,8 @@ class VirtualClassroomUsageForm(forms.Form):
     full = forms.FileField()
     part = forms.FileField()
     virtualClassroomData = forms.FileField()
+
+class FacultyNotUsingD2LForm(forms.Form):
+    instructor_usage = forms.FileField()
+    full = forms.FileField()
+    part = forms.FileField()

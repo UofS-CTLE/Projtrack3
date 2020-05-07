@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Faculty Not Using Desire 2 Learn Report Generator</title>
+</head>
+<body>
+<a href={% url 'd2lstat:virtualClassroomStats' %}>Click Here To Go Back to the Virtual Classroom Statistics Form</a>
+<p>
+    {% for stat in statsList %}
+        {{ stat }}
+        <br>
+    {% endfor %}
+</p>
+</body>
+</html>

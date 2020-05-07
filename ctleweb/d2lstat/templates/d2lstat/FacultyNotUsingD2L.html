@@ -2,13 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>D2L Statistics Report Generator</title>
+    <title>Faculty Not Using Desire 2 Learn Report Generator</title>
 </head>
 <body>
-<a href={% url 'd2lstat:virtualClassroomStats' %}>Click Here to go to the Virtual Classroom Statistics Form</a>
-<a href={% url 'd2lstat:facultyNotUsingD2L' %}>Click Here to go to the Faculty Not Using Desire 2 Learn Report Generator</a>
-<h1>D2L Statistics Report Generator v0.2</h1>
-<form action="{% url 'd2lstat:index' %}" enctype="multipart/form-data" method="post">
+<a href={% url 'd2lstat:index' %}>Click Here to go Back to the Main D2L Statistics Form</a>
+<h1>Faculty Not Using Desire 2 Learn Report Generator</h1>
+<form action="{% url 'd2lstat:facultyNotUsingD2L' %}" enctype="multipart/form-data" method="post">
     {% csrf_token %}
     <table>
         <tr>
@@ -23,14 +22,7 @@
             <td>Part-Time Faculty</td>
             <td><input id="part" name="part" title="Browse..." type="file" value="Browse..."></td>
         </tr>
-        <tr>
-            <td>Semester</td>
-            <td><input id="semester" name="semester" type="text"></td>
-        </tr>
-        <tr>
-            <td>Total Courses</td>
-            <td><input id="total_courses" name="total_courses" type="text"></td>
-        </tr>
+
     </table>
     <input name="submit" title="Submit" type="submit">
 </form>
