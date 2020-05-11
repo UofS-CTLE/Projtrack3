@@ -351,7 +351,7 @@ def calculateVirtualClassroomStats(usage, fullTime, partTime, VCDataFile):
     resultList.append("The Number of Staff Teaching Part Time Using Virtual Classroom: " + str(len(staffUsingVC)))
     return resultList
 
-def facultyNotUsingD2LCalculation(usage, fullTime, partTime):
+def facultyNotUsingD2LCalculation(usage, fullTime, partTime, semester):
     resultList = []
     usageFile = open(usage, 'rU')
     fullTimeFile = open(fullTime, 'rU')
@@ -378,8 +378,9 @@ def facultyNotUsingD2LCalculation(usage, fullTime, partTime):
     for row in usageDataRaw:
         # print(row[13] + ',' +row[15] + ',' +row[16] + ',' +row[18])
         try:
-            if(int(row[13])>0 or int(row[15])>2 or int(row[16])>0 or int(row[18])>0):
-                ridsOfInstructorsUsing.append(row[3])
+            if((int(row[13])>0 or int(row[15])>2 or int(row[16])>0 or int(row[18])>0)):
+                if(semester in row[9]):
+                    ridsOfInstructorsUsing.append(row[3])
         except Exception:
             print(Exception)
     seenRIds = []
@@ -390,7 +391,7 @@ def facultyNotUsingD2LCalculation(usage, fullTime, partTime):
             seenRidsOfInstructorsUsing.append(row)
     #get the Rids of instructors not using
     for row in usageDataRaw:
-        if(row[3] not in ridsOfInstructorsUsingDuplicatesRemoved):
+        if(row[3] not in ridsOfInstructorsUsingDuplicatesRemoved and semester in row[9]):
             usageData.append(row)
     for row in fullTimeFileReader:
         fullTimeDataRaw.append(row)

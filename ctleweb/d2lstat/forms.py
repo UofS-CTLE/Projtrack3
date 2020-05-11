@@ -19,3 +19,4 @@ class FacultyNotUsingD2LForm(forms.Form):
     instructor_usage = forms.FileField()
     full = forms.FileField()
     part = forms.FileField()
+    semester = forms.CharField(max_length=50)

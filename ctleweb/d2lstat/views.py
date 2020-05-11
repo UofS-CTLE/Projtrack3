@@ -31,7 +31,8 @@ def facultyNotUsingD2L(request):
     if request.method == 'POST':
         statsList = facultyNotUsingD2LCalculation(request.FILES['usage'].temporary_file_path(),
                      request.FILES['full'].temporary_file_path(),
-                     request.FILES['part'].temporary_file_path())
+                     request.FILES['part'].temporary_file_path(),
+                     request.POST['semester'])
         return render(request, 'd2lstat/FacultyNotUsingD2LResults.html', {'statsList':statsList})
     else:
         form = FacultyNotUsingD2LForm()
