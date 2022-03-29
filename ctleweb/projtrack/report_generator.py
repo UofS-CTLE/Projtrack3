@@ -36,6 +36,10 @@ class Report(object):
             self.semester = Semester.objects.get(pk=int(request['semester']))
         except ValueError:
             self.semester = ''
+        try:
+            self.user = User.objects.get(pk=int(request['user']))
+        except ValueError:
+            self.user = ''
         self.total_projects = 0
         self.total_hours = 0
         self.walk_ins = 0
@@ -44,7 +48,6 @@ class Report(object):
         self.user_objects_list = list()
         self.start_date = request['start_date']
         self.end_date = request['end_date']
-        self.user = request['user']
         self.client = request['client']
         self.department = request['department']
         self.project_type = request['proj_type']
