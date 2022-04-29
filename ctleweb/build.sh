@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/bin/sh
 
-function script_help {
+script_help() {
     echo This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or \(at your option\) any later version.
     echo
     echo This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY\; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
@@ -20,17 +20,17 @@ function script_help {
     echo -e '\trestore [filename]: recreates the database from an sql file.'
 }
 
-function all {
+all() {
     migrate
     run_tests
     python manage.py createsuperuser
 }
 
-function run_tests {
+run_tests() {
     python manage.py test projtrack.tests
 }
 
-function clean {
+clean() {
     rm -rf projtrack/migrations/*
     files=$(find . -name "__pycache__")
     files2=$(find . -iregex ".*\.\(pyc\)")
@@ -38,24 +38,24 @@ function clean {
     rm -rf ${files}
 }
 
-function migrate {
+migrate() {
     python manage.py makemigrations projtrack
     python manage.py migrate
 }
 
-function run {
+run() {
     python manage.py runserver 0.0.0.0:8080
 }
 
-function backup {
-    sqlite3 db.sqlite3 .schema > backup.sql
-    sqlite3 db.sqlite3 .dump >> backup.sql
+backup() {
+    sqlite3 /var/www/html/ctleweb/projtrack3/ctleweb/db.sqlite3 .schema > backup.sql
+    sqlite3 /var/www/html/ctleweb/projtrack3/ctleweb/db.sqlite3 .dump >> backup.sql
     date_str=$(date +%Y_%m_%d)
-    mv backup.sql ~/projtrack_data_$date_str.sql
-    echo Database backed up to $HOME/projtrack_data_$date_str.sql
+    mv backup.sql /var/httpd/_backups/projtrack_data_$date_str.sql
+    echo Database backed up to /var/httpd/_backups/projtrack_data_$date_str.sql
 }
 
-function restore {
+restore() {
     cat $HOME/$1 | sqlite3 db.sqlite3
 }
 
