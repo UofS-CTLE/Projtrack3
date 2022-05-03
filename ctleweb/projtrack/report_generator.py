@@ -139,11 +139,10 @@ class Report(object):
                                   <td>Description</td><td>Completed Status</td></tr>'''
                 for y in x.projects_list:
                     name = ""
-                    num_users = len(y.users.all())
-                    for u in y.users.all():
-                        name += u.first_name + " " + u.last_name
-                        if num_users > 1:
+                    for i, u in enumerate(y.users.all()):
+                        if i > 0:
                             name += ", "
+                        name += u.first_name + " " + u.last_name
                     self.report_string += '''<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td>
                                          <td>{}</td><td>{done}</td></tr>'''.format(y.title, y.client,
                                                                                    y.client.department,

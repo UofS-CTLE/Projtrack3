@@ -257,15 +257,12 @@ def project_delete(request, id=None):
     if request.user.is_authenticated:
         try:
             p = get_object_or_404(Project, pk=id)
-            projects = []
-            u = User.objects.get(username=request.user.username)
-            # noinspection PyUnresolvedReferences
             Project.objects.filter(id=p.id).delete()
-            # noinspection PyUnresolvedReferences
-            query = Project.objects.all().order_by('title')
-            for x in query:
-                if u in x.users.all:
-                    projects.append(x)
+
+            username = User.objects.get(username=request.user.username)
+            current_semester = CurrentSemester.objects.get().semester
+            projects = list(Project.objects.filter(users=username).filter(
+                semester=current_semester).order_by('-date'))
         except ObjectDoesNotExist:
             projects = ""
         return render(request, 'projtrack/my_projects.html',
