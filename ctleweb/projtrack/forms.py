@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.forms import ModelForm, SelectDateWidget
+from datetime import datetime
 
 from .models import Type, Client, Department, Project, Semester
 
@@ -59,10 +60,11 @@ class DateInput(forms.DateInput):
 
 # noinspection PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences
 class GenerateReportForm(forms.Form):
+    current_year = datetime.now().year
     start_date = forms.DateField(required=False, widget=SelectDateWidget(empty_label=("Year", "Month", "Day"),
-                                                                         years=range(2010, 2025)))
+                                                                         years=range(2010, current_year+2)))
     end_date = forms.DateField(required=False, widget=SelectDateWidget(empty_label=("Year", "Month", "Day"),
-                                                                       years=range(2010, 2025)))
+                                                                       years=range(2010, current_year+2)))
     semester = forms.ModelChoiceField(queryset=Semester.objects.all(),
                                       required=False)
     user = forms.ModelChoiceField(queryset=User.objects.filter(is_active=True),
